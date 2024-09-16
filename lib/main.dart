@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_dz_app/providers/category_provider.dart';
 import 'package:stock_dz_app/providers/client_provider.dart';
 import 'package:stock_dz_app/providers/fournisseure_provider.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => ClientProvider()),
         ChangeNotifierProvider(create: (context) => FournisseureProvider()),
+        ChangeNotifierProvider(create: (context) => CategoryProvider()),
       ],
       child: MaterialApp(
         home: FirstPage(),

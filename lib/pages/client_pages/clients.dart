@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock_dz_app/pages/search.dart';
+import 'package:stock_dz_app/pages/other_pages/search.dart';
 import 'add_client.dart';
 import 'credit_client.dart';
 import 'show_client.dart';

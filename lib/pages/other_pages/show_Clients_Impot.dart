@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/pages/page_Vente_Impot.dart';
+import '/pages/other_pages/page_Vente_Impot.dart';
 
 class ShowClientImpot extends StatelessWidget {
   const ShowClientImpot({super.key});

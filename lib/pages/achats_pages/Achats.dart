@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/Add_Products.dart';
 import '/widgets.dart/Interface_Ventes_Achat.dart';
 import '../home_menu_pages/home2.dart';
 
@@ -20,6 +21,12 @@ class AchatsState extends State<Achats> {
           child: InterfaceVenteAchat(
             title: 'المشتريات',
             menuItems: {
+              "اضف منتج": () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddProduct()),
+                );
+              },
               "عرض فواتير المشتريات": () {
                 Navigator.push(
                   context,

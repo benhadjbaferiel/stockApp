@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stock_dz_app/pages/fournisseure_pages/add_fournisseur.dart';
 import 'package:stock_dz_app/pages/fournisseure_pages/credit_fournisseure.dart';
-import 'package:stock_dz_app/pages/search.dart';
+import 'package:stock_dz_app/pages/other_pages/search.dart';
 import 'package:stock_dz_app/pages/fournisseure_pages/show_fournisseure.dart';
 import 'package:stock_dz_app/widgets.dart/in_Kwell_Custom.dart';
 

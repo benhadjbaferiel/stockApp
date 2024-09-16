@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stock_dz_app/pages/achats_pages/Achats.dart';
 import 'package:stock_dz_app/providers/fournisseure_provider.dart';
 import 'package:stock_dz_app/widgets.dart/custom_text_field.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -100,66 +101,82 @@ class ShowFournisseure extends StatelessWidget {
               ),
             ),
             body: TabBarView(
-              children: FournisseurProvider.categoriess
-                  .map((category) => ListView(
-                        children: FournisseurProvider.getFournisseureByCategory(
-                                category)
-                            .map(
-                              (fournisseur) => ListTile(
-                                leading: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.grey[200],
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      fournisseur.nameF.substring(0, 2),
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                title: Text(
-                                  fournisseur.nameF,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.location_on,
-                                            size: 25,
-                                          ),
-                                          onPressed: () async {
-                                            final String googleURL =
-                                                'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(fournisseur.addressF)}';
-                                            await Mapping().openMapWithAddress(
-                                                fournisseur.addressF);
-                                          },
-                                        ),
-                                        Text(
-                                          fournisseur.addressF,
-                                          style: const TextStyle(
-                                              color: Colors.red),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+              children: FournisseurProvider.categoriess.map((category) {
+                final fournisseurs =
+                    FournisseurProvider.getFournisseureByCategory(category);
+                if (fournisseurs.isEmpty) {
+                  return Center(child: Text('لا يوجد موردين في هذه الفئة'));
+                }
+                return ListView(
+                  children: fournisseurs
+                      .map(
+                        (fournisseur) => ListTile(
+                          leading: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey[200],
+                            ),
+                            child: Center(
+                              child: Text(
+                                fournisseur.nameF.substring(0, 2),
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            )
-                            .toList(),
-                      ))
-                  .toList(),
+                            ),
+                          ),
+                          title: GestureDetector(
+                            child: Text(
+                              fournisseur.nameF,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            onTap: () {
+                              // Navigate to FournisseurDetails page
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Achats(),
+                                ),
+                              );
+                            },
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.location_on,
+                                      size: 25,
+                                    ),
+                                    onPressed: () async {
+                                      final String googleURL =
+                                          'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(fournisseur.addressF)}';
+                                      await Mapping().openMapWithAddress(
+                                          fournisseur.addressF);
+                                    },
+                                  ),
+                                  Text(
+                                    fournisseur.addressF,
+                                    style: const TextStyle(color: Colors.red),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              }).toList(),
             ),
           ),
         );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/Models/fournisseure_model.dart';
 
 class FournisseureProvider extends ChangeNotifier {
-  List<String> _categories1 = ["---", "sidi bel abess", "Oran", "Alger"];
+  List<String> _categories1 = ["---"];
   List<String> get categoriess => _categories1;
 
   // Map to store clients by category
@@ -29,13 +29,10 @@ class FournisseureProvider extends ChangeNotifier {
   void addFournisseure(Fournisseure fournisseure) {
     if (_fournisseuresByCategory.containsKey(fournisseure.categorie1)) {
       _fournisseuresByCategory[fournisseure.categorie1]?.add(fournisseure);
-      notifyListeners();
     } else {
-      // Handle case where category does not exist
-      addCategory(fournisseure
-          .categorie1); // Optionally add the category if it does not exist
-      _fournisseuresByCategory[fournisseure.categorie1]?.add(fournisseure);
-      notifyListeners();
+      _categories1.add(fournisseure.categorie1);
+      _fournisseuresByCategory[fournisseure.categorie1] = [fournisseure];
     }
+    notifyListeners();
   }
 }

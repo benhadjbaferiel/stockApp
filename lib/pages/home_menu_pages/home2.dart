@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../achats_pages/Pres_Retour_Achat.dart';
-import '/pages/impot_Home_Page.dart';
-import '/pages/inventaire.dart';
+import '/pages/other_pages/impot_Home_Page.dart';
+import '../inventaire_pages/inventaire.dart';
 import '../stock_user_pages/user_Stock.dart';
 import 'help.dart';
 import '../achats_pages/pres_Vente_Retour.dart';
@@ -12,7 +12,7 @@ import '../caisse_pages/caisse.dart';
 import '../client_pages/clients.dart';
 import '../fournisseure_pages/fournisseure.dart';
 import '../depances_pages/depences.dart';
-import '../requet.dart';
+import '../other_pages/requet.dart';
 import '../achats_pages/pres_Ventes.dart';
 import '../achats_pages/pres_achat.dart';
 

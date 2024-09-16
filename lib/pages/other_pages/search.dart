@@ -5,7 +5,7 @@ import 'package:stock_dz_app/Models/fournisseure_model.dart';
 import 'package:stock_dz_app/Models/invoice/invoice.dart';
 import 'package:stock_dz_app/Models/invoice/invoice_info.dart';
 import 'package:stock_dz_app/Models/invoice/invoice_items.dart';
-import 'package:stock_dz_app/pages/pdf.dart';
+import 'package:stock_dz_app/pages/other_pages/pdf.dart';
 import 'package:stock_dz_app/providers/fournisseure_provider.dart';
 
 class SearchDialog extends StatefulWidget {

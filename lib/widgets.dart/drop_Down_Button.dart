@@ -5,6 +5,7 @@ class dropDownButton extends StatefulWidget {
   final String labelText;
   final List<String> items;
   TextEditingController? controller;
+  final void Function(String?)? onChanged; // Update the type
 
   dropDownButton({
     Key? key,
@@ -12,6 +13,7 @@ class dropDownButton extends StatefulWidget {
     required this.labelText,
     required this.items,
     this.controller,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -47,6 +49,9 @@ class _dropDownButtonState extends State<dropDownButton> {
         setState(() {
           _currentValue = value;
         });
+        if (widget.onChanged != null) {
+          widget.onChanged!(value);
+        }
       },
     );
   }

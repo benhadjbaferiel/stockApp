@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'inventaire_pages/show_Product.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/add_categorie.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/add_pack.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/deleteed_product.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/edit_price.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/show_pack.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/track_pack.dart';
+import 'show_Product.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
-import 'inventaire_pages/Add_Products.dart';
+import 'Add_Products.dart';
 
 class Inventaire extends StatefulWidget {
   const Inventaire({super.key});
@@ -11,6 +17,7 @@ class Inventaire extends StatefulWidget {
 }
 
 class _InventaireState extends State<Inventaire> {
+  TextEditingController categoriController1 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,13 +78,16 @@ class _InventaireState extends State<Inventaire> {
                       height: 30,
                     ),
                     InkwellF(
-                      label:
-                          "                                                      اضافة تصنيف جديد",
-                      Icon: Icons.add,
-                      callbackHandle: () {
-                        Navigator.pop(context);
-                      },
-                    ),
+                        label:
+                            "                                                      اضافة تصنيف جديد",
+                        Icon: Icons.add,
+                        callbackHandle: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => addCategory()),
+                          );
+                        }),
                     SizedBox(
                       height: 30,
                     ),
@@ -86,7 +96,10 @@ class _InventaireState extends State<Inventaire> {
                           "                                                  تعديل اسعار المنتجات",
                       Icon: Icons.change_circle,
                       callbackHandle: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => editPrice()),
+                        );
                       },
                     ),
                     SizedBox(
@@ -108,7 +121,11 @@ class _InventaireState extends State<Inventaire> {
                           "                                               سلة المنتجات المحدوفة",
                       Icon: Icons.delete,
                       callbackHandle: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => deletedProduct()),
+                        );
                       },
                     ),
                     SizedBox(
@@ -119,7 +136,10 @@ class _InventaireState extends State<Inventaire> {
                           "                            اضافة باقة (جمع منتجات في منتج)",
                       Icon: Icons.add_card_outlined,
                       callbackHandle: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => addPack()),
+                        );
                       },
                     ),
                     SizedBox(
@@ -130,7 +150,10 @@ class _InventaireState extends State<Inventaire> {
                           "                                                             عرض الباقات",
                       Icon: Icons.menu_open_sharp,
                       callbackHandle: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => show_pack()),
+                        );
                       },
                     ),
                     SizedBox(
@@ -141,7 +164,10 @@ class _InventaireState extends State<Inventaire> {
                           "                                                          حركة  الباقات  ",
                       Icon: Icons.analytics,
                       callbackHandle: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => trackPack()),
+                        );
                       },
                     ),
                   ],

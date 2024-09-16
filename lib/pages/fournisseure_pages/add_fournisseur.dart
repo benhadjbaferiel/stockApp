@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:stock_dz_app/Models/fournisseure_model.dart';
+import 'package:stock_dz_app/widgets.dart/drop_Down_Button.dart';
 import '/widgets.dart/custom_text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:stock_dz_app/providers/fournisseure_provider.dart';
 
-class AddFournisseure extends StatelessWidget {
+class AddFournisseure extends StatefulWidget {
   AddFournisseure({Key? key}) : super(key: key);
 
+  @override
+  State<AddFournisseure> createState() => _AddFournisseureState();
+}
+
+class _AddFournisseureState extends State<AddFournisseure> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController AdressController = TextEditingController();
@@ -17,54 +23,61 @@ class AddFournisseure extends StatelessWidget {
   final TextEditingController NISController = TextEditingController();
   final TextEditingController categoriController = TextEditingController();
 
-  void _saveFournisseure(BuildContext context) {
-    if (nameController.text.isEmpty ||
-        AdressController.text.isEmpty ||
-        PhoneController.text.isEmpty ||
-        NIFController.text.isEmpty ||
-        AIController.text.isEmpty ||
-        RCController.text.isEmpty ||
-        NISController.text.isEmpty) {
-      // Show an error message if any required field is missing
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('يرجى ملء جميع الحقول المطلوبة'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return; // Do not proceed with saving the product
-    }
-    final String name = nameController.text;
-    final String address = AdressController.text;
-    final int phone = int.tryParse(PhoneController.text) ?? 0;
-    final int NIF = int.tryParse(NIFController.text) ?? 0;
-    final int AI = int.tryParse(AIController.text) ?? 0;
-    final int RC = int.tryParse(RCController.text) ?? 0;
-    final int NIS = int.tryParse(NISController.text) ?? 0;
-    final String categoryi = categoriController.text.trim();
+  String? selectedCategory1;
 
-    final Fournisseure fournisseure = Fournisseure(
-      nameF: name,
-      addressF: address,
-      phoneNumberF: phone,
-      NIFF: NIF,
-      AIF: AI,
-      RCF: RC,
-      NISF: NIS,
-      categorie1: categoryi,
-    );
-    Provider.of<FournisseureProvider>(context, listen: false)
-        .addFournisseure(fournisseure);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('تمت اضافة المورد بنجاح')),
-    );
-    nameController.clear();
-    PhoneController.clear();
-    AdressController.clear();
-    NIFController.clear();
-    AIController.clear();
-    RCController.clear();
-    NISController.clear();
+  void _saveFournisseure(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      if (nameController.text.isEmpty ||
+          AdressController.text.isEmpty ||
+          PhoneController.text.isEmpty ||
+          NIFController.text.isEmpty ||
+          AIController.text.isEmpty ||
+          RCController.text.isEmpty ||
+          NISController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('يرجى ملء جميع الحقول المطلوبة  '),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+      if (selectedCategory1 == null || selectedCategory1 == "---") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('يرجى تحديد التصنيف'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      final Fournisseure fournisseure = Fournisseure(
+        nameF: nameController.text,
+        addressF: AdressController.text,
+        phoneNumberF: int.tryParse(PhoneController.text) ?? 0,
+        NIFF: int.tryParse(NIFController.text) ?? 0,
+        AIF: int.tryParse(AIController.text) ?? 0,
+        RCF: int.tryParse(RCController.text) ?? 0,
+        NISF: int.tryParse(NISController.text) ?? 0,
+        categorie1: selectedCategory1!,
+      );
+
+      Provider.of<FournisseureProvider>(context, listen: false)
+          .addFournisseure(fournisseure);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('تمت اضافة المورد بنجاح')),
+      );
+
+      nameController.clear();
+      PhoneController.clear();
+      AdressController.clear();
+      NIFController.clear();
+      AIController.clear();
+      RCController.clear();
+      NISController.clear();
+    }
   }
 
   @override
@@ -113,7 +126,19 @@ class AddFournisseure extends StatelessWidget {
                   controller: PhoneController,
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
+                dropDownButton(
+                  selectedValue: selectedCategory1,
+                  labelText:
+                      '                                               التصنيف',
+                  items: Provider.of<FournisseureProvider>(context).categoriess,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedCategory1 = newValue;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20),
                 customtextfield(
                   label:
                       '                                    الرقم الجبائي(NIF)',

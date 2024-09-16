@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '/pages/show_Clients_Impot.dart';
+import '/pages/other_pages/show_Clients_Impot.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
-import 'home_menu_pages/home2.dart';
+import '/pages/home_menu_pages/home2.dart';
 
 class ImpotHomePage extends StatelessWidget {
   const ImpotHomePage({super.key});
@@ -66,21 +66,6 @@ class ImpotHomePage extends StatelessWidget {
                     InkwellF(
                       label:
                           "                                                              تقرير الضريبية",
-                      Icon: Icons.paste,
-                      callbackHandle: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const home2()),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    InkwellF(
-                      label:
-                          "                                                          تقرير بالخصومات",
                       Icon: Icons.paste,
                       callbackHandle: () {
                         Navigator.push(

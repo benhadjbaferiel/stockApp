@@ -38,26 +38,46 @@ class _InterfaceVenteAchatState extends State<InterfaceVenteAchat> {
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 176, 171, 86),
       ),
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        child: Column(children: [
           Custombar(),
           SizedBox(height: 16), // Optional: Add some spacing
-          Expanded(
-            // Ensure DataTable takes up the remaining space
-            child: SingleChildScrollView(
-              // Allow scrolling for the table
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Text("المنتج")),
-                  DataColumn(label: Text("التكلفة")),
-                  DataColumn(label: Text("الكمية")),
-                  DataColumn(label: Text("الاجمالي")),
-                ],
-                rows: [], // Add your rows here
-              ),
+          Column(children: [
+            DataTable(
+              columns: const [
+                DataColumn(label: Text("المنتج")),
+                DataColumn(label: Text("التكلفة")),
+                DataColumn(label: Text("الكمية")),
+                DataColumn(label: Text("الاجمالي")),
+              ],
+              rows: [], // Add your rows here
             ),
+          ]),
+          const SizedBox(
+            height: 100,
           ),
-        ],
+          IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        height: 400,
+                        child: Center(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("اغلاق")),
+                        ),
+                      );
+                    });
+              },
+              icon: Icon(
+                Icons.menu,
+                size: 40,
+              ))
+        ]),
       ),
     );
   }

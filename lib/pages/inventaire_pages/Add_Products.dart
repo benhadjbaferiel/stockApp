@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_dz_app/providers/fournisseure_provider.dart';
 import '/widgets.dart/Custom_Date.dart';
 import '/widgets.dart/Text_Field_add8product.dart';
 import 'dart:io';
@@ -184,23 +185,17 @@ class _AddProductState extends State<AddProduct> {
               ),
               child: Row(
                 children: [
-                  const Text("التصنيف", style: TextStyle(fontSize: 20)),
+                  /*const Text("التصنيف", style: TextStyle(fontSize: 20)),
                   const Spacer(),
                   DropdownButton<String>(
                     value: _selectedCategory,
-                    items: <String>['Category1', 'Category2', 'Category3']
-                        .map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                  items: Provider.of<FournisseureProvider>(context).categories,
                     onChanged: (newValue) {
                       setState(() {
                         _selectedCategory = newValue!;
                       });
                     },
-                  ),
+                  ),*/
                   IconButton(
                     onPressed: () {
                       // Add new category logic
