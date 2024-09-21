@@ -4,9 +4,11 @@ class CustoM_TextField8AddProduct extends StatelessWidget {
   final String label;
   final TextEditingController controller;
 
-  const CustoM_TextField8AddProduct(
-      {Key? key, required this.label, required this.controller})
-      : super(key: key);
+  const CustoM_TextField8AddProduct({
+    Key? key,
+    required this.label,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -26,8 +26,7 @@ class PresVenteRetour extends StatelessWidget {
                 callbackHandle: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const ShowClientRetour()),
+                    MaterialPageRoute(builder: (context) => ShowClientRetour()),
                   );
                 },
               ),
@@ -36,7 +35,7 @@ class PresVenteRetour extends StatelessWidget {
               ),
               InkwellF(
                 label:
-                    "                                                     عرض فواتير المرتجعات",
+                    "                                                عرض فواتير المرتجعات",
                 Icon: Icons.list,
                 callbackHandle: () {
                   Navigator.push(

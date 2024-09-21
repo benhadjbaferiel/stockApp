@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:stock_dz_app/Models/client_model.dart';
 import 'package:stock_dz_app/providers/client_provider.dart';
 import '/widgets.dart/custom_text_field.dart';
 import '/widgets.dart/drop_Down_Button.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_dz_app/Services/save_Client.dart';
 
 class AddClient extends StatefulWidget {
   AddClient({super.key});
@@ -29,27 +29,59 @@ class _AddClientState extends State<AddClient> {
   final TextEditingController categoryController = TextEditingController();
 
   String? selectedPrice;
-  String? selectedCategory;
+  String? selectedCategory2;
 
-  late ClientSaved clientSaved;
+  void saveClient(BuildContext context) {
+    if (nameController.text.isEmpty ||
+        barCodeController.text.isEmpty ||
+        addressController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        nifController.text.isEmpty ||
+        aiController.text.isEmpty ||
+        rcController.text.isEmpty ||
+        nisController.text.isEmpty ||
+        daysController.text.isEmpty ||
+        maxController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('يرجى ملء جميع الحقول المطلوبة'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    final Clientt client = Clientt(
+        name: nameController.text,
+        Barcode: int.tryParse(barCodeController.text) ?? 0,
+        address: addressController.text,
+        phoneNumber: int.tryParse(phoneController.text) ?? 0,
+        Price: int.tryParse(priceController.text) ?? 0,
+        NIF: int.tryParse(nifController.text) ?? 0,
+        AI: int.tryParse(aiController.text) ?? 0,
+        RC: int.tryParse(rcController.text) ?? 0,
+        NIS: int.tryParse(nisController.text) ?? 0,
+        MAX: int.tryParse(maxController.text) ?? 0,
+        DAYS: int.tryParse(daysController.text) ?? 0,
+        categorie: selectedCategory2!);
 
-  @override
-  void initState() {
-    super.initState();
-    clientSaved = ClientSaved(
-      nameController: nameController,
-      barCodeController: barCodeController,
-      addressController: addressController,
-      phoneController: phoneController,
-      priceController: priceController,
-      nifController: nifController,
-      aiController: aiController,
-      rcController: rcController,
-      nisController: nisController,
-      maxController: maxController,
-      daysController: daysController,
-      categoryController: categoryController,
+    Provider.of<ClientProvider>(context, listen: false).addClient(client);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('تمت اضافة العميل بنجاح')),
     );
+
+    // Clear fields after saving
+    nameController.clear();
+    barCodeController.clear();
+    addressController.clear();
+    phoneController.clear();
+    priceController.clear();
+    nifController.clear();
+    aiController.clear();
+    rcController.clear();
+    nisController.clear();
+    maxController.clear();
+    daysController.clear();
+    categoryController.clear();
   }
 
   @override
@@ -65,7 +97,7 @@ class _AddClientState extends State<AddClient> {
         actions: [
           TextButton(
             onPressed: () {
-              clientSaved.saveClient(context);
+              saveClient(context);
             },
             child: Text(
               'حفظ',
@@ -118,10 +150,15 @@ class _AddClientState extends State<AddClient> {
                     ),
                     const SizedBox(height: 5),
                     dropDownButton(
-                      selectedValue: selectedCategory,
+                      selectedValue: selectedCategory2,
                       labelText: 'التصنيف',
                       items: Provider.of<ClientProvider>(context).categories,
                       controller: categoryController,
+                      onChanged: (String? NewValue) {
+                        setState(() {
+                          selectedCategory2 = NewValue;
+                        });
+                      },
                     ),
                     const SizedBox(height: 5),
                     customtextfield(

@@ -21,7 +21,7 @@ class PresRetourAchat extends StatelessWidget {
               ),
               InkwellF(
                 label:
-                    "                                                                عرض الموردين",
+                    "                                                            عرض الموردين",
                 Icon: Icons.list,
                 callbackHandle: () {
                   Navigator.push(
@@ -36,7 +36,7 @@ class PresRetourAchat extends StatelessWidget {
               ),
               InkwellF(
                 label:
-                    "                                                     عرض فواتير المرتجعات",
+                    "                                                عرض فواتير المرتجعات",
                 Icon: Icons.list,
                 callbackHandle: () {
                   Navigator.push(
@@ -50,7 +50,7 @@ class PresRetourAchat extends StatelessWidget {
               ),
               InkwellF(
                 label:
-                    "                                                              تقرير  المرتجعات",
+                    "                                                         تقرير  المرتجعات",
                 Icon: Icons.list,
                 callbackHandle: () {
                   Navigator.push(
@@ -64,7 +64,7 @@ class PresRetourAchat extends StatelessWidget {
               ),
               InkwellF(
                 label:
-                    "                                        فواتير المرتجعات التي تم الغاءها ",
+                    "                                  فواتير المرتجعات التي تم الغاءها ",
                 Icon: Icons.list,
                 callbackHandle: () {
                   Navigator.push(

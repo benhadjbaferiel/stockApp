@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/Models/client_model.dart';
 
 class ClientProvider extends ChangeNotifier {
-  List<String> _categories = ["---", "sidi bel abess", "Oran", "Alger"];
+  List<String> _categories = [];
   List<String> get categories => _categories;
 
   // Map to store clients by category
@@ -11,6 +11,10 @@ class ClientProvider extends ChangeNotifier {
   // Getter for clients by category
   List<Clientt> getClientsByCategory(String category) {
     return _clientsByCategory[category] ?? [];
+  }
+
+  List<Clientt> get getClient {
+    return _clientsByCategory.values.expand((element) => element).toList();
   }
 
   void addCategory(String category) {

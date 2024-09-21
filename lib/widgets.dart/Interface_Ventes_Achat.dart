@@ -39,45 +39,47 @@ class _InterfaceVenteAchatState extends State<InterfaceVenteAchat> {
         backgroundColor: Color.fromARGB(255, 176, 171, 86),
       ),
       body: SingleChildScrollView(
-        child: Column(children: [
-          Custombar(),
-          SizedBox(height: 16), // Optional: Add some spacing
-          Column(children: [
-            DataTable(
-              columns: const [
-                DataColumn(label: Text("المنتج")),
-                DataColumn(label: Text("التكلفة")),
-                DataColumn(label: Text("الكمية")),
-                DataColumn(label: Text("الاجمالي")),
-              ],
-              rows: [], // Add your rows here
+        child: Column(
+          children: [
+            Custombar(),
+            SizedBox(height: 5),
+            Container(
+              color: Colors.grey[200],
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "الإجمالي",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    width: 25,
+                  ),
+                  Text(
+                    "الكمية",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    width: 65,
+                  ),
+                  Text(
+                    "التكلفة",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    width: 60,
+                  ),
+                  Text(
+                    "المنتج",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
             ),
-          ]),
-          const SizedBox(
-            height: 100,
-          ),
-          IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SizedBox(
-                        height: 400,
-                        child: Center(
-                          child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text("اغلاق")),
-                        ),
-                      );
-                    });
-              },
-              icon: Icon(
-                Icons.menu,
-                size: 40,
-              ))
-        ]),
+          ],
+        ),
       ),
     );
   }

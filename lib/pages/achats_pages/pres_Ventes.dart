@@ -76,7 +76,7 @@ class PresVentes extends StatelessWidget {
               ),
               InkwellF(
                 label:
-                    "                                                     الفواتير التي تم الغاءها  ",
+                    "                                                الفواتير التي تم الغاءها  ",
                 Icon: Icons.view_list_outlined,
                 callbackHandle: () {
                   Navigator.push(

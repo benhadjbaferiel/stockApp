@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stock_dz_app/pages/achats_pages/ventes.dart';
 import 'package:stock_dz_app/providers/client_provider.dart';
 import 'package:stock_dz_app/widgets.dart/custom_text_field.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -112,7 +113,7 @@ class ShowClient extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'JH',
+                                      client.name,
                                       style: TextStyle(
                                         color: Colors.grey[600],
                                         fontWeight: FontWeight.bold,
@@ -120,11 +121,23 @@ class ShowClient extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                title: Text(
-                                  client.name,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                title: GestureDetector(
+                                  child: Text(
+                                    client.name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blue,
+                                    ),
                                   ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Ventes(),
+                                      ),
+                                    );
+                                  },
                                 ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

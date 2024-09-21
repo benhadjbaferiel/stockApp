@@ -120,7 +120,7 @@ class ShowFournisseure extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                fournisseur.nameF.substring(0, 2),
+                                fournisseur.nameF,
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,

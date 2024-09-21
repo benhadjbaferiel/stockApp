@@ -3,11 +3,11 @@ import 'dart:io';
 class Product {
   final int number;
   final String name;
-  final int prix1;
-  final int prix2;
-  final int prix3;
-  final int prix4;
-  final int prixAchat;
+  final double prix1;
+  final double prix2;
+  final double prix3;
+  final double prix4;
+  final double prixAchat;
   final int carton;
   final int quantity;
   final String category;

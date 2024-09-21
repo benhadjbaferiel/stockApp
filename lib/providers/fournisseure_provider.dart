@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/Models/fournisseure_model.dart';
 
 class FournisseureProvider extends ChangeNotifier {
-  List<String> _categories1 = ["---"];
+  List<String> _categories1 = [];
   List<String> get categoriess => _categories1;
 
   // Map to store clients by category

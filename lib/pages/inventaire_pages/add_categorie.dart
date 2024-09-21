@@ -25,8 +25,8 @@ class _addCategoryState extends State<addCategory> {
               onPressed: () {
                 if (_tasniifController.text.isNotEmpty) {
                   Provider.of<CategoryProvider>(context, listen: false)
-                      .addCategory(
-                          CategoryProduct(name: _tasniifController.text));
+                      .addCategory(CategoryProduct(
+                          name: _tasniifController.text, products: []));
                   _tasniifController.clear();
                 }
               },

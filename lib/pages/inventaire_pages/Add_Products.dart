@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stock_dz_app/providers/fournisseure_provider.dart';
 import '/widgets.dart/Custom_Date.dart';
 import '/widgets.dart/Text_Field_add8product.dart';
 import 'dart:io';
@@ -8,6 +7,7 @@ import '../../providers/Product_Provider.dart';
 import 'package:provider/provider.dart';
 import '/widgets.dart/Build_price.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../providers/category_provider.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -24,14 +24,13 @@ class _AddProductState extends State<AddProduct> {
   final TextEditingController _prix3Controller = TextEditingController();
   final TextEditingController _prix4Controller = TextEditingController();
   final TextEditingController _prixAchatController = TextEditingController();
-  final TextEditingController _cartonController = TextEditingController();
+  final TextEditingController _cartonNumberController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _notifyController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
   DateTime? _selectedDate;
-  String _selectedCategory = "Category1"; // Default category
-
+  String? _selectedCategory;
   // Function to save the product
   void _saveProduct(BuildContext context) {
     if (_numberController.text.isEmpty ||
@@ -42,29 +41,28 @@ class _AddProductState extends State<AddProduct> {
         _prix4Controller.text.isEmpty ||
         _prixAchatController.text.isEmpty ||
         _quantityController.text.isEmpty) {
-      // Show an error message if any required field is missing
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('يرجى ملء جميع الحقول المطلوبة'),
           backgroundColor: Colors.red,
         ),
       );
-      return; // Do not proceed with saving the product
+      return;
     }
+
     final int number = int.tryParse(_numberController.text) ?? 0;
     final String name = _nameController.text;
-    final int prix1 = int.tryParse(_prix1Controller.text) ?? 0;
-    final int prix2 = int.tryParse(_prix2Controller.text) ?? 0;
-    final int prix3 = int.tryParse(_prix3Controller.text) ?? 0;
-    final int prix4 = int.tryParse(_prix4Controller.text) ?? 0;
-    final int prixAchat = int.tryParse(_prixAchatController.text) ?? 0;
-    final int carton = int.tryParse(_cartonController.text) ?? 0;
+    final double prix1 = double.tryParse(_prix1Controller.text) ?? 0;
+    final double prix2 = double.tryParse(_prix2Controller.text) ?? 0;
+    final double prix3 = double.tryParse(_prix3Controller.text) ?? 0;
+    final double prix4 = double.tryParse(_prix4Controller.text) ?? 0;
+    final double prixAchat = double.tryParse(_prixAchatController.text) ?? 0;
+    final int carton = int.tryParse(_cartonNumberController.text) ?? 0;
     final int quantity = int.tryParse(_quantityController.text) ?? 0;
     final int notify = int.tryParse(_notifyController.text) ?? 0;
     final String description = _descriptionController.text;
     final DateTime date = _selectedDate ?? DateTime.now();
 
-    // Create a new Product object
     final Product product = Product(
       number: number,
       name: name,
@@ -75,20 +73,20 @@ class _AddProductState extends State<AddProduct> {
       prixAchat: prixAchat,
       carton: carton,
       quantity: quantity,
-      category: _selectedCategory,
+      category: _selectedCategory ?? "Uncategorized",
       notify: notify,
       description: description,
       date: date,
       image: image,
     );
 
-    // Use the provider to add the product, if using Provider
-    Provider.of<ProductProvider>(context, listen: false).AddProduct(product);
+    Provider.of<ProductProvider>(context, listen: false).addProduct(product);
 
-    // Optionally, show a success message or navigate back
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('تمت اضافة المنتج بنجاح')),
     );
+
+    // Clear the fields
     _numberController.clear();
     _nameController.clear();
     _prix1Controller.clear();
@@ -96,14 +94,14 @@ class _AddProductState extends State<AddProduct> {
     _prix3Controller.clear();
     _prix4Controller.clear();
     _prixAchatController.clear();
-    _cartonController.clear();
+    _cartonNumberController.clear();
     _quantityController.clear();
     _notifyController.clear();
     _descriptionController.clear();
     setState(() {
       image = null;
       _selectedDate = null;
-      _selectedCategory = "Category1"; // Reset to default category if needed
+      _selectedCategory = null; // Reset to default category if needed
     });
   }
 
@@ -168,7 +166,7 @@ class _AddProductState extends State<AddProduct> {
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(
               label: "الكرطونة",
-              controller: _cartonController,
+              controller: _cartonNumberController,
             ),
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(
@@ -185,23 +183,37 @@ class _AddProductState extends State<AddProduct> {
               ),
               child: Row(
                 children: [
-                  /*const Text("التصنيف", style: TextStyle(fontSize: 20)),
+                  const Text("التصنيف", style: TextStyle(fontSize: 20)),
                   const Spacer(),
-                  DropdownButton<String>(
-                    value: _selectedCategory,
-                  items: Provider.of<FournisseureProvider>(context).categories,
-                    onChanged: (newValue) {
-                      setState(() {
-                        _selectedCategory = newValue!;
-                      });
+                  Consumer<CategoryProvider>(
+                    builder: (context, categoryProvider, child) {
+                      final categories = categoryProvider.categories;
+
+                      if (categories.isEmpty) {
+                        return const Text("لا توجد تصنيفات");
+                      }
+
+                      // Set initial value if not set or invalid
+                      if (_selectedCategory == null ||
+                          !categories.any((c) => c.name == _selectedCategory)) {
+                        _selectedCategory = categories[0].name;
+                      }
+
+                      return DropdownButton<String>(
+                        value: _selectedCategory,
+                        items: categories.map((category) {
+                          return DropdownMenuItem<String>(
+                            value: category.name,
+                            child: Text(category.name),
+                          );
+                        }).toList(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            _selectedCategory = newValue;
+                          });
+                        },
+                      );
                     },
-                  ),*/
-                  IconButton(
-                    onPressed: () {
-                      // Add new category logic
-                    },
-                    icon: const Icon(Icons.add_circle_rounded,
-                        color: Colors.green),
                   ),
                 ],
               ),

@@ -129,11 +129,11 @@ class _ShowProductState extends State<ShowProduct> {
             child: Consumer<ProductProvider>(
               builder: (context, productProvider, child) {
                 return ListView.separated(
-                  itemCount: productProvider.Products.length,
+                  itemCount: productProvider.products.length,
                   separatorBuilder: (context, index) =>
                       const Divider(color: Colors.grey),
                   itemBuilder: (context, index) {
-                    final product = productProvider.Products[index];
+                    final product = productProvider.products[index];
                     return ListTile(
                       onTap: () => _showProductDetails(context, product),
                       title: Row(
