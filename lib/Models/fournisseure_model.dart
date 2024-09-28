@@ -1,5 +1,3 @@
-import 'package:stock_dz_app/Models/product_category_model.dart';
-
 class Fournisseure {
   final String nameF;
   final String addressF;

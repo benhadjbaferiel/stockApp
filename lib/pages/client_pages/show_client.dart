@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_dz_app/pages/achats_pages/ventes.dart';
+import 'package:stock_dz_app/pages/ventess/ventes.dart';
 import 'package:stock_dz_app/providers/client_provider.dart';
 import 'package:stock_dz_app/widgets.dart/custom_text_field.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:stock_dz_app/Services/google_map.dart';
 
-class ShowClient extends StatelessWidget {
+class ShowClient extends StatefulWidget {
   ShowClient({super.key});
+
+  @override
+  State<ShowClient> createState() => _ShowClientState();
+}
+
+class _ShowClientState extends State<ShowClient> {
   final TextEditingController categorieController = TextEditingController();
+
   void _launchURL(String url) async {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
@@ -134,7 +141,9 @@ class ShowClient extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Ventes(),
+                                        builder: (context) => Ventes(
+                                          label: 'المبيعات',
+                                        ),
                                       ),
                                     );
                                   },

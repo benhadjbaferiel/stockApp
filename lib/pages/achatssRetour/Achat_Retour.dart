@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_dz_app/pages/home_menu_pages/home2.dart';
+import 'package:stock_dz_app/pages/achatssRetour/showFacture_retour_achat.dart';
 import 'package:stock_dz_app/pages/inventaire_pages/Add_Products.dart';
-import 'package:stock_dz_app/pages/other_pages/showFacture_Vente_impot.dart';
 import 'package:stock_dz_app/providers/Product_Provider.dart';
 import 'package:stock_dz_app/providers/category_provider.dart';
 import 'package:stock_dz_app/providers/invoiceModelProvider.dart';
 import 'package:stock_dz_app/providers/total_provider.dart';
 import 'package:stock_dz_app/widgets.dart/Custom_Date.dart';
 import 'package:uuid/uuid.dart';
+import '../home_menu_pages/home2.dart';
 import '/widgets.dart/Interface_Ventes_Achat.dart';
 
-class PageVenteImpot extends StatefulWidget {
-  final String label;
-  const PageVenteImpot({required this.label, super.key});
+class AchatRetour extends StatefulWidget {
+  AchatRetour({super.key});
 
   @override
-  State<PageVenteImpot> createState() => _PageVenteImpotState();
+  State<AchatRetour> createState() => _AchatRetourState();
 }
 
-class _PageVenteImpotState extends State<PageVenteImpot> {
+class _AchatRetourState extends State<AchatRetour> {
   void _showDialog(Invoice? invoice) {
     showDialog(
       context: context,
@@ -298,6 +297,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
     );
   }
 
+  String groupValue = "طلب شراء";
   double total = 0.0;
   double sum = 0.0;
   void updateTotal() {
@@ -307,25 +307,28 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
         selectedProducts, prixController, cartonController, pieceController);
   }
 
+  void removeProduct(int index) {
+    selectedProducts.removeAt(index);
+    updateTotal();
+  }
+
   List<Map<String, dynamic>> selectedProducts = [];
+  TextEditingController cartonController = TextEditingController();
+  TextEditingController pieceController = TextEditingController();
+  TextEditingController prixController = TextEditingController();
+
+  TextEditingController prix1Controller = TextEditingController();
+  TextEditingController prix2Controller = TextEditingController();
+  TextEditingController prix3Controller = TextEditingController();
+  TextEditingController prix4Controller = TextEditingController();
+
+  // Function to add a product to the selectedProducts list
   void _addProduct(Map<String, dynamic> product) {
     setState(() {
       selectedProducts.add(product);
     });
   }
 
-  void removeProduct(int index) {
-    selectedProducts.removeAt(index);
-    updateTotal();
-  }
-
-  TextEditingController cartonController = TextEditingController();
-  TextEditingController pieceController = TextEditingController();
-  TextEditingController prixController = TextEditingController();
-  TextEditingController prix1Controller = TextEditingController();
-  TextEditingController prix2Controller = TextEditingController();
-  TextEditingController prix3Controller = TextEditingController();
-  TextEditingController prix4Controller = TextEditingController();
   TextEditingController versementController = TextEditingController();
   TextEditingController reductionController = TextEditingController();
   TextEditingController reductionControllerprcnt = TextEditingController();
@@ -343,8 +346,6 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
 
     return total - paid - discount - discountAmount - tax;
   }
-
-  String groupValue = "طلب شراء";
 
   void _saveInvoice() {
     final invoiceProvider =
@@ -365,7 +366,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
       date: DateTime.now(),
     );
 
-    invoiceProvider.addInvoiceF(newInvoice);
+    invoiceProvider.addInvoiceAR(newInvoice);
 
     // Clear the form fields
     versementController.clear();
@@ -401,7 +402,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
       isCanceled: true, // Marquer la facture comme annulée
     );
 
-    invoiceProvider.addInvoiceCancledF(canceledInvoice);
+    invoiceProvider.addInvoiceCancledAR(canceledInvoice);
 
     // Clear the form fields
     versementController.clear();
@@ -434,62 +435,28 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
                 showdialogue: () {
                   _showDialog(null);
                 },
-                title: widget.label,
+                title: 'شاشة المرتجعات ',
                 menuItems: {
-                  "اضف منتج": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddProduct()),
-                    );
+                  "اضافة منتج": () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AddProduct()));
                   },
-                  "عرض فواتير المبيعات": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => showFacture_Impot()),
-                    );
+                  "عرض فواتير المرتجعات": () {
+                    // Logique pour afficher les factures
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ShowfactureRetourAchat(
+                                  label: 'عرض فواتير المرتجعات',
+                                )),
+                      );
+                    };
                   },
-                  "تثبيت سعر البيع 1": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 1",
-                              )),
-                    );
-                  },
-                  "تثبيت سعر البيع 2": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 2",
-                              )),
-                    );
-                  },
-                  "تثبيت سعر البيع 3": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 3",
-                              )),
-                    );
-                  },
-                  "تثبيت سعر البيع 4": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 4",
-                              )),
-                    );
-                  },
-                  "استيراد فاتورة مبيعات": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => home2()),
-                    );
+                  "استيراد فاتورة المرتجعات": () {
+                    // Logique pour importer une facture
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => home2()));
                   },
                 },
               ),

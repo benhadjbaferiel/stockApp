@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_dz_app/pages/home_menu_pages/home2.dart';
+import 'package:stock_dz_app/pages/Vente_Retour/factureRetourVentes.dart';
 import 'package:stock_dz_app/pages/inventaire_pages/Add_Products.dart';
-import 'package:stock_dz_app/pages/other_pages/showFacture_Vente_impot.dart';
 import 'package:stock_dz_app/providers/Product_Provider.dart';
 import 'package:stock_dz_app/providers/category_provider.dart';
 import 'package:stock_dz_app/providers/invoiceModelProvider.dart';
@@ -10,16 +9,17 @@ import 'package:stock_dz_app/providers/total_provider.dart';
 import 'package:stock_dz_app/widgets.dart/Custom_Date.dart';
 import 'package:uuid/uuid.dart';
 import '/widgets.dart/Interface_Ventes_Achat.dart';
+import '../home_menu_pages/home2.dart';
 
-class PageVenteImpot extends StatefulWidget {
+class VenteRetour extends StatefulWidget {
   final String label;
-  const PageVenteImpot({required this.label, super.key});
+  VenteRetour({required this.label, super.key});
 
   @override
-  State<PageVenteImpot> createState() => _PageVenteImpotState();
+  State<VenteRetour> createState() => _VenteRetourState();
 }
 
-class _PageVenteImpotState extends State<PageVenteImpot> {
+class _VenteRetourState extends State<VenteRetour> {
   void _showDialog(Invoice? invoice) {
     showDialog(
       context: context,
@@ -298,6 +298,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
     );
   }
 
+  String groupValue = "طلب شراء";
   double total = 0.0;
   double sum = 0.0;
   void updateTotal() {
@@ -308,21 +309,21 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
   }
 
   List<Map<String, dynamic>> selectedProducts = [];
+  void removeProduct(int index) {
+    selectedProducts.removeAt(index);
+    updateTotal();
+  }
+
   void _addProduct(Map<String, dynamic> product) {
     setState(() {
       selectedProducts.add(product);
     });
   }
 
-  void removeProduct(int index) {
-    selectedProducts.removeAt(index);
-    updateTotal();
-  }
-
   TextEditingController cartonController = TextEditingController();
   TextEditingController pieceController = TextEditingController();
-  TextEditingController prixController = TextEditingController();
   TextEditingController prix1Controller = TextEditingController();
+  TextEditingController prixController = TextEditingController();
   TextEditingController prix2Controller = TextEditingController();
   TextEditingController prix3Controller = TextEditingController();
   TextEditingController prix4Controller = TextEditingController();
@@ -344,8 +345,6 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
     return total - paid - discount - discountAmount - tax;
   }
 
-  String groupValue = "طلب شراء";
-
   void _saveInvoice() {
     final invoiceProvider =
         Provider.of<InvoiceProvider>(context, listen: false);
@@ -365,7 +364,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
       date: DateTime.now(),
     );
 
-    invoiceProvider.addInvoiceF(newInvoice);
+    invoiceProvider.addInvoiceVR(newInvoice);
 
     // Clear the form fields
     versementController.clear();
@@ -401,7 +400,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
       isCanceled: true, // Marquer la facture comme annulée
     );
 
-    invoiceProvider.addInvoiceCancledF(canceledInvoice);
+    invoiceProvider.addInvoiceCancledVR(canceledInvoice);
 
     // Clear the form fields
     versementController.clear();
@@ -436,60 +435,48 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
                 },
                 title: widget.label,
                 menuItems: {
-                  "اضف منتج": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddProduct()),
-                    );
+                  "اضافة منتج": () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AddProduct()));
                   },
-                  "عرض فواتير المبيعات": () {
+                  "عرض فواتير المرتجعات": () {
+                    // Logique pour afficher les factures
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => showFacture_Impot()),
-                    );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Factureretourventes()));
                   },
-                  "تثبيت سعر البيع 1": () {
+                  "تثبيت سعر 1": () {
+                    // Logique pour importer une facture
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 1",
-                              )),
-                    );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VenteRetour(
+                                  label: "تثبيت سعر 1",
+                                )));
                   },
-                  "تثبيت سعر البيع 2": () {
+                  " تثبيت سعر 2": () {
+                    // Logique pour importer une facture
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 2",
-                              )),
-                    );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VenteRetour(
+                                  label: "تثبيت سعر 2",
+                                )));
                   },
-                  "تثبيت سعر البيع 3": () {
+                  "تثبيت سعر 3": () {
+                    // Logique pour importer une facture
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 3",
-                              )),
-                    );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VenteRetour(
+                                  label: "تثبيت سعر 3",
+                                )));
                   },
-                  "تثبيت سعر البيع 4": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 4",
-                              )),
-                    );
-                  },
-                  "استيراد فاتورة مبيعات": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => home2()),
-                    );
+                  "استيراد فاتورة المرتجعات": () {
+                    // Logique pour importer une facture
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => home2()));
                   },
                 },
               ),

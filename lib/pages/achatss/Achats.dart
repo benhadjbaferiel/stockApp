@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_dz_app/pages/home_menu_pages/home2.dart';
+import 'package:stock_dz_app/pages/achatss/show_Facture%20_Achats.dart';
 import 'package:stock_dz_app/pages/inventaire_pages/Add_Products.dart';
-import 'package:stock_dz_app/pages/other_pages/showFacture_Vente_impot.dart';
 import 'package:stock_dz_app/providers/Product_Provider.dart';
 import 'package:stock_dz_app/providers/category_provider.dart';
 import 'package:stock_dz_app/providers/invoiceModelProvider.dart';
-import 'package:stock_dz_app/providers/total_provider.dart';
 import 'package:stock_dz_app/widgets.dart/Custom_Date.dart';
 import 'package:uuid/uuid.dart';
 import '/widgets.dart/Interface_Ventes_Achat.dart';
+import '../home_menu_pages/home2.dart';
+import 'package:stock_dz_app/providers/total_provider.dart';
 
-class PageVenteImpot extends StatefulWidget {
-  final String label;
-  const PageVenteImpot({required this.label, super.key});
+class Achats extends StatefulWidget {
+  Achats({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<PageVenteImpot> createState() => _PageVenteImpotState();
+  State<Achats> createState() => AchatsState();
 }
 
-class _PageVenteImpotState extends State<PageVenteImpot> {
+class AchatsState extends State<Achats> {
   void _showDialog(Invoice? invoice) {
     showDialog(
       context: context,
@@ -298,6 +299,8 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
     );
   }
 
+  String groupValue = "طلب شراء";
+
   double total = 0.0;
   double sum = 0.0;
   void updateTotal() {
@@ -307,20 +310,12 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
         selectedProducts, prixController, cartonController, pieceController);
   }
 
-  List<Map<String, dynamic>> selectedProducts = [];
-  void _addProduct(Map<String, dynamic> product) {
-    setState(() {
-      selectedProducts.add(product);
-    });
-  }
-
-  void removeProduct(int index) {
-    selectedProducts.removeAt(index);
-    updateTotal();
-  }
-
-  TextEditingController cartonController = TextEditingController();
   TextEditingController pieceController = TextEditingController();
+  TextEditingController cartonController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+  List<Map<String, dynamic>> selectedProducts = [];
+
+  // List to store selected products
   TextEditingController prixController = TextEditingController();
   TextEditingController prix1Controller = TextEditingController();
   TextEditingController prix2Controller = TextEditingController();
@@ -344,7 +339,18 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
     return total - paid - discount - discountAmount - tax;
   }
 
-  String groupValue = "طلب شراء";
+  // Function to add a product to the selectedProducts list
+  void _addProduct(Map<String, dynamic> product) {
+    setState(() {
+      selectedProducts.add(product);
+      updateTotal();
+    });
+  }
+
+  void removeProduct(int index) {
+    selectedProducts.removeAt(index);
+    updateTotal();
+  }
 
   void _saveInvoice() {
     final invoiceProvider =
@@ -365,7 +371,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
       date: DateTime.now(),
     );
 
-    invoiceProvider.addInvoiceF(newInvoice);
+    invoiceProvider.addInvoice(newInvoice);
 
     // Clear the form fields
     versementController.clear();
@@ -401,7 +407,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
       isCanceled: true, // Marquer la facture comme annulée
     );
 
-    invoiceProvider.addInvoiceCancledF(canceledInvoice);
+    invoiceProvider.addInvoiceCancled(canceledInvoice);
 
     // Clear the form fields
     versementController.clear();
@@ -425,6 +431,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
 
     return Scaffold(
       body: SingleChildScrollView(
+        // Allows content to scroll if it overflows
         child: Column(
           children: [
             Container(
@@ -434,7 +441,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
                 showdialogue: () {
                   _showDialog(null);
                 },
-                title: widget.label,
+                title: 'المشتريات',
                 menuItems: {
                   "اضف منتج": () {
                     Navigator.push(
@@ -442,50 +449,16 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
                       MaterialPageRoute(builder: (context) => AddProduct()),
                     );
                   },
-                  "عرض فواتير المبيعات": () {
+                  "عرض فواتير المشتريات": () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => showFacture_Impot()),
-                    );
-                  },
-                  "تثبيت سعر البيع 1": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 1",
+                          builder: (context) => ShowFactureAchats(
+                                label: 'عرض فواتير المشتريات',
                               )),
                     );
                   },
-                  "تثبيت سعر البيع 2": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 2",
-                              )),
-                    );
-                  },
-                  "تثبيت سعر البيع 3": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 3",
-                              )),
-                    );
-                  },
-                  "تثبيت سعر البيع 4": () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PageVenteImpot(
-                                label: "تثبيت سعر البيع 4",
-                              )),
-                    );
-                  },
-                  "استيراد فاتورة مبيعات": () {
+                  "استيراد فاتورة مشتريات": () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => home2()),
@@ -496,12 +469,12 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
             ),
             ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
               itemCount: selectedProducts.length,
               itemBuilder: (context, index) {
                 final product = selectedProducts[index];
                 return GestureDetector(
                   onTap: () {
+                    cartonController.clear;
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -889,10 +862,7 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              ' ${product['prixAchat'] * product['quantity']} DA',
-                              style: TextStyle(fontSize: 16),
-                            ),
+                            Text('Total: ${totalProvider.total}'),
                             SizedBox(
                               width: 5,
                             ),
@@ -975,7 +945,14 @@ class _PageVenteImpotState extends State<PageVenteImpot> {
                                                     'name': product.name,
                                                     'prixAchat':
                                                         product.prixAchat,
-                                                    'quantity': 1,
+                                                    'quantity':
+                                                        product.quantity,
+                                                    'cartonNumber':
+                                                        product.carton,
+                                                    'prix1': product.prix1,
+                                                    'prix4': product.prix4,
+                                                    'prix2': product.prix2,
+                                                    'prix3': product.prix3,
                                                   });
                                                   Navigator.pop(context);
                                                 },

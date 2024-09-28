@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:stock_dz_app/pages/Vente_Retour/factureRetourVentes.dart';
+import 'package:stock_dz_app/pages/achatss/show_Facture%20_Achats.dart';
+import 'package:stock_dz_app/pages/achatssRetour/showFacture_retour_achat.dart';
+import 'package:stock_dz_app/pages/ventess/showFacture_Ventes.dart';
 import '/widgets.dart/Custom_Date.dart'; // Corrected import path
 import '/widgets.dart/BUILDLIST.dart'; // Corrected import path
 
@@ -95,18 +99,44 @@ class Requet extends StatelessWidget {
                     ),
                   ),
                   BuildListItem(
-                      title:
-                          '                               عرض فواتير المبيعات',
-                      callbackHandle2: () => Navigator.pop(context)),
+                    title: '                               عرض فواتير المبيعات',
+                    callbackHandle2: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => showFactureVente(
+                                  label: "عرض فواتير المبيعات",
+                                )),
+                      );
+                    },
+                  ),
                   BuildListItem(
                       title: '                عرض فواتير المرتجعات من البيع',
-                      callbackHandle2: () => Navigator.pop(context)),
+                      callbackHandle2: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Factureretourventes()))),
                   BuildListItem(
                       title: '                            عرض فواتير المشتريات',
-                      callbackHandle2: () => Navigator.pop(context)),
+                      callbackHandle2: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShowFactureAchats(
+                                      label: 'عرض فواتير المشتريات',
+                                    )),
+                          )),
                   BuildListItem(
-                      title: '             عرض فواتير المرتجعات من الشراء',
-                      callbackHandle2: () => Navigator.pop(context)),
+                    title: '             عرض فواتير المرتجعات من الشراء',
+                    callbackHandle2: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ShowfactureRetourAchat(
+                                  label: 'عرض فواتير المرتجعات من الشراء',
+                                )),
+                      );
+                    },
+                  ),
                   Container(
                     height: 40,
                     width: 350,

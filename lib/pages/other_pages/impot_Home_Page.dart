@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stock_dz_app/pages/other_pages/canceledFactureImpot.dart';
+import 'package:stock_dz_app/pages/other_pages/showFacture_Vente_impot.dart';
 import '/pages/other_pages/show_Clients_Impot.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
 import '/pages/home_menu_pages/home2.dart';
@@ -56,7 +58,7 @@ class ImpotHomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const home2()),
+                              builder: (context) => showFacture_Impot()),
                         );
                       },
                     ),
@@ -70,8 +72,7 @@ class ImpotHomePage extends StatelessWidget {
                       callbackHandle: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const home2()),
+                          MaterialPageRoute(builder: (context) => home2()),
                         );
                       },
                     ),
@@ -86,7 +87,7 @@ class ImpotHomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const home2()),
+                              builder: (context) => Canceledfactureimpot()),
                         );
                       },
                     ),

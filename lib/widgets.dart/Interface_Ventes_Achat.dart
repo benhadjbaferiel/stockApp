@@ -3,10 +3,13 @@ import '/widgets.dart/custom_bar.dart';
 
 class InterfaceVenteAchat extends StatefulWidget {
   final String title;
+  final VoidCallback showdialogue;
+
   final Map<String, VoidCallback> menuItems;
 
   const InterfaceVenteAchat({
     Key? key,
+    required this.showdialogue,
     required this.title,
     required this.menuItems,
   }) : super(key: key);
@@ -41,7 +44,9 @@ class _InterfaceVenteAchatState extends State<InterfaceVenteAchat> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Custombar(),
+            Custombar(
+              showdialogue: widget.showdialogue,
+            ),
             SizedBox(height: 5),
             Container(
               color: Colors.grey[200],

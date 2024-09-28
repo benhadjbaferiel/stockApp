@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_dz_app/pages/achats_pages/vente_retour.dart';
+import 'package:stock_dz_app/pages/Vente_Retour/vente_retour.dart';
 import 'package:stock_dz_app/providers/client_provider.dart';
 import 'package:stock_dz_app/widgets.dart/custom_text_field.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -135,7 +135,9 @@ class ShowClientRetour extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => VenteRetour(),
+                                        builder: (context) => VenteRetour(
+                                          label: "شاشة المرتجعات-المبيعات",
+                                        ),
                                       ),
                                     );
                                   },

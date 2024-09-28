@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'add_Stock.dart';
-import 'show_Stock.dart';
+import 'package:stock_dz_app/pages/home_menu_pages/home2.dart';
+import 'package:stock_dz_app/pages/stock_user_pages/add_user.dart';
+import 'package:stock_dz_app/pages/stock_user_pages/show_user.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
 
 class User extends StatelessWidget {
@@ -43,8 +44,7 @@ class User extends StatelessWidget {
                       callbackHandle: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Add_Stock()),
+                          MaterialPageRoute(builder: (context) => AddUser()),
                         );
                       },
                     ),
@@ -58,8 +58,7 @@ class User extends StatelessWidget {
                       callbackHandle: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Show_Stock()),
+                          MaterialPageRoute(builder: (context) => ShowUser()),
                         );
                       },
                     ),

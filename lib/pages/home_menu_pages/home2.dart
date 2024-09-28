@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../achats_pages/Pres_Retour_Achat.dart';
+import '../achatssRetour/Pres_Retour_Achat.dart';
 import '/pages/other_pages/impot_Home_Page.dart';
 import '../inventaire_pages/inventaire.dart';
 import '../stock_user_pages/user_Stock.dart';
 import 'help.dart';
-import '../achats_pages/pres_Vente_Retour.dart';
+import '../Vente_Retour/pres_Vente_Retour.dart';
 import 'impots.dart';
 import 'imprimante.dart';
 import 'settings.dart';
@@ -13,12 +13,17 @@ import '../client_pages/clients.dart';
 import '../fournisseure_pages/fournisseure.dart';
 import '../depances_pages/depences.dart';
 import '../other_pages/requet.dart';
-import '../achats_pages/pres_Ventes.dart';
-import '../achats_pages/pres_achat.dart';
+import '../ventess/pres_Ventes.dart';
+import '../achatss/pres_achat.dart';
 
-class home2 extends StatelessWidget {
-  const home2({super.key});
+class home2 extends StatefulWidget {
+  home2({super.key});
 
+  @override
+  State<home2> createState() => _home2State();
+}
+
+class _home2State extends State<home2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +63,7 @@ class home2 extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const home2()),
+                  MaterialPageRoute(builder: (context) => home2()),
                 );
               },
             ),
@@ -68,7 +73,7 @@ class home2 extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const home2()),
+                  MaterialPageRoute(builder: (context) => home2()),
                 );
               },
             ),
@@ -78,7 +83,7 @@ class home2 extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const home2()),
+                  MaterialPageRoute(builder: (context) => home2()),
                 );
               },
             ),
@@ -88,7 +93,7 @@ class home2 extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const home2()),
+                  MaterialPageRoute(builder: (context) => home2()),
                 );
               },
             ),
@@ -98,7 +103,7 @@ class home2 extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const home2()),
+                  MaterialPageRoute(builder: (context) => home2()),
                 );
               },
             ),
@@ -162,7 +167,7 @@ class home2 extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const home2()),
+                  MaterialPageRoute(builder: (context) => home2()),
                 );
               },
             ),
@@ -172,7 +177,7 @@ class home2 extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const home2()),
+                  MaterialPageRoute(builder: (context) => home2()),
                 );
               },
             ),
@@ -213,7 +218,7 @@ class home2 extends StatelessWidget {
                   'الصندوق',
                   'الاستعلامات',
                   'المخزون',
-                  'المخازن و المسخدمين',
+                  '  المسخدمين',
                   'الفواتير الضريبية'
                 ];
 

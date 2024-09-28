@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
 import 'user.dart';
-import 'stock.dart';
 
 class UserStock extends StatelessWidget {
   const UserStock({super.key});
@@ -20,9 +19,15 @@ class UserStock extends StatelessWidget {
                     ),
                     Row(
                       children: [
+                        const SizedBox(
+                          width: 30,
+                        ),
                         const Text(
-                          "المخازن و المستخدمين",
+                          " المستخدمين",
                           style: TextStyle(fontSize: 29),
+                        ),
+                        const SizedBox(
+                          width: 60,
                         ),
                         Image.asset('icons/000.png',
                             width: 110,
@@ -30,22 +35,7 @@ class UserStock extends StatelessWidget {
                             alignment: Alignment.topLeft),
                       ],
                     ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    InkwellF(
-                      label:
-                          "                                                                  المخازن",
-                      Icon: Icons.production_quantity_limits_sharp,
-                      callbackHandle: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Stock()),
-                        );
-                      },
-                    ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     InkwellF(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stock_dz_app/pages/achatss/cancel_facture.dart';
+import 'package:stock_dz_app/pages/achatss/show_Facture%20_Achats.dart';
 import '../fournisseure_pages/show_fournisseure.dart';
 import '../home_menu_pages/home2.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
@@ -38,7 +40,10 @@ class Presachat extends StatelessWidget {
                 callbackHandle: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const home2()),
+                    MaterialPageRoute(
+                        builder: (context) => ShowFactureAchats(
+                              label: 'عرض فواتير الموردين',
+                            )),
                   );
                 },
               ),
@@ -50,23 +55,11 @@ class Presachat extends StatelessWidget {
                 callbackHandle: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const home2()),
+                    MaterialPageRoute(builder: (context) => home2()),
                   );
                 },
               ),
               const SizedBox(height: 30),
-              InkwellF(
-                label:
-                    "                                                       تقرير بالخصومات",
-                Icon: Icons.copy_sharp,
-                callbackHandle: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const home2()),
-                  );
-                },
-              ),
-              SizedBox(height: 30),
               InkwellF(
                 label:
                     "                                                الفواتير التي تم الغاءها",
@@ -74,7 +67,7 @@ class Presachat extends StatelessWidget {
                 callbackHandle: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const home2()),
+                    MaterialPageRoute(builder: (context) => CancelFacture()),
                   );
                 },
               ),

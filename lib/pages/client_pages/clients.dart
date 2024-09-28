@@ -5,9 +5,14 @@ import 'credit_client.dart';
 import 'show_client.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
 
-class Clients extends StatelessWidget {
+class Clients extends StatefulWidget {
   const Clients({super.key});
 
+  @override
+  State<Clients> createState() => _ClientsState();
+}
+
+class _ClientsState extends State<Clients> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

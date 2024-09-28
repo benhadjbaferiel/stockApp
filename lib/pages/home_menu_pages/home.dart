@@ -80,10 +80,8 @@ class home extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const home2()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => home2()));
                     }
                   },
                   style: ElevatedButton.styleFrom(
