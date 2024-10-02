@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stock_dz_app/pages/Vente_Retour/factureRetourVentes.dart';
 import 'package:stock_dz_app/pages/achatss/show_Facture%20_Achats.dart';
 import 'package:stock_dz_app/pages/achatssRetour/showFacture_retour_achat.dart';
+import 'package:stock_dz_app/pages/inventaire_pages/show_Product.dart';
+import 'package:stock_dz_app/pages/other_pages/show_productByCategory.dart';
 import 'package:stock_dz_app/pages/ventess/showFacture_Ventes.dart';
 import '/widgets.dart/Custom_Date.dart'; // Corrected import path
 import '/widgets.dart/BUILDLIST.dart'; // Corrected import path
@@ -157,7 +159,11 @@ class Requet extends StatelessWidget {
                   BuildListItem(
                       title:
                           '                                               جرد مخزني',
-                      callbackHandle2: () => Navigator.pop(context)),
+                      callbackHandle2: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShowProduct()),
+                          )),
                   BuildListItem(
                       title:
                           '                                            مخزون إيجابي',
@@ -168,7 +174,11 @@ class Requet extends StatelessWidget {
                       callbackHandle2: () => Navigator.pop(context)),
                   BuildListItem(
                       title: '                       جرد مخزني حسب التصنيف',
-                      callbackHandle2: () => Navigator.pop(context)),
+                      callbackHandle2: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShowProductbycategory()),
+                          )),
                   BuildListItem(
                       title: '         تقرير بالمنتجات حسب تاريخ الانتهاء ',
                       callbackHandle2: () => Navigator.pop(context)),

@@ -15,6 +15,7 @@ class _editPriceState extends State<editPrice> {
   String groupValue1 = 'مبلغ';
   int _selectedOption = 0;
   int _selectedOption1 = 0;
+  int _selectedOption2 = 0;
 
   bool? isCheked1 = false;
   bool? isCheked2 = true;
@@ -24,6 +25,7 @@ class _editPriceState extends State<editPrice> {
   bool? isCheked6 = true;
   TextEditingController prixController = TextEditingController();
   TextEditingController Controller1 = TextEditingController();
+  TextEditingController Controller2 = TextEditingController();
 
   CategoryProduct? selectedCategory; // To store selected category
 
@@ -272,49 +274,56 @@ class _editPriceState extends State<editPrice> {
           ),
           const SizedBox(height: 10),
           AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: _selectedOption1 == 0 ? 123 : 75,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              child: _selectedOption1 == 0
-                  ? Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text("المبلغ"),
-                            Container(
-                                height: 20,
-                                width: 100,
-                                color: Colors.grey,
-                                child: TextField(
-                                  controller: prixController,
-                                ))
-                          ],
-                        )
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text("النسبة"),
-                            Container(
-                                height: 20,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(17),
-                                  color: Colors.grey[200],
-                                ),
-                                child: TextField(
-                                  controller: Controller1,
-                                ))
-                          ],
-                        )
-                      ],
-                    )),
+            duration: const Duration(milliseconds: 300),
+            height: _selectedOption1 == 0
+                ? 80
+                : _selectedOption1 == 1
+                    ? 80
+                    : 80,
+            decoration: BoxDecoration(
+              border:
+                  Border.all(color: const Color.fromARGB(255, 253, 248, 248)),
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(groupValue1 == "%نسبة"
+                        ? "نسبة:"
+                        : groupValue1 == "مبلغ"
+                            ? "مبلغ:"
+                            : "سعر الصرف:"),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: groupValue1 == "%نسبة"
+                            ? Controller1
+                            : groupValue1 == "مبلغ"
+                                ? prixController
+                                : Controller2,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: groupValue1 == "%نسبة"
+                              ? "أدخل النسبة"
+                              : groupValue1 == "مبلغ"
+                                  ? "أدخل المبلغ"
+                                  : "أدخل سعر الصرف",
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Center(
+            child:
+                ElevatedButton(onPressed: () {}, child: Text("تعديل الاسعار")),
+          )
         ])));
   }
 }

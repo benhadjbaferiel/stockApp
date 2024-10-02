@@ -76,6 +76,11 @@ flutter:
 
   assets:
     - images/5.png
+    - images/2005.png
+    - images/2004.png
+    - images/2003.png
+    - images/2002.png
+    - images/2001.png
     - images/00.png
     - images/20.png
     - images/16.png

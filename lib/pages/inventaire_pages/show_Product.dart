@@ -255,32 +255,54 @@ class _ShowProductState extends State<ShowProduct> {
               // Action Buttons (Delete, Freeze, Edit)
               Column(
                 children: [
-                  ListTile(
-                    leading: Radio(
-                      value: 1,
-                      groupValue: 0,
-                      onChanged: (value) {},
-                    ),
-                    title: const Text('إلغاء المنتج'),
-                    trailing: Icon(Icons.cancel, color: Colors.red),
+                  Row(
+                    children: [
+                      const Text(
+                        ' إلغاء المنتج من المخزون',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Provider.of<ProductProvider>(context, listen: false)
+                                .deleteProduct(product);
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('تم حذف المنتج')),
+                            );
+                          },
+                          icon: Icon(Icons.cancel, color: Colors.red))
+                    ],
                   ),
-                  ListTile(
-                    leading: Radio(
-                      value: 2,
-                      groupValue: 0,
-                      onChanged: (value) {},
-                    ),
-                    title: const Text('تجميد هذا المنتج'),
-                    trailing:
-                        Icon(Icons.pause_circle_filled, color: Colors.blue),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 60,
+                      ),
+                      const Text(
+                        'تجميد هذا المنتج',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon:
+                            Icon(Icons.pause_circle_filled, color: Colors.blue),
+                      )
+                    ],
                   ),
-                  ListTile(
-                    leading: Checkbox(
-                      value: false,
-                      onChanged: (value) {},
-                    ),
-                    title: const Text('تعديل بيانات المنتج'),
-                    trailing: Icon(Icons.edit, color: Colors.grey),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 40,
+                      ),
+                      const Text(
+                        'تعديل بيانات المنتج',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.edit, color: Colors.grey),
+                      )
+                    ],
                   ),
                 ],
               ),

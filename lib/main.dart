@@ -3,6 +3,7 @@ import 'package:stock_dz_app/providers/category_provider.dart';
 import 'package:stock_dz_app/providers/client_provider.dart';
 import 'package:stock_dz_app/providers/fournisseure_provider.dart';
 import 'package:stock_dz_app/providers/invoiceModelProvider.dart';
+import 'package:stock_dz_app/providers/pack_provider.dart';
 import 'package:stock_dz_app/providers/total_provider.dart';
 
 import 'pages/home_menu_pages/first.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => FournisseureProvider()),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => InvoiceProvider()),
+        ChangeNotifierProvider(create: (context) => PackProvider()),
         ChangeNotifierProvider(
           create: (context) => TotalProvider(),
         )

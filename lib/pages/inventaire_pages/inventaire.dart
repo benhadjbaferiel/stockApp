@@ -138,7 +138,7 @@ class _InventaireState extends State<Inventaire> {
                       callbackHandle: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => addPack()),
+                          MaterialPageRoute(builder: (context) => AddPack()),
                         );
                       },
                     ),
