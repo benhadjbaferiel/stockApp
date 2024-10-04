@@ -8,7 +8,8 @@
     <application
         android:label="stock_dz_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
 
         <!-- Move the provider inside the application tag -->
         <provider

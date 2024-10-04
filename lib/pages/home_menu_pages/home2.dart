@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../achatssRetour/Pres_Retour_Achat.dart';
 import '/pages/other_pages/impot_Home_Page.dart';
@@ -120,7 +121,7 @@ class _home2State extends State<home2> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Settings()),
+                  MaterialPageRoute(builder: (context) => const Settings()),
                 );
               },
             ),
@@ -173,12 +174,9 @@ class _home2State extends State<home2> {
             ),
             ListTile(
               leading: const Icon(Icons.share),
-              title: const Text('                       مشاركة البرنامج'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => home2()),
-                );
+              title: const Text('                        تسجيل الخروج'),
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
               },
             ),
           ],
@@ -229,7 +227,7 @@ class _home2State extends State<home2> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Presachat()));
+                                builder: (context) => const Presachat()));
                         break;
                       case 1:
                         Navigator.push(
@@ -242,33 +240,38 @@ class _home2State extends State<home2> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PresRetourAchat()));
+                                builder: (context) => const PresRetourAchat()));
                         break;
                       case 3:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PresVenteRetour()));
+                                builder: (context) => const PresVenteRetour()));
                         break;
                       case 4:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FournisseurScreen()));
+                                builder: (context) =>
+                                    const FournisseurScreen()));
                         break;
                       case 5:
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Clients()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Clients()));
                         break;
                       case 6:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Depences()));
+                                builder: (context) => const Depences()));
                         break;
                       case 7:
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Caisse()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Caisse()));
                         break;
                       case 8:
                         Navigator.push(context,
@@ -278,19 +281,19 @@ class _home2State extends State<home2> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Inventaire()));
+                                builder: (context) => const Inventaire()));
                         break;
                       case 10:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserStock()));
+                                builder: (context) => const UserStock()));
                         break;
                       case 11:
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ImpotHomePage()));
+                                builder: (context) => const ImpotHomePage()));
                         break;
                     }
                   },

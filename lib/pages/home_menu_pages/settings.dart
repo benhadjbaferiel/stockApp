@@ -145,6 +145,21 @@ class _SettingsState extends State<Settings> {
                           },
                           selectedValue: selectedJoz2),
                       const SizedBox(height: 20),
+                      Container(
+                        height: 35,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          color: Colors.grey[200],
+                        ),
+                        child: Text(
+                          "                     معلومات المتجر",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       CustomSettings(label: 'اسم المتجر'),
                       SizedBox(
                         height: 20,
@@ -161,10 +176,7 @@ class _SettingsState extends State<Settings> {
                       SizedBox(
                         height: 20,
                       ),
-                      CustomSettings(label: 'رقم التسجيل الضريبي'),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      CustomSettings(label: 'رقم التسجيل التجاري'),
                       SizedBox(
                         height: 20,
                       ),
@@ -178,6 +190,18 @@ class _SettingsState extends State<Settings> {
                           },
                           selectedValue: selectedSize),
                       const SizedBox(height: 20),
+                      Container(
+                        height: 35,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          color: Colors.grey[200],
+                        ),
+                        child: Text(
+                          "                        الاشعارات",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
                       CustomSwitch(
                         action: true, // Initial state of the switch
                         label: 'التحذير حال نقص المخزون',

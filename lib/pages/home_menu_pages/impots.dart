@@ -14,7 +14,7 @@ class _TaxPageState extends State<TaxPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('TAX الضرائب'),
+          title: const Text('TAX الضرائب'),
           centerTitle: true,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
@@ -26,7 +26,7 @@ class _TaxPageState extends State<TaxPage> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Expanded(
@@ -43,11 +43,11 @@ class _TaxPageState extends State<TaxPage> {
                               textAlign: TextAlign.center)),
                     ],
                   ),
-                  CustomImpot(label: 'ضريبة 1', label2: 'TAX1'),
-                  CustomImpot(label: 'ضريبة2', label2: 'TAX2'),
-                  CustomImpot(label: 'ضريبة3', label2: 'TAX3'),
-                  CustomImpot(label: 'ضريبة4', label2: 'TAX4'),
-                  CustomImpot(label: 'ضريبة5', label2: 'TAX5'),
+                  const CustomImpot(label: 'ضريبة 1', label2: 'TAX1'),
+                  const CustomImpot(label: 'ضريبة2', label2: 'TAX2'),
+                  const CustomImpot(label: 'ضريبة3', label2: 'TAX3'),
+                  const CustomImpot(label: 'ضريبة4', label2: 'TAX4'),
+                  const CustomImpot(label: 'ضريبة5', label2: 'TAX5'),
                   SwitchListTile(
                       value: impot1,
                       title: const Text("قيمة المنتج شامل الضريبة"),
@@ -56,7 +56,7 @@ class _TaxPageState extends State<TaxPage> {
                           impot1 = value;
                         });
                       }),
-                  Divider(),
+                  const Divider(),
                   SwitchListTile(
                       value: impot2,
                       title: const Text(
@@ -68,7 +68,7 @@ class _TaxPageState extends State<TaxPage> {
                       }),
                   ElevatedButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         "حفظ",
                         style: TextStyle(fontSize: 25),
                       ))

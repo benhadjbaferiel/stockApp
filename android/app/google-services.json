@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "330942556624",
+    "project_id": "gstockdz",
+    "storage_bucket": "gstockdz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330942556624:android:eaa894714f39b9ecedf1d5",
+        "android_client_info": {
+          "package_name": "com.example.stock_dz_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl7q5jzPRr42O7YE3kReTL1wJy9Lg6wS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

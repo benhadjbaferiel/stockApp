@@ -32,7 +32,7 @@ class _ImprimanteState extends State<Imprimante> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('إعدادات الطابعه'),
+        title: const Text('إعدادات الطابعه'),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 176, 171, 86),
       ),
@@ -42,7 +42,7 @@ class _ImprimanteState extends State<Imprimante> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 '                            نوع الطابعه',
                 style: TextStyle(fontSize: 20),
               ),
@@ -63,7 +63,7 @@ class _ImprimanteState extends State<Imprimante> {
                             });
                           },
                         ),
-                        Text('PDF'),
+                        const Text('PDF'),
                       ],
                     ),
                     Row(
@@ -77,8 +77,8 @@ class _ImprimanteState extends State<Imprimante> {
                             });
                           },
                         ),
-                        Text('Bluetooth'),
-                        Text('58/80mm'),
+                        const Text('Bluetooth'),
+                        const Text('58/80mm'),
                       ],
                     ),
                     Row(
@@ -92,8 +92,8 @@ class _ImprimanteState extends State<Imprimante> {
                             });
                           },
                         ),
-                        Text('WIFI'),
-                        Text('58/80mm'),
+                        const Text('WIFI'),
+                        const Text('58/80mm'),
                       ],
                     ),
                     Row(
@@ -107,17 +107,17 @@ class _ImprimanteState extends State<Imprimante> {
                             });
                           },
                         ),
-                        Text('USB'),
-                        Text('58/80mm'),
+                        const Text('USB'),
+                        const Text('58/80mm'),
                       ],
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'DC:0D:30:79:93:6E',
@@ -125,16 +125,16 @@ class _ImprimanteState extends State<Imprimante> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 16.0),
+                  const SizedBox(width: 16.0),
                   ElevatedButton(
                     onPressed: () {
                       // Add search functionality here
                     },
-                    child: Text('بحث'),
+                    child: const Text('بحث'),
                   ),
                 ],
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Row(
                 children: [
                   Radio<String>(
@@ -146,8 +146,8 @@ class _ImprimanteState extends State<Imprimante> {
                       });
                     },
                   ),
-                  Text('80mm'),
-                  SizedBox(width: 3.0),
+                  const Text('80mm'),
+                  const SizedBox(width: 3.0),
                   Radio<String>(
                     value: '58mm',
                     groupValue: paperSize,
@@ -157,12 +157,12 @@ class _ImprimanteState extends State<Imprimante> {
                       });
                     },
                   ),
-                  Text('58mm'),
-                  SizedBox(width: 2),
-                  Text('حجم ورق الطابعه الحراريه'),
+                  const Text('58mm'),
+                  const SizedBox(width: 2),
+                  const Text('حجم ورق الطابعه الحراريه'),
                 ],
               ),
-              Text(
+              const Text(
                   '                                                  نص اسفل فاتورة البيع'),
               TextField(
                 decoration: InputDecoration(
@@ -170,8 +170,8 @@ class _ImprimanteState extends State<Imprimante> {
                       borderRadius: BorderRadius.circular(20)),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text(
+              const SizedBox(height: 16.0),
+              const Text(
                   '                                    A4 نص اسفل التقارير قياس '),
               TextField(
                 decoration: InputDecoration(
@@ -179,42 +179,42 @@ class _ImprimanteState extends State<Imprimante> {
                       borderRadius: BorderRadius.circular(20)),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Row(
                 children: [
                   Container(
                     height: 40,
                     width: 100,
-                    child: TextField(
+                    child: const TextField(
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 90,
                   ),
-                  Text('موقع النص الارتفاع'),
+                  const Text('موقع النص الارتفاع'),
                 ],
               ),
-              SizedBox(height: 16.0),
-              SizedBox(height: 10.0),
-              CustomImpot1(label: "موديل الطابعه الحراريه"),
-              SizedBox(height: 10.0),
-              CustomImpot1(label: "موديل طابعة الباركود"),
-              SizedBox(height: 10.0),
-              CustomImpot1(label: "عدد نسخ الفاتورة"),
-              SizedBox(height: 10.0),
-              CustomImpot1(label: "امر قص الورق"),
-              SizedBox(height: 10.0),
-              CustomImpot1(label: "امر فتح الدرج"),
-              SizedBox(height: 10.0),
-              textimpot(label: '                    حجم الخط'),
-              SizedBox(height: 10.0),
-              textimpot(label: '                  الهامش الايمن'),
-              SizedBox(height: 10.0),
-              textimpot(label: '                  الهامش الايسر'),
+              const SizedBox(height: 16.0),
+              const SizedBox(height: 10.0),
+              const CustomImpot1(label: "موديل الطابعه الحراريه"),
+              const SizedBox(height: 10.0),
+              const CustomImpot1(label: "موديل طابعة الباركود"),
+              const SizedBox(height: 10.0),
+              const CustomImpot1(label: "عدد نسخ الفاتورة"),
+              const SizedBox(height: 10.0),
+              const CustomImpot1(label: "امر قص الورق"),
+              const SizedBox(height: 10.0),
+              const CustomImpot1(label: "امر فتح الدرج"),
+              const SizedBox(height: 10.0),
+              const textimpot(label: '                    حجم الخط'),
+              const SizedBox(height: 10.0),
+              const textimpot(label: '                  الهامش الايمن'),
+              const SizedBox(height: 10.0),
+              const textimpot(label: '                  الهامش الايسر'),
               SwitchListTile(
                   value: imprim1,
                   title:
@@ -224,7 +224,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim1 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim2,
                   title: const Text("اظهار مديونية العميل السابقة في الفاتورة"),
@@ -233,7 +233,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim2 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim3,
                   title: const Text(
@@ -243,7 +243,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim3 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim4,
                   title: const Text("طباعة اسم المنتج في صف مستقل"),
@@ -252,7 +252,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim4 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim5,
                   title: const Text("عرض تاريخ الانتهاء في فاتورة المبيعات A4"),
@@ -261,7 +261,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim5 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim6,
                   title: const Text("عرض رقم المنتج في فاتورة المبيعات A4"),
@@ -270,7 +270,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim6 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim7,
                   title: const Text("اظهار وصف المنتج في الفاتورة"),
@@ -279,7 +279,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim7 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim8,
                   title:
@@ -289,7 +289,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim8 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim9,
                   title: const Text("طباعة الفاتورة مباشرة بعد الحفظ"),
@@ -298,7 +298,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim9 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim10,
                   title: const Text("   الضريبة في فاتورة البيعQRاظهار "),
@@ -307,7 +307,7 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim10 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               SwitchListTile(
                   value: imprim11,
                   title: const Text("اظهار صورة المنتج في فاتورة البيع"),
@@ -316,14 +316,14 @@ class _ImprimanteState extends State<Imprimante> {
                       imprim11 = value;
                     });
                   }),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
-                  Text("تعديل مسميات الفاتورة"),
-                  ElevatedButton(onPressed: () {}, child: Text("تعديل"))
+                  const Text("تعديل مسميات الفاتورة"),
+                  ElevatedButton(onPressed: () {}, child: const Text("تعديل"))
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Center(
@@ -331,7 +331,7 @@ class _ImprimanteState extends State<Imprimante> {
                   onPressed: () {
                     // Save functionality here
                   },
-                  child: Text('حفظ'),
+                  child: const Text('حفظ'),
                 ),
               ),
             ],

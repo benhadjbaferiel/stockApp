@@ -4,19 +4,27 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
+// i added this line
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     namespace = "com.example.stock_dz_app"
-    compileSdk = flutter.compileSdkVersion
+   // i deleted this compileSdk = flutter.compileSdkVersion
+     // i added this 
+       compileSdkVersion 34
+
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+        /*sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8*/
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget =  "11"//JavaVersion.VERSION_1_8
     }
 
     defaultConfig {
@@ -24,10 +32,22 @@ android {
         applicationId = "com.example.stock_dz_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+       // i deleted this          minSdk = flutter.minSdkVersion
+// i added this 
+        minSdkVersion 23
+
+       // i deleted this  targetSdk = flutter.targetSdkVersion
+       // i added this 
+               targetSdkVersion 33
+
+      // i deleted this   versionCode = flutter.versionCode
+       //i added this 
+               versionCode 1
+
+      // i deleted this   versionName = flutter.versionName
+       // i added this 
+               versionName "1.0"
+
     }
 
     buildTypes {

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stock_dz_app/pages/stock_user_pages/show_user.dart';
-import 'package:stock_dz_app/pages/stock_user_pages/user.dart';
+import 'package:stock_dz_app/providers/userProvider.dart';
 
 class AddUser extends StatefulWidget {
-  const AddUser({super.key});
+  final bool isEditing;
+  final Userr? userToEdit;
+  final int? userIndex;
+
+  const AddUser(
+      {this.isEditing = false, this.userToEdit, this.userIndex, super.key});
 
   @override
   State<AddUser> createState() => _AddUserState();
@@ -65,15 +71,181 @@ class _AddUserState extends State<AddUser> {
   bool boolValue50 = true;
   bool boolValue51 = true;
   bool boolValue52 = true;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isEditing && widget.userToEdit != null) {
+      // Initialize controllers and booleans with existing user data
+      username.text = widget.userToEdit!.username;
+      code.text = widget.userToEdit!.code;
+      boolValue = widget.userToEdit!.boolValue;
+      boolValue1 = widget.userToEdit!.boolValue1;
+      boolValue2 = widget.userToEdit!.boolValue2;
+      boolValue3 = widget.userToEdit!.boolValue3;
+      boolValue4 = widget.userToEdit!.boolValue4;
+      boolValue5 = widget.userToEdit!.boolValue5;
+      boolValue6 = widget.userToEdit!.boolValue6;
+      boolValue7 = widget.userToEdit!.boolValue7;
+      boolValue8 = widget.userToEdit!.boolValue8;
+      boolValue9 = widget.userToEdit!.boolValue9;
+      boolValue10 = widget.userToEdit!.boolValue10;
+      boolValue11 = widget.userToEdit!.boolValue11;
+      boolValue12 = widget.userToEdit!.boolValue12;
+      boolValue13 = widget.userToEdit!.boolValue13;
+      boolValue14 = widget.userToEdit!.boolValue14;
+      boolValue15 = widget.userToEdit!.boolValue15;
+      boolValue16 = widget.userToEdit!.boolValue16;
+      boolValue17 = widget.userToEdit!.boolValue17;
+      boolValue18 = widget.userToEdit!.boolValue18;
+      boolValue19 = widget.userToEdit!.boolValue19;
+      boolValue20 = widget.userToEdit!.boolValue20;
+      boolValue21 = widget.userToEdit!.boolValue21;
+      boolValue22 = widget.userToEdit!.boolValue22;
+      boolValue23 = widget.userToEdit!.boolValue23;
+      boolValue24 = widget.userToEdit!.boolValue24;
+      boolValue25 = widget.userToEdit!.boolValue25;
+      boolValue26 = widget.userToEdit!.boolValue26;
+      boolValue27 = widget.userToEdit!.boolValue27;
+      boolValue28 = widget.userToEdit!.boolValue28;
+      boolValue29 = widget.userToEdit!.boolValue29;
+      boolValue30 = widget.userToEdit!.boolValue30;
+      boolValue31 = widget.userToEdit!.boolValue31;
+      boolValue32 = widget.userToEdit!.boolValue32;
+      boolValue33 = widget.userToEdit!.boolValue33;
+      boolValue34 = widget.userToEdit!.boolValue34;
+      boolValue35 = widget.userToEdit!.boolValue35;
+      boolValue36 = widget.userToEdit!.boolValue36;
+      boolValue37 = widget.userToEdit!.boolValue37;
+      boolValue38 = widget.userToEdit!.boolValue38;
+      boolValue39 = widget.userToEdit!.boolValue39;
+      boolValue40 = widget.userToEdit!.boolValue40;
+      boolValue41 = widget.userToEdit!.boolValue41;
+      boolValue42 = widget.userToEdit!.boolValue42;
+      boolValue43 = widget.userToEdit!.boolValue43;
+      boolValue44 = widget.userToEdit!.boolValue44;
+      boolValue45 = widget.userToEdit!.boolValue45;
+      boolValue46 = widget.userToEdit!.boolValue46;
+      boolValue47 = widget.userToEdit!.boolValue47;
+      boolValue48 = widget.userToEdit!.boolValue48;
+      boolValue49 = widget.userToEdit!.boolValue49;
+      boolValue50 = widget.userToEdit!.boolValue50;
+      boolValue51 = widget.userToEdit!.boolValue51;
+      boolValue52 = widget.userToEdit!.boolValue52;
+    }
+  }
+
+  void _saveUser() {
+    if (username.text.isEmpty || code.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('الرجاء ادخال اسم المستخدم والرقم السري'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    final user = Userr(
+      username: username.text,
+      code: code.text,
+      boolValue: boolValue,
+      boolValue1: boolValue1,
+      boolValue2: boolValue2,
+      boolValue3: boolValue3,
+      boolValue4: boolValue4,
+      boolValue5: boolValue5,
+      boolValue6: boolValue6,
+      boolValue7: boolValue7,
+      boolValue8: boolValue8,
+      boolValue9: boolValue9,
+      boolValue10: boolValue10,
+      boolValue11: boolValue11,
+      boolValue12: boolValue12,
+      boolValue13: boolValue13,
+      boolValue14: boolValue14,
+      boolValue15: boolValue15,
+      boolValue16: boolValue16,
+      boolValue17: boolValue17,
+      boolValue18: boolValue18,
+      boolValue19: boolValue19,
+      boolValue20: boolValue20,
+      boolValue21: boolValue21,
+      boolValue22: boolValue22,
+      boolValue23: boolValue23,
+      boolValue24: boolValue24,
+      boolValue25: boolValue25,
+      boolValue26: boolValue26,
+      boolValue27: boolValue27,
+      boolValue28: boolValue28,
+      boolValue29: boolValue29,
+      boolValue30: boolValue30,
+      boolValue31: boolValue31,
+      boolValue32: boolValue32,
+      boolValue33: boolValue33,
+      boolValue34: boolValue34,
+      boolValue35: boolValue35,
+      boolValue36: boolValue36,
+      boolValue37: boolValue37,
+      boolValue38: boolValue38,
+      boolValue39: boolValue39,
+      boolValue40: boolValue40,
+      boolValue41: boolValue41,
+      boolValue42: boolValue42,
+      boolValue43: boolValue43,
+      boolValue44: boolValue44,
+      boolValue45: boolValue45,
+      boolValue46: boolValue46,
+      boolValue47: boolValue47,
+      boolValue48: boolValue48,
+      boolValue49: boolValue49,
+      boolValue50: boolValue50,
+      boolValue51: boolValue51,
+      boolValue52: boolValue52,
+
+      // ... add all your other boolean values
+    );
+
+    if (widget.isEditing && widget.userIndex != null) {
+      // Update existing user
+      context.read<UserProvider>().updateUser(widget.userIndex!, user);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('تم تحديث المستخدم بنجاح'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } else {
+      // Add new user
+      context.read<UserProvider>().addUser(user);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('تم حفظ المستخدم بنجاح'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ShowUsers(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("اضافة مستخدم"),
+        title: Text(widget.isEditing ? "تعديل المستخدم" : "اضافة مستخدم"),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 176, 171, 86),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.save))],
+        actions: [
+          IconButton(
+            onPressed: _saveUser,
+            icon: Icon(Icons.save),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

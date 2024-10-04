@@ -17,18 +17,18 @@ class _ControlState extends State<Control> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('حاسب نفسك'),
+        title: const Text('حاسب نفسك'),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 176, 171, 86),
       ),
       body: SingleChildScrollView(
         child: Column(children: [
-          Text(
+          const Text(
             "      اختر الفترة الزمنية",
             style: TextStyle(fontSize: 20),
           ),
           CustomDate(),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           customtextfield(
@@ -36,12 +36,15 @@ class _ControlState extends State<Control> {
                   '                                            ادخل المبلغ الدي عندك ',
               icon: (Icons.money),
               controller: controller1),
-          SizedBox(
+          const SizedBox(
+            height: 10,
+          ),
+          const SizedBox(
             height: 10,
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Container(
@@ -50,91 +53,89 @@ class _ControlState extends State<Control> {
                 width: 200,
                 color: const Color.fromARGB(255, 226, 209, 209),
               ),
-              SizedBox(width: 10),
-              Text(
-                ":رصيد الصندوق",
-                style: TextStyle(fontSize: 25),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              SizedBox(
-                width: 5,
-              ),
-              Container(
-                //child:Text(item),
-                height: 50,
-                width: 200,
-                color: const Color.fromARGB(255, 226, 209, 209),
-              ),
-              SizedBox(width: 10),
-              Text(
+              const SizedBox(width: 10),
+              const Text(
                 "            : الفرق",
                 style: TextStyle(fontSize: 25),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: 'رصيد الصندوق'),
-          SizedBox(
+          const customControl(label: '                :رصيد الصندوق'),
+          const SizedBox(
             height: 20,
           ),
           Container(
-            height: 40,
-            width: 350,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[200],
-            ),
-            child: Text(
-              "المداخل - المخارج = رصيد الصندوق",
-              style: TextStyle(fontSize: 25),
-            ),
-          ),
-          SizedBox(
+              height: 70,
+              width: 350,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey[200],
+              ),
+              child: Row(children: [
+                Container(
+                  height: 50,
+                  width: 200,
+                  color: const Color.fromARGB(255, 226, 209, 209),
+                  //child:,
+                ),
+                const Text(
+                  "          :المداخل",
+                  style: TextStyle(color: Colors.red, fontSize: 25),
+                ),
+              ])),
+          const SizedBox(
             height: 10,
           ),
-          customControl(
-            label: '                   :المداخل',
-          ),
-          SizedBox(
+          const customControl(label: '          :مدفوعات المبيعات'),
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: '        :مدفوعات المبيعات '),
-          SizedBox(
+          const customControl(label: '            :مدفوعات الزبون'),
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: 'مدفوعات الزبون  '),
-          SizedBox(
+          const customControl(label: '       :مرتجعات من الشراء'),
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: '          :مرتجعات من الشراء'),
-          SizedBox(
+          Container(
+              height: 70,
+              width: 350,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey[200],
+              ),
+              child: Row(children: [
+                Container(
+                  height: 50,
+                  width: 200,
+                  color: const Color.fromARGB(255, 226, 209, 209),
+                  //child:,
+                ),
+                const Text(
+                  "          :المخارج",
+                  style: TextStyle(color: Colors.red, fontSize: 25),
+                ),
+              ])),
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: '                            :المخارج'),
-          SizedBox(
+          const customControl(label: '           :مدفوعات الموردين'),
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: '           :مدفوعات الموردين'),
-          SizedBox(
+          const customControl(label: '             :المرتجعات للزبون'),
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: '             :المرتجعات للزبون'),
-          SizedBox(
+          const customControl(label: '                       : المصاريف'),
+          const SizedBox(
             height: 10,
           ),
-          customControl(label: '                       : المصاريف'),
-          SizedBox(
-            height: 10,
-          ),
-          customControl(label: '            : خصم من الصندوق'),
+          const customControl(label: '           : خصم من الصندوق'),
         ]),
       ),
     );
