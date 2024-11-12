@@ -29,7 +29,7 @@ class _ShowFournisseureRetourState extends State<ShowFournisseureRetour> {
     return Consumer<FournisseureProvider>(
       builder: (context, FournisseurProvider, child) {
         return DefaultTabController(
-          length: FournisseurProvider.categoriess.length,
+          length: FournisseurProvider.categories1.length,
           child: Scaffold(
             appBar: AppBar(
               title: const Text("عرض الموردين"),
@@ -101,13 +101,13 @@ class _ShowFournisseureRetourState extends State<ShowFournisseureRetour> {
               ],
               bottom: TabBar(
                 isScrollable: true,
-                tabs: FournisseurProvider.categoriess
+                tabs: FournisseurProvider.categories1
                     .map((category) => Tab(text: category))
                     .toList(),
               ),
             ),
             body: TabBarView(
-              children: FournisseurProvider.categoriess.map((category) {
+              children: FournisseurProvider.categories1.map((category) {
                 final fournisseurs =
                     FournisseurProvider.getFournisseureByCategory(category);
                 if (fournisseurs.isEmpty) {

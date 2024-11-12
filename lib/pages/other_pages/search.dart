@@ -21,9 +21,6 @@ class _SearchDialogState extends State<SearchDialog> {
   @override
   void initState() {
     super.initState();
-    _filteredFournisseures =
-        Provider.of<FournisseureProvider>(context, listen: false)
-            .getFournisseures;
   }
 
   @override
@@ -70,7 +67,7 @@ class _SearchDialogState extends State<SearchDialog> {
                           final invoice = Invoice(
                               client: Clientt(
                                 name: "jj",
-                                Barcode: 25445,
+                                barcode: 25445,
                                 address: 'fvds',
                                 phoneNumber: 578,
                                 Price: 444,
@@ -90,7 +87,7 @@ class _SearchDialogState extends State<SearchDialog> {
                                   AIF: 8,
                                   RCF: 7,
                                   NISF: 7,
-                                  categorie1: 'rrr'),
+                                  categorie_id: 1),
                               invoiceinfo: InvoiceInfo(
                                   dexc: 'dexc',
                                   dueDate:

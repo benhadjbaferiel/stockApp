@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class Help extends StatelessWidget {
+class Help extends StatefulWidget {
   const Help({super.key});
 
+  @override
+  State<Help> createState() => _HelpState();
+}
+
+class _HelpState extends State<Help> {
+  final String youtubeUrl = 'https://www.youtube.com/@moudirpos';
+  final String supportEmail = 'mailto:Moudirpos@gmail.com';
+  final String facebookUrl =
+      'https://www.facebook.com/people/Moudir-Pos/61567611268056/?mibextid=ZbWKwL';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +69,13 @@ class Help extends StatelessWidget {
                     ],
                   ),
                 ),
-                onTap: () {},
+                onTap: () async {
+                  if (await canLaunch(youtubeUrl)) {
+                    await launch(youtubeUrl);
+                  } else {
+                    throw 'Could not launch $youtubeUrl';
+                  }
+                },
               ),
               SizedBox(
                 height: 20,
@@ -124,7 +140,13 @@ class Help extends StatelessWidget {
                     ],
                   ),
                 ),
-                onTap: () {},
+                onTap: () async {
+                  if (await canLaunch(supportEmail)) {
+                    await launch(supportEmail);
+                  } else {
+                    throw 'Could not launch $supportEmail';
+                  }
+                },
               ),
               SizedBox(
                 height: 20,
@@ -155,7 +177,13 @@ class Help extends StatelessWidget {
                     ],
                   ),
                 ),
-                onTap: () {},
+                onTap: () async {
+                  if (await canLaunch(facebookUrl)) {
+                    await launch(facebookUrl);
+                  } else {
+                    throw 'Could not launch $facebookUrl';
+                  }
+                },
               )
             ],
           ),

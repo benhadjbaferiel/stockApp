@@ -12,6 +12,78 @@ class PresVentes extends StatefulWidget {
 }
 
 class _PresVentesState extends State<PresVentes> {
+  void showDialogue(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            "           تقارير المبيعات ",
+            style: TextStyle(fontSize: 25),
+          ),
+          content: Container(
+            padding: EdgeInsets.all(16),
+            width: double.infinity,
+            child: Column(
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "  تقرير بالمبيعات لفترة",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "   تقرير بالمبيعات حسب الصنف",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("تقرير بالمبيعات حسب التصنيف"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("  تقرير بالمبيعات  النقد"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("تقرير بالمبيعات  الاجل"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("تقرير بالمبيعات  (بطاقة)"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("تقرير بالمبيعات (شيك)"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("تقرير بالمبيعات (الكل)"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("تقرير بالمبيعات حسب عميل"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("تقرير بالمبيعات اكسل"),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(" تقرير بالمبيعات اكسل مع المنتجات"),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +133,7 @@ class _PresVentesState extends State<PresVentes> {
                     "                                                            تقرير  المبيعات  ",
                 Icon: Icons.copy_sharp,
                 callbackHandle: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ShowClient()),
-                  );
+                  showDialogue(context);
                 },
               ),
               SizedBox(

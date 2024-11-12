@@ -6,9 +6,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:label="stock_dz_app"
+        android:label="Modir Pos"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
 
         <!-- Move the provider inside the application tag -->

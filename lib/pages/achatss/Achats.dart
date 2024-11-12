@@ -314,7 +314,6 @@ class AchatsState extends State<Achats> {
   TextEditingController cartonController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   List<Map<String, dynamic>> selectedProducts = [];
-
   // List to store selected products
   TextEditingController prixController = TextEditingController();
   TextEditingController prix1Controller = TextEditingController();
@@ -954,6 +953,7 @@ class AchatsState extends State<Achats> {
                                                     'prix2': product.prix2,
                                                     'prix3': product.prix3,
                                                   });
+
                                                   Navigator.pop(context);
                                                 },
                                                 child: Container(

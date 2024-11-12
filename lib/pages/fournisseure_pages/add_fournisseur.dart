@@ -24,7 +24,6 @@ class _AddFournisseureState extends State<AddFournisseure> {
   final TextEditingController categoriController = TextEditingController();
 
   String? selectedCategory1;
-
   void _saveFournisseure(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       if (nameController.text.isEmpty ||
@@ -52,6 +51,13 @@ class _AddFournisseureState extends State<AddFournisseure> {
         return;
       }
 
+      // Get the category ID based on the selected category name
+      int? categoryId =
+          Provider.of<FournisseureProvider>(context, listen: false)
+                  .categories1
+                  .indexOf(selectedCategory1!) -
+              1; // Adjusting for the initial '---' entry
+
       final Fournisseure fournisseure = Fournisseure(
         nameF: nameController.text,
         addressF: AdressController.text,
@@ -60,16 +66,17 @@ class _AddFournisseureState extends State<AddFournisseure> {
         AIF: int.tryParse(AIController.text) ?? 0,
         RCF: int.tryParse(RCController.text) ?? 0,
         NISF: int.tryParse(NISController.text) ?? 0,
-        categorie1: selectedCategory1!,
+        categorie_id: categoryId!, // Ensure this is set correctly
       );
 
       Provider.of<FournisseureProvider>(context, listen: false)
-          .addFournisseure(fournisseure);
+          .addFournisseur(fournisseure);
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('تمت اضافة المورد بنجاح')),
       );
 
+      // Clear the fields
       nameController.clear();
       PhoneController.clear();
       AdressController.clear();
@@ -131,7 +138,7 @@ class _AddFournisseureState extends State<AddFournisseure> {
                   selectedValue: selectedCategory1,
                   labelText:
                       '                                               التصنيف',
-                  items: Provider.of<FournisseureProvider>(context).categoriess,
+                  items: Provider.of<FournisseureProvider>(context).categories1,
                   onChanged: (String? newValue) {
                     setState(() {
                       selectedCategory1 = newValue;

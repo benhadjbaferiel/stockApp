@@ -11,23 +11,23 @@ class FirstPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: const Color.fromARGB(
-            255, 176, 171, 86), // Background color for the whole page
+            255, 228, 225, 168), // Background color for the whole page
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Image.asset(
-                  'images/5.png',
+                  'images/012.png',
                   width: 500,
                   height: 500,
-                  color: Colors.white,
+                  // color: Colors.white,
                 ),
                 const SizedBox(height: 70),
                 Container(
                   height: 50,
                   width: 150,
                   decoration: BoxDecoration(
-                    color: Colors.black,
+                    color: const Color.fromARGB(255, 98, 176, 240),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: TextButton(

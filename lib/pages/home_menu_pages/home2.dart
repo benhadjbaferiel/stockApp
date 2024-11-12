@@ -29,8 +29,8 @@ class _home2State extends State<home2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 176, 171, 86),
-        title: const Text("StockDz"),
+        backgroundColor: Color.fromARGB(255, 228, 225, 168),
+        title: const Text("ModirPos"),
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -48,7 +48,7 @@ class _home2State extends State<home2> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 176, 171, 86),
+                color: Color.fromARGB(255, 228, 225, 168),
               ),
               child: Text(
                 'Menu',
@@ -175,9 +175,7 @@ class _home2State extends State<home2> {
             ListTile(
               leading: const Icon(Icons.share),
               title: const Text('                        تسجيل الخروج'),
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
-              },
+              onTap: () {},
             ),
           ],
         ),
@@ -299,9 +297,8 @@ class _home2State extends State<home2> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color.fromARGB(255, 227, 227, 231),
-                    ),
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromARGB(255, 231, 241, 247)),
                     height: 150,
                     width: 150,
                     child: Column(

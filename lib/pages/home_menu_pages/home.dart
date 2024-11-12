@@ -24,10 +24,18 @@ class _homeState extends State<home> {
 
   Future<void> _handleLogin() async {
     try {
-      final credential = await _auth.signInWithEmailAndPassword(
+      // Log des tentatives
+      print('Tentative de connexion avec:');
+      print('Email: ${email.text.trim()}');
+      // print('Mot de passe: ${passcode.text}'); // Avoid logging passwords
+
+      // Attempting login
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email.text.trim(),
         password: passcode.text,
       );
+
+      print('Connexion réussie avec UID: ${credential.user?.uid}');
 
       if (credential.user != null) {
         if (!mounted) return;
@@ -37,22 +45,24 @@ class _homeState extends State<home> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      String errorMessage = "";
+      // Log detailed error information
+      print('Erreur de connexion:');
+      print('Code: ${e.code}');
+      print('Message: ${e.message}');
 
+      // Handle specific error codes
+      String errorMessage;
       if (e.code == 'user-not-found') {
-        errorMessage = 'No user found for that email.';
+        errorMessage = 'Utilisateur non trouvé.';
       } else if (e.code == 'wrong-password') {
-        errorMessage = 'Wrong password provided for that user.';
-      } else if (e.code == 'invalid-email') {
-        errorMessage = 'Invalid email format.';
+        errorMessage = 'Mot de passe incorrect.';
       } else {
-        errorMessage = 'An error occurred: ${e.message}';
+        errorMessage = e.code;
       }
 
-      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(errorMessage),
+          content: Text(e.code),
           backgroundColor: Colors.red,
         ),
       );
@@ -75,13 +85,13 @@ class _homeState extends State<home> {
               ),
               const SizedBox(height: 10),
               const Text(
-                "Bienvenue sur StockDz",
-                style: TextStyle(fontSize: 32),
+                "Bienvenue sur Modir Pos",
+                style: TextStyle(fontSize: 30, color: Colors.blue),
               ),
               const SizedBox(height: 20),
               const Text(
                 "البريد الإلكتروني",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: Colors.blue),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -131,9 +141,14 @@ class _homeState extends State<home> {
               const SizedBox(height: 30),
               Center(
                 child: ElevatedButton(
-                  onPressed: _handleLogin,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => home2()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+                    backgroundColor: const Color.fromARGB(255, 228, 225, 168),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 40,
                       vertical: 10,

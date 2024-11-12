@@ -23,12 +23,12 @@ class ShowFournisseure extends StatelessWidget {
     return Consumer<FournisseureProvider>(
       builder: (context, FournisseurProvider, child) {
         return DefaultTabController(
-          length: FournisseurProvider.categoriess.length,
+          length: FournisseurProvider.categories1.length,
           child: Scaffold(
             appBar: AppBar(
               title: const Text("عرض الموردين"),
               centerTitle: true,
-              backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+              backgroundColor: const Color.fromARGB(255, 228, 225, 168),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -95,13 +95,13 @@ class ShowFournisseure extends StatelessWidget {
               ],
               bottom: TabBar(
                 isScrollable: true,
-                tabs: FournisseurProvider.categoriess
+                tabs: FournisseurProvider.categories1
                     .map((category) => Tab(text: category))
                     .toList(),
               ),
             ),
             body: TabBarView(
-              children: FournisseurProvider.categoriess.map((category) {
+              children: FournisseurProvider.categories1.map((category) {
                 final fournisseurs =
                     FournisseurProvider.getFournisseureByCategory(category);
                 if (fournisseurs.isEmpty) {

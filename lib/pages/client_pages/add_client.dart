@@ -31,7 +31,7 @@ class _AddClientState extends State<AddClient> {
   String? selectedPrice;
   String? selectedCategory2;
 
-  void saveClient(BuildContext context) {
+  void saveClient(BuildContext context) async {
     if (nameController.text.isEmpty ||
         barCodeController.text.isEmpty ||
         addressController.text.isEmpty ||
@@ -52,10 +52,10 @@ class _AddClientState extends State<AddClient> {
     }
     final Clientt client = Clientt(
         name: nameController.text,
-        Barcode: int.tryParse(barCodeController.text) ?? 0,
+        barcode: int.tryParse(barCodeController.text) ?? 0,
         address: addressController.text,
         phoneNumber: int.tryParse(phoneController.text) ?? 0,
-        Price: int.tryParse(priceController.text) ?? 0,
+        Price: double.tryParse(priceController.text) ?? 0.0,
         NIF: int.tryParse(nifController.text) ?? 0,
         AI: int.tryParse(aiController.text) ?? 0,
         RC: int.tryParse(rcController.text) ?? 0,
@@ -63,7 +63,7 @@ class _AddClientState extends State<AddClient> {
         MAX: int.tryParse(maxController.text) ?? 0,
         DAYS: int.tryParse(daysController.text) ?? 0,
         categorie: selectedCategory2!);
-
+// here i have to add await
     Provider.of<ClientProvider>(context, listen: false).addClient(client);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('تمت اضافة العميل بنجاح')),

@@ -16,12 +16,26 @@ class SqlDb {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'stock.db');
     Database mydb = await openDatabase(path,
-        onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
+        onCreate: _onCreate, version: 7, onUpgrade: _onUpgrade);
     return mydb;
   }
 
-  _onUpgrade(Database db, int oldversion, int newversion) {
-    print("onUpgradee------------------");
+  _onUpgrade(Database db, int oldversion, int newversion) async {
+    if (oldversion < 5) {
+      await db.execute('''
+      CREATE TABLE IF NOT EXISTS "fournisseure_category" (
+        "idF" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "categoryNameSuppliers" TEXT NOT NULL UNIQUE
+      )
+    ''');
+      await db.execute('''
+  CREATE TABLE IF NOT EXISTS "client_category" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "categoryNameClient" TEXT NOT NULL UNIQUE
+  )
+''');
+    }
+    print("New tables added successfully in version upgrade");
   }
 
   _onCreate(Database db, int version) async {
@@ -41,7 +55,7 @@ class SqlDb {
     "notify" INTEGER NOT NULL , 
     "description" TEXT NOT NULL,
     "date" TEXT NOT NULL ,
-    "image_path" TEXT,
+    "image_path" TEXT
     )
 ''');
     await db.execute('''
@@ -58,50 +72,66 @@ class SqlDb {
     "MAX" INTEGER NOT NULL,
     "address" TEXT NOT NULL ,
     "categorie" TEXT NOT NULL,
-    "DAYS" TEXT NOT NULL,
+    "DAYS" TEXT NOT NULL
     )
 ''');
     await db.execute('''
-    CREATE TABLE "fournisseure"(
-    "id2"  INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "phoneNumberF" INTEGER NOT NULL ,
-    "nameF" TEXT NOT NULL ,
-    "NIFF" REAL NOT NULL ,
-    "AIF" REAL NOT NULL ,
-    "RCF" REAL NOT NULL ,
-    "NISF" REAL NOT NULL ,
-    "categorie1" TEXT NOT NULL ,
-    "addressF" TEXT NOT NULL ,
-    )
+  CREATE TABLE "fournisseure" (
+    "id2" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "phoneNumberF" INTEGER NOT NULL,
+    "nameF" TEXT NOT NULL,
+    "NIFF" REAL NOT NULL,
+    "AIF" REAL NOT NULL,
+    "RCF" REAL NOT NULL,
+    "NISF" REAL NOT NULL,
+    "categorie_id" INTEGER NOT NULL,
+    "addressF" TEXT NOT NULL,
+    FOREIGN KEY ("categorie_id") REFERENCES "fournisseure_category" ("idF") ON DELETE CASCADE
+  )
 ''');
+
+    await db.execute('''
+CREATE TABLE "category"(
+  "id3" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  categoryName TEXT NOT NULL UNIQUE
+)
+''');
+
     print("create  database and tables -------------------");
   }
 
-// SELECT
-  readData(String sql) async {
-    Database? mydb = await db;
-    List<Map> response = await mydb.rawQuery(sql);
-    return response;
+  Future<List<Map<String, dynamic>>> readData(String sql,
+      [List<dynamic>? arguments]) async {
+    Database mydb = await db;
+    if (arguments != null) {
+      return await mydb.rawQuery(sql, arguments);
+    }
+    return await mydb.rawQuery(sql);
   }
 
-//DELETE
-  deleteData(String sql) async {
-    Database? mydb = await db;
-    int response = await mydb.rawDelete(sql);
-    return response;
+  Future<int> deleteData(String sql, [List<dynamic>? arguments]) async {
+    Database mydb = await db;
+    return await mydb.rawDelete(sql, arguments);
   }
 
-// UPDATE
-  UpdateData(String sql) async {
-    Database? mydb = await db;
-    int response = await mydb.rawUpdate(sql);
-    return response;
+  Future<int> updateData(String sql, [List<dynamic>? arguments]) async {
+    Database mydb = await db;
+    return await mydb.rawUpdate(sql, arguments);
   }
 
-// INSERT
-  insertData(String sql) async {
-    Database? mydb = await db;
-    int response = await mydb.rawInsert(sql);
-    return response;
+  Future<int> insertData(String sql, List<dynamic> arguments) async {
+    Database mydb = await db;
+    return await mydb.rawInsert(sql, arguments);
+  }
+
+  Future<List<Map<String, dynamic>>> listTables() async {
+    Database mydb = await db;
+    return await mydb
+        .rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
+  }
+
+  Future<int> insertFournisseur(Map<String, dynamic> fournisseur) async {
+    Database mydb = await db;
+    return await mydb.insert("fournisseure", fournisseur);
   }
 }

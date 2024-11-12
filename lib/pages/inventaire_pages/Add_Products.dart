@@ -64,6 +64,7 @@ class _AddProductState extends State<AddProduct> {
     final DateTime date = _selectedDate ?? DateTime.now();
 
     final Product product = Product(
+      id: 1,
       number: number,
       name: name,
       prix1: prix1,

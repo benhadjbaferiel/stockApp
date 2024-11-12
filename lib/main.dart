@@ -22,6 +22,10 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
+  // Ajout de logs pour vérifier l'initialisation
+  print('Firebase initialisé');
+  print('Firebase Auth instance: ${FirebaseAuth.instance.hashCode}');
+
   runApp(const MyApp());
 }
 
@@ -61,6 +65,7 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: FirstPage(),
       ),
     );

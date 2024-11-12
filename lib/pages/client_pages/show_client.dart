@@ -34,7 +34,7 @@ class _ShowClientState extends State<ShowClient> {
             appBar: AppBar(
               title: const Text("عرض العملاء"),
               centerTitle: true,
-              backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+              backgroundColor: const Color.fromARGB(255, 228, 225, 168),
               actions: [
                 IconButton(
                   onPressed: () {
