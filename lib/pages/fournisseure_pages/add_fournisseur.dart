@@ -51,14 +51,19 @@ class _AddFournisseureState extends State<AddFournisseure> {
         return;
       }
 
-      // Get the category ID based on the selected category name
-      int? categoryId =
-          Provider.of<FournisseureProvider>(context, listen: false)
-                  .categories1
-                  .indexOf(selectedCategory1!) -
-              1; // Adjusting for the initial '---' entry
+      // Get the category ID from the categories list directly
+      int categoryId = Provider.of<FournisseureProvider>(context, listen: false)
+          .categories1
+          .indexOf(selectedCategory1!);
 
-      final Fournisseure fournisseure = Fournisseure(
+      if (categoryId == -1) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid category selected')),
+        );
+        return;
+      }
+
+      final fournisseur = Fournisseure(
         nameF: nameController.text,
         addressF: AdressController.text,
         phoneNumberF: int.tryParse(PhoneController.text) ?? 0,
@@ -66,11 +71,11 @@ class _AddFournisseureState extends State<AddFournisseure> {
         AIF: int.tryParse(AIController.text) ?? 0,
         RCF: int.tryParse(RCController.text) ?? 0,
         NISF: int.tryParse(NISController.text) ?? 0,
-        categorie_id: categoryId!, // Ensure this is set correctly
+        categorie_id: categoryId, // Using category ID
       );
 
       Provider.of<FournisseureProvider>(context, listen: false)
-          .addFournisseur(fournisseure);
+          .addFournisseur(fournisseur);
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('تمت اضافة المورد بنجاح')),
@@ -176,6 +181,14 @@ class _AddFournisseureState extends State<AddFournisseure> {
                   keyboardType: TextInputType.number,
                 ),
                 SizedBox(height: 5),
+                Container(
+                  child: TextButton(
+                    onPressed: () {
+                      _saveFournisseure(context);
+                    },
+                    child: Text('حفظ', style: TextStyle(fontSize: 20)),
+                  ),
+                )
               ],
             ),
           ),

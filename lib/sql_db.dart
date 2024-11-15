@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:stock_dz_app/Models/fournisseure_model.dart';
 
 class SqlDb {
   static Database? _db;
@@ -12,6 +13,17 @@ class SqlDb {
     }
   }
 
+  //---------------------------------------
+
+  Future<List<Fournisseure>> getAllFournisseurs() async {
+    Database mydb = await db;
+    final List<Map<String, dynamic>> maps = await mydb.query('fournisseure');
+    return List.generate(maps.length, (i) {
+      return Fournisseure.fromMap(maps[i]);
+    });
+  }
+
+  //---------------------------------------
   intialDb() async {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'stock.db');
@@ -88,7 +100,7 @@ class SqlDb {
     "addressF" TEXT NOT NULL,
     FOREIGN KEY ("categorie_id") REFERENCES "fournisseure_category" ("idF") ON DELETE CASCADE
   )
-''');
+  ''');
 
     await db.execute('''
 CREATE TABLE "category"(
@@ -96,6 +108,18 @@ CREATE TABLE "category"(
   categoryName TEXT NOT NULL UNIQUE
 )
 ''');
+
+    try {
+      await db.execute('''
+      INSERT INTO "fournisseure" 
+      ("phoneNumberF", "nameF", "NIFF", "AIF", "RCF", "NISF", "categorie_id", "addressF")
+      VALUES
+      (123456789, 'Test Supplier', 987654321, 123456789, 123456789, 123456789, 1, 'Test Address');
+    ''');
+      print('Test fournisseur added successfully');
+    } catch (e) {
+      print('Error adding test fournisseur: $e');
+    }
 
     print("create  database and tables -------------------");
   }
@@ -130,8 +154,9 @@ CREATE TABLE "category"(
         .rawQuery("SELECT name FROM sqlite_master WHERE type='table'");
   }
 
-  Future<int> insertFournisseur(Map<String, dynamic> fournisseur) async {
-    Database mydb = await db;
-    return await mydb.insert("fournisseure", fournisseur);
+  Future<void> insertFournisseur(Map<String, dynamic> fournisseurData) async {
+    final dtb = await db;
+    await dtb.insert('fournisseurs', fournisseurData,
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 }
