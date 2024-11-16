@@ -176,14 +176,6 @@ class _PresachatState extends State<Presachat> {
                   );
                 },
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  List<Map<String, dynamic>> tables =
-                      await SqlDb().listTables();
-                  print("Tables in database: $tables");
-                },
-                child: Text("Check Tables"),
-              ),
               SizedBox(height: 30),
             ],
           ),

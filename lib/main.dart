@@ -9,6 +9,7 @@ import 'package:stock_dz_app/providers/invoiceModelProvider.dart';
 import 'package:stock_dz_app/providers/pack_provider.dart';
 import 'package:stock_dz_app/providers/total_provider.dart';
 import 'package:stock_dz_app/providers/userProvider.dart';
+import 'package:stock_dz_app/sql_db.dart';
 import 'pages/home_menu_pages/first.dart';
 import 'package:provider/provider.dart';
 import 'providers/Product_Provider.dart';
@@ -16,6 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SqlDb.instance.db;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

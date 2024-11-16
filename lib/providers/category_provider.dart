@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:stock_dz_app/Models/product_category_model.dart';
 import 'package:stock_dz_app/sql_db.dart';
 
@@ -7,7 +8,8 @@ class CategoryProvider with ChangeNotifier {
 
   List<CategoryProduct> get categories => _categories;
 
-  final SqlDb _db = SqlDb();
+  final SqlDb _sqlDb = SqlDb.instance;
+  Database? _db;
 
   // Fetch categories from the database on initialization
   CategoryProvider() {
@@ -18,7 +20,7 @@ class CategoryProvider with ChangeNotifier {
     try {
       // Insert the category into the database
       String sql = 'INSERT INTO category (categoryName) VALUES (?)';
-      int result = await _db.insertData(sql, [category.name]);
+      int result = await _sqlDb.insertData(sql, [category.name]);
 
       if (result > 0) {
         // If insertion was successful, fetch the updated categories
@@ -35,7 +37,7 @@ class CategoryProvider with ChangeNotifier {
   Future<void> fetchCategories() async {
     try {
       String sql = 'SELECT * FROM category';
-      List<Map> response = await _db.readData(sql);
+      List<Map> response = await _sqlDb.readData(sql);
 
       _categories = response.map((cat) {
         return CategoryProduct(name: cat['categoryName'], products: []);

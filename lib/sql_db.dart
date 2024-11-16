@@ -4,6 +4,8 @@ import 'package:stock_dz_app/Models/fournisseure_model.dart';
 
 class SqlDb {
   static Database? _db;
+  SqlDb._privateConstructor();
+  static final SqlDb instance = SqlDb._privateConstructor();
   Future<Database> get db async {
     if (_db == null) {
       _db = await intialDb();
@@ -14,6 +16,11 @@ class SqlDb {
   }
 
   //---------------------------------------
+  Future<Database> get database async {
+    if (_db != null) return _db!;
+    _db = await intialDb();
+    return _db!;
+  }
 
   Future<List<Fournisseure>> getAllFournisseurs() async {
     Database mydb = await db;
@@ -28,18 +35,12 @@ class SqlDb {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'stock.db');
     Database mydb = await openDatabase(path,
-        onCreate: _onCreate, version: 7, onUpgrade: _onUpgrade);
+        onCreate: _onCreate, version: 5, onUpgrade: _onUpgrade);
     return mydb;
   }
 
   _onUpgrade(Database db, int oldversion, int newversion) async {
     if (oldversion < 5) {
-      await db.execute('''
-      CREATE TABLE IF NOT EXISTS "fournisseure_category" (
-        "idF" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "categoryNameSuppliers" TEXT NOT NULL UNIQUE
-      )
-    ''');
       await db.execute('''
   CREATE TABLE IF NOT EXISTS "client_category" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -108,8 +109,14 @@ CREATE TABLE "category"(
   categoryName TEXT NOT NULL UNIQUE
 )
 ''');
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS "fournisseure_category" (
+        "idF" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "categoryNameSuppliers" TEXT NOT NULL UNIQUE
+      )
+    ''');
 
-    try {
+    /*try {
       await db.execute('''
       INSERT INTO "fournisseure" 
       ("phoneNumberF", "nameF", "NIFF", "AIF", "RCF", "NISF", "categorie_id", "addressF")
@@ -119,9 +126,14 @@ CREATE TABLE "category"(
       print('Test fournisseur added successfully');
     } catch (e) {
       print('Error adding test fournisseur: $e');
-    }
+    }*/
 
     print("create  database and tables -------------------");
+  }
+
+  Future<List<Map<String, dynamic>>> rawQuery(String sql) async {
+    final dbClient = await db;
+    return await dbClient.rawQuery(sql);
   }
 
   Future<List<Map<String, dynamic>>> readData(String sql,
@@ -156,7 +168,7 @@ CREATE TABLE "category"(
 
   Future<void> insertFournisseur(Map<String, dynamic> fournisseurData) async {
     final dtb = await db;
-    await dtb.insert('fournisseurs', fournisseurData,
+    await dtb.insert('fournisseure', fournisseurData,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 }

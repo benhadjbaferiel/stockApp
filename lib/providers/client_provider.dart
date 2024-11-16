@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:stock_dz_app/sql_db.dart';
 import '/Models/client_model.dart';
 
 class ClientProvider extends ChangeNotifier {
-  final SqlDb _sqlDb = SqlDb();
+  final SqlDb _sqlDb = SqlDb.instance;
+  Database? _db;
   List<String> _categories = [];
   Map<String, List<Clientt>> _clientsByCategory = {};
 

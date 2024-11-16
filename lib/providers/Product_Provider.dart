@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:stock_dz_app/sql_db.dart';
 import '/Models/product_model.dart';
 
 class ProductProvider extends ChangeNotifier {
   List<Product> _products = [];
   List<Product> _deletedProducts = [];
+  final SqlDb _sqlDb = SqlDb.instance;
+  Database? _db;
 
   // Using private list
 
   List<Product> get products => _products;
   List<Product> get deletedProducts => _deletedProducts;
-  final SqlDb sqlDb = SqlDb(); // Initialize SqlDb instance
 
   List<Product> getProductsByCategory(String category) {
     return _products.where((product) => product.category == category).toList();
@@ -22,7 +24,7 @@ class ProductProvider extends ChangeNotifier {
   // Fetch products from the database
   Future<void> fetchProducts() async {
     List<Map<String, dynamic>> data =
-        await sqlDb.readData('SELECT * FROM produits');
+        await _sqlDb.readData('SELECT * FROM produits');
     _products = data
         .map((item) => Product.fromMap(item))
         .toList(); // Convert map to product model
@@ -36,7 +38,7 @@ class ProductProvider extends ChangeNotifier {
       (number, name, prix1, prix2, prix3, prix4, prixachat, carton, quantity, category, notify, description, date, image_path) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ''';
-    await sqlDb.insertData(sql, [
+    await _sqlDb.insertData(sql, [
       product.number,
       product.name,
       product.prix1,
@@ -58,7 +60,7 @@ class ProductProvider extends ChangeNotifier {
 
   // Delete product from the database
   Future<void> deleteProduct(Product product) async {
-    await sqlDb.deleteData('DELETE FROM produits WHERE id = ${product.id}');
+    await _sqlDb.deleteData('DELETE FROM produits WHERE id = ${product.id}');
     _products.remove(product);
     _deletedProducts.add(product);
     notifyListeners();
