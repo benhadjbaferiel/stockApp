@@ -18,9 +18,9 @@ class _CustomDateState extends State<CustomDate> {
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
     );
-    if (pickedDate != null && pickedDate != _selectedDate) {
+    if (pickedDate != _selectedDate) {
       setState(() {
-        _selectedDate = pickedDate;
+        _selectedDate = pickedDate!;
       });
     }
   }

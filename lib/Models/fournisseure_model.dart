@@ -7,7 +7,7 @@ class Fournisseure {
   final int AIF;
   final int RCF;
   final int NISF;
-  final int categorie_id;
+  final int? categorie_id;
 
   Fournisseure({
     this.id,
@@ -36,22 +36,17 @@ class Fournisseure {
 
   factory Fournisseure.fromMap(Map<String, dynamic> map) {
     return Fournisseure(
-      id: map['id'],
-      nameF: map['nameF'],
-      addressF: map['addressF'],
-      phoneNumberF: (map['phoneNumberF'] is double)
-          ? map['phoneNumberF'].toInt()
-          : map['phoneNumberF'],
-      NIFF: (map['NIFF'] is double) ? map['NIFF'].toInt() : map['NIFF'],
-      AIF: (map['AIF'] is double) ? map['AIF'].toInt() : map['AIF'],
-      RCF: (map['RCF'] is double) ? map['RCF'].toInt() : map['RCF'],
-      NISF: (map['NISF'] is double) ? map['NISF'].toInt() : map['NISF'],
-      categorie_id: (map['categorie_id'] is double)
-          ? map['categorie_id'].toInt()
-          : map['categorie_id'],
-    );
+        id: map['id'],
+        nameF: map['nameF'],
+        addressF: map['addressF'],
+        phoneNumberF: map['phoneNumberF'].toInt(),
+        NIFF: map['NIFF'].toInt(),
+        AIF: map['AIF'].toInt(),
+        RCF: map['RCF'].toInt(),
+        NISF: map['NISF'].toInt(),
+        categorie_id: map['categorie_id'] // Ensure this is always an integer
+        );
   }
-
   String get category {
     return 'Category $categorie_id';
   }

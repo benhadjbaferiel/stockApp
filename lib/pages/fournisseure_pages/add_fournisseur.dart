@@ -22,9 +22,10 @@ class _AddFournisseureState extends State<AddFournisseure> {
   final TextEditingController RCController = TextEditingController();
   final TextEditingController NISController = TextEditingController();
   final TextEditingController categoriController = TextEditingController();
+  int? selectedCategoryIndex;
 
   String? selectedCategory1;
-  void _saveFournisseure(BuildContext context) {
+  Future<void> _saveFournisseure(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       if (nameController.text.isEmpty ||
           AdressController.text.isEmpty ||
@@ -52,16 +53,17 @@ class _AddFournisseureState extends State<AddFournisseure> {
       }
 
       // Get the category ID from the categories list directly
-      int categoryId = Provider.of<FournisseureProvider>(context, listen: false)
+      /*int categoryId = Provider.of<FournisseureProvider>(context, listen: false)
           .categories1
-          .indexOf(selectedCategory1!);
+          .indexOf(selectedCategory1!);*/
+      int? categoryId = await Provider.of<FournisseureProvider>(context, listen: false)
+    .getCategoryId(selectedCategory1!);
 
-      if (categoryId == -1) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid category selected')),
-        );
-        return;
-      }
+if (categoryId != null) {
+  print('Category ID is $categoryId');
+} else {
+  print('Category not found');
+}
 
       final fournisseur = Fournisseure(
         nameF: nameController.text,

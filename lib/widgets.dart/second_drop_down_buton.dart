@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class dropDownButton extends StatefulWidget {
+class SecondDropDownButon extends StatefulWidget {
   final String? selectedValue;
   final String labelText;
   final List<String> items;
   TextEditingController? controller;
-  final void Function(String?)? onChanged; // Update the type
+  final void Function(int?)? onChanged; // Update the type to accept index
 
-  dropDownButton({
+  SecondDropDownButon({
     Key? key,
     required this.selectedValue,
     required this.labelText,
@@ -18,20 +17,18 @@ class dropDownButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<dropDownButton> createState() => _dropDownButtonState();
+  State<SecondDropDownButon> createState() => _dropDownButtonState();
 }
 
-class _dropDownButtonState extends State<dropDownButton> {
-  String? _currentValue;
+class _dropDownButtonState extends State<SecondDropDownButon> {
+  late String _currentValue;
 
   @override
   void initState() {
     super.initState();
     if (widget.selectedValue != null &&
         widget.items.contains(widget.selectedValue)) {
-      _currentValue = widget.selectedValue;
-    } else {
-      _currentValue = null; // Set to null if the value is invalid
+      _currentValue = widget.selectedValue!;
     }
   }
 
@@ -53,10 +50,11 @@ class _dropDownButtonState extends State<dropDownButton> {
       }).toList(),
       onChanged: (value) {
         setState(() {
-          _currentValue = value;
+          _currentValue = value!;
         });
         if (widget.onChanged != null) {
-          widget.onChanged!(value);
+          int selectedIndex = widget.items.indexOf(value!);
+          widget.onChanged!(selectedIndex);
         }
       },
     );

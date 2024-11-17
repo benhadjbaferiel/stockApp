@@ -7,6 +7,7 @@ class FournisseureProvider extends ChangeNotifier {
   final SqlDb _sqlDb = SqlDb.instance;
   Database? _db;
   List<Fournisseure> _fournisseurs = [];
+  List<Fournisseure> fournisseursdeleted = [];
   List<String> _categories1 = ['---'];
 
   //-----------------------------------------------------
@@ -22,6 +23,120 @@ class FournisseureProvider extends ChangeNotifier {
   List<Fournisseure> getSuppliersByCategory(int categoryId) {
     return _fournisseurs.where((f) => f.categorie_id == categoryId).toList();
   }
+
+  Future<void> deleteFournisseur(String name) async {
+    try {
+      // Ensure the database is initialized
+      await _sqlDb.intialDb();
+
+      // Delete the fournisseur from the database
+      int result = await _sqlDb.delete('fournisseure', 'nameF = ?', [name]);
+
+      if (result > 0) {
+        print('Fournisseur with name $name deleted successfully');
+
+        // Reload fournisseurs to update the UI
+        await loadFournisseurs();
+      } else {
+        print('No fournisseur found with ID $name');
+      }
+    } catch (e) {
+      print('Error deleting fournisseur: $e');
+    }
+  }
+
+  Future<void> deleteCategory(String categoryName) async {
+    List<Map<String, dynamic>> categoryResult = await _sqlDb.rawQuery1(
+      'SELECT idF FROM fournisseure_category WHERE categoryNameSuppliers = ?',
+      [categoryName],
+    );
+    try {
+      int categoryId = categoryResult.first['idF'];
+      // Ensure the database is initialized
+      await _sqlDb.intialDb();
+
+      // Delete the category from the database
+      int result =
+          await _sqlDb.delete('fournisseure_category', 'idF = ?', [categoryId]);
+
+      if (result > 0) {
+        print('Category with ID $categoryId deleted successfully');
+
+        // Reload categories and fournisseurs to update the UI
+        await loadCategories();
+        await loadFournisseurs();
+      } else {
+        print('No category found with ID $categoryId');
+      }
+    } catch (e) {
+      print('Error deleting category: $e');
+    }
+  }
+
+  //----get category id ----------------------------
+  Future<int?> getCategoryId(String categoryName) async {
+    try {
+      await _sqlDb.intialDb();
+      List<Map<String, dynamic>> result = await _sqlDb.rawQuery1(
+        'SELECT idF FROM fournisseure_category WHERE categoryNameSuppliers = ?',
+        [categoryName],
+      );
+
+      if (result.isNotEmpty) {
+        return result.first['idF'];
+      } else {
+        print('Category $categoryName not found');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching category ID: $e');
+      return null;
+    }
+  }
+  //---------------------------------------------------
+
+  Future<void> deleteSupplierbyCategory(String categoryName) async {
+  try {
+    // Ensure the database is initialized
+    await _sqlDb.intialDb();
+
+    // Step 1: Get the category ID for the given category name
+    List<Map<String, dynamic>> categoryResult = await _sqlDb.rawQuery1(
+      'SELECT idF FROM fournisseure_category WHERE categoryNameSuppliers = ?',
+      [categoryName],
+    );
+
+    if (categoryResult.isEmpty) {
+      print('Category not found');
+      return;
+    }
+
+    int categoryId = categoryResult.first['idF'];
+    print('Category ID for $categoryName: $categoryId');
+
+    // Step 2: Delete suppliers with the corresponding category_id
+    int deleteCount = await _sqlDb.delete(
+      'fournisseure',
+      'categorie_id = ?',
+      [categoryId],
+    );
+
+    if (deleteCount > 0) {
+      print('Successfully deleted $deleteCount suppliers for category $categoryName');
+    } else {
+      print('No suppliers found for category $categoryName');
+    }
+
+    // Reload categories and fournisseurs to update the UI
+    await loadCategories();
+    await loadFournisseurs();
+  } catch (e) {
+    print('Error deleting suppliers for category $categoryName: $e');
+  }
+}
+
+
+// Assuming this is your delete method for suppliers
 
   //---------------------------------------------------------
 
@@ -74,10 +189,6 @@ class FournisseureProvider extends ChangeNotifier {
     }
   }
 
-  /*List<Fournisseure> getFournisseureByCategory(String category) {
-    return _fournisseurs.where((f) => f.category == category).toList();
-  }*/
-
   // Getter for fournisseurs list
   List<Fournisseure> get fournisseurs => _fournisseurs;
 
@@ -111,4 +222,38 @@ class FournisseureProvider extends ChangeNotifier {
     int categoryId = _categories1.indexOf(category);
     return _fournisseurs.where((f) => f.categorie_id == categoryId).toList();
   }
+  Future<List<Fournisseure>> getFournisseureByCategory1(String category) async {
+  try {
+    // If '---' is selected, return all suppliers
+    if (category == '---') {
+      return _fournisseurs;
+    }
+
+    // Get the category ID from the category name
+    final categoryId = await getCategoryId(category);
+    if (categoryId == null) {
+      print('No category ID found for category: $category');
+      return [];
+    }
+
+    // Query the database for all suppliers with the matching category_id
+    final data = await _sqlDb.readData(
+      'SELECT * FROM fournisseure WHERE categorie_id = ?',
+      [categoryId],
+    );
+
+    // Map the result to a list of Fournisseure objects
+    List<Fournisseure> suppliers = data.map((map) => Fournisseure.fromMap(map)).toList();
+
+    // Optionally, update the in-memory list
+    _fournisseurs = suppliers;
+
+    return suppliers;
+  } catch (e) {
+    print('Error in getFournisseureByCategory: $e');
+    return [];
+  }
+}
+
+
 }

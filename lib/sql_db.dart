@@ -8,11 +8,10 @@ class SqlDb {
   static final SqlDb instance = SqlDb._privateConstructor();
   Future<Database> get db async {
     if (_db == null) {
+      // Initialize the database if it's null
       _db = await intialDb();
-      return _db!;
-    } else {
-      return _db!;
     }
+    return _db!;
   }
 
   //---------------------------------------
@@ -28,6 +27,17 @@ class SqlDb {
     return List.generate(maps.length, (i) {
       return Fournisseure.fromMap(maps[i]);
     });
+  }
+
+  Future<int> delete(
+      String table, String whereClause, List<dynamic> whereArgs) async {
+    try {
+      final db = await intialDb(); // Ensure the database is initialized
+      return await db.delete(table, where: whereClause, whereArgs: whereArgs);
+    } catch (e) {
+      print('Error executing delete on $table: $e');
+      return 0;
+    }
   }
 
   //---------------------------------------
@@ -89,6 +99,12 @@ class SqlDb {
     )
 ''');
     await db.execute('''
+      CREATE TABLE IF NOT EXISTS "fournisseure_category" (
+        "idF" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "categoryNameSuppliers" TEXT NOT NULL UNIQUE
+      )
+    ''');
+    await db.execute('''
   CREATE TABLE "fournisseure" (
     "id2" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "phoneNumberF" INTEGER NOT NULL,
@@ -109,12 +125,6 @@ CREATE TABLE "category"(
   categoryName TEXT NOT NULL UNIQUE
 )
 ''');
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS "fournisseure_category" (
-        "idF" INTEGER PRIMARY KEY AUTOINCREMENT,
-        "categoryNameSuppliers" TEXT NOT NULL UNIQUE
-      )
-    ''');
 
     /*try {
       await db.execute('''
@@ -129,6 +139,12 @@ CREATE TABLE "category"(
     }*/
 
     print("create  database and tables -------------------");
+  }
+
+  Future<List<Map<String, dynamic>>> rawQuery1(String sql,
+      [List<dynamic>? arguments]) async {
+    final dbClient = await db;
+    return await dbClient.rawQuery(sql, arguments);
   }
 
   Future<List<Map<String, dynamic>>> rawQuery(String sql) async {
