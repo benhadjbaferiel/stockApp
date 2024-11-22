@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stock_dz_app/pages/inventaire_pages/show_pack.dart';
 import 'package:stock_dz_app/providers/pack_provider.dart';
+import 'package:stock_dz_app/widgets.dart/multi_select_drop_down_buton.dart';
 import '/Models/product_model.dart';
 import '../../providers/Product_Provider.dart';
 import '/Models/pack_model.dart';
@@ -50,27 +50,30 @@ class _AddPackState extends State<AddPack> {
               ),
               SizedBox(height: 8),
               Consumer<ProductProvider>(
-                  builder: (context, productProvider, child) {
-                return DropdownButtonFormField<Product>(
-                  hint: const Text('اختر منتج'),
-                  value: selectedProduct,
-                  items: productProvider.products.map((product) {
-                    return DropdownMenuItem<Product>(
-                      value: product,
-                      child: Text('${product.name} - ${product.prix1} د.ج'),
-                    );
-                  }).toList(),
-                  onChanged: (Product? newValue) {
-                    setState(() {
-                      selectedProduct = newValue;
-                      if (selectedProduct != null &&
-                          !selectedProducts.contains(selectedProduct)) {
-                        selectedProducts.add(selectedProduct!);
-                      }
-                    });
-                  },
-                );
-              }),
+                builder: (context, productProvider, child) {
+                  return GestureDetector(
+                    onTap: () =>
+                        _openMultiSelectDialog(context, productProvider),
+                    child: InputDecorator(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'اختر منتج',
+                        labelStyle: TextStyle(fontSize: 16),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      ),
+                      child: Text(
+                        selectedProducts.isEmpty
+                            ? 'اختر المنتجات'
+                            : selectedProducts
+                                .map((product) => product.name)
+                                .join(', '),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  );
+                },
+              ),
               SizedBox(height: 16),
               Text(
                 "المنتجات المختارة",
@@ -164,5 +167,25 @@ class _AddPackState extends State<AddPack> {
         ),
       ),
     );
+  }
+
+  void _openMultiSelectDialog(
+      BuildContext context, ProductProvider productProvider) async {
+    final List<Product> selectedItems = await showDialog<List<Product>>(
+          context: context,
+          builder: (context) {
+            return MultiSelectDialog(
+              items: productProvider.products,
+              selectedItems: selectedProducts,
+            );
+          },
+        ) ??
+        [];
+
+    if (selectedItems.isNotEmpty && selectedItems != selectedProducts) {
+      setState(() {
+        selectedProducts = selectedItems;
+      });
+    }
   }
 }

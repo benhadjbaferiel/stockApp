@@ -191,7 +191,7 @@ class _editPriceState extends State<editPrice> {
                             items: categories.map((category) {
                               return DropdownMenuItem<CategoryProduct>(
                                 value: category,
-                                child: Text(category.name),
+                                child: Text(category.CategoryPname),
                               );
                             }).toList(),
                             onChanged: (CategoryProduct? newValue) {
@@ -215,7 +215,7 @@ class _editPriceState extends State<editPrice> {
                           return DropdownMenuItem<CategoryProduct>(
                             value: category,
                             child: Text(category
-                                .name), // Assuming CategoryProduct has a name property
+                                .CategoryPname), // Assuming CategoryProduct has a name property
                           );
                         }).toList(),
                         onChanged: (CategoryProduct? newValue) {

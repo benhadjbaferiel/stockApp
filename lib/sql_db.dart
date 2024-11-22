@@ -45,23 +45,31 @@ class SqlDb {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'stock.db');
     Database mydb = await openDatabase(path,
-        onCreate: _onCreate, version: 5, onUpgrade: _onUpgrade);
+        onCreate: _onCreate, version: 1, onUpgrade: _onUpgrade);
     return mydb;
   }
 
   _onUpgrade(Database db, int oldversion, int newversion) async {
-    if (oldversion < 5) {
-      await db.execute('''
-  CREATE TABLE IF NOT EXISTS "client_category" (
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "categoryNameClient" TEXT NOT NULL UNIQUE
-  )
-''');
-    }
+    if (oldversion < 5) {}
     print("New tables added successfully in version upgrade");
   }
 
   _onCreate(Database db, int version) async {
+    await db.execute('''
+CREATE TABLE "packs"(
+  "idpack" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "packName" TEXT NOT NULL UNIQUE,
+  "packprice" REAL NOT NULL ,
+    "packquantity" INTEGER NOT NULL
+)
+''');
+    await db.execute('''
+CREATE TABLE "categoryP"(
+  "id8" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "categoryPName" TEXT NOT NULL UNIQUE
+  
+)
+''');
     await db.execute('''
     CREATE TABLE "produits"(
     "id"  INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -74,13 +82,23 @@ class SqlDb {
     "prixachat" REAL NOT NULL ,
     "carton" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
-    "category" TEXT NOT NULL ,
     "notify" INTEGER NOT NULL , 
     "description" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
     "date" TEXT NOT NULL ,
-    "image_path" TEXT
+    "image_path" TEXT,
+    "idP" INTEGER NOT NULL,
+    FOREIGN KEY ("idP") REFERENCES "categoryP" ("id8") ON DELETE CASCADE
     )
 ''');
+
+    await db.execute('''
+CREATE TABLE "categoryC"(
+  "id3" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "categoryName" TEXT NOT NULL UNIQUE
+)
+''');
+
     await db.execute('''
     CREATE TABLE "clients"(
     "id1"  INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT ,
@@ -94,8 +112,9 @@ class SqlDb {
     "phoneNumber" INTEGER NOT NULL,
     "MAX" INTEGER NOT NULL,
     "address" TEXT NOT NULL ,
-    "categorie" TEXT NOT NULL,
-    "DAYS" TEXT NOT NULL
+    "DAYS" TEXT NOT NULL,
+    "idC" INTEGER NOT NULL,
+    FOREIGN KEY ("idC") REFERENCES "categoryC" ("id3") ON DELETE CASCADE
     )
 ''');
     await db.execute('''
@@ -118,25 +137,6 @@ class SqlDb {
     FOREIGN KEY ("categorie_id") REFERENCES "fournisseure_category" ("idF") ON DELETE CASCADE
   )
   ''');
-
-    await db.execute('''
-CREATE TABLE "category"(
-  "id3" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  categoryName TEXT NOT NULL UNIQUE
-)
-''');
-
-    /*try {
-      await db.execute('''
-      INSERT INTO "fournisseure" 
-      ("phoneNumberF", "nameF", "NIFF", "AIF", "RCF", "NISF", "categorie_id", "addressF")
-      VALUES
-      (123456789, 'Test Supplier', 987654321, 123456789, 123456789, 123456789, 1, 'Test Address');
-    ''');
-      print('Test fournisseur added successfully');
-    } catch (e) {
-      print('Error adding test fournisseur: $e');
-    }*/
 
     print("create  database and tables -------------------");
   }
@@ -185,6 +185,24 @@ CREATE TABLE "category"(
   Future<void> insertFournisseur(Map<String, dynamic> fournisseurData) async {
     final dtb = await db;
     await dtb.insert('fournisseure', fournisseurData,
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<void> insertClient(Map<String, dynamic> clientData) async {
+    final dtb = await db;
+    await dtb.insert('clients', clientData,
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<void> insertCategotyP(Map<String, dynamic> categotyPData) async {
+    final dtb = await db;
+    await dtb.insert('CategoryP', categotyPData,
+        conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<void> insertProduct(Map<String, dynamic> produitData) async {
+    final dtb = await db;
+    await dtb.insert('produits', produitData,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 }

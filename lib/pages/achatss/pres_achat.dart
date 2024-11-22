@@ -6,7 +6,6 @@ import 'package:stock_dz_app/invoice_achat/invoiceItem.dart';
 import 'package:stock_dz_app/invoice_achat/invoice_info.dart';
 import 'package:stock_dz_app/pages/achatss/cancel_facture.dart';
 import 'package:stock_dz_app/pages/achatss/show_Facture%20_Achats.dart';
-import 'package:stock_dz_app/sql_db.dart';
 import '../fournisseure_pages/show_fournisseure.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
 

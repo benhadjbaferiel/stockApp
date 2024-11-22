@@ -916,7 +916,7 @@ class AchatsState extends State<Achats> {
                                 builder: (BuildContext context) {
                                   final products =
                                       Provider.of<ProductProvider>(context)
-                                          .getProductsByCategory(category.name);
+                                          .getProductsByCategory(category);
 
                                   return Container(
                                     width: double.infinity,
@@ -925,7 +925,7 @@ class AchatsState extends State<Achats> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          category.name,
+                                          category.CategoryPname,
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -1013,7 +1013,7 @@ class AchatsState extends State<Achats> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
-                                category.name,
+                                category.CategoryPname,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,

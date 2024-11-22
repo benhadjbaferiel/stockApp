@@ -107,7 +107,7 @@ class _ShowClientImpotState extends State<ShowClientImpot> {
               children: clientProvider.categories
                   .map((category) => ListView(
                         children: clientProvider
-                            .getClientsByCategory(category)
+                            .getclientsByCategory(category)
                             .map(
                               (client) => ListTile(
                                 leading: Container(

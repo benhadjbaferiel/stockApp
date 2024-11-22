@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:stock_dz_app/Models/product_category_model.dart';
 import 'package:stock_dz_app/sql_db.dart';
 import '/Models/product_model.dart';
 
@@ -14,7 +15,7 @@ class ProductProvider extends ChangeNotifier {
   List<Product> get products => _products;
   List<Product> get deletedProducts => _deletedProducts;
 
-  List<Product> getProductsByCategory(String category) {
+  List<Product> getProductsByCategory(CategoryProduct category) {
     return _products.where((product) => product.category == category).toList();
   }
 
@@ -31,31 +32,13 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Add product to the database
-  Future<void> addProduct(Product product) async {
-    String sql = '''
-      INSERT INTO produits 
-      (number, name, prix1, prix2, prix3, prix4, prixachat, carton, quantity, category, notify, description, date, image_path) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''';
-    await _sqlDb.insertData(sql, [
-      product.number,
-      product.name,
-      product.prix1,
-      product.prix2,
-      product.prix3,
-      product.prix4,
-      product.prixAchat,
-      product.carton,
-      product.quantity,
-      product.category,
-      product.notify,
-      product.description,
-      product.date.toIso8601String(),
-      product.image?.path,
-    ]);
-    _products.add(product); // Add product to the list
-    notifyListeners();
+  Future<void> addProductToDb(Product product) async {
+    try {
+      await _sqlDb.insertProduct(product.toMap()); // Save the supplier in DB
+      print("product added to the DB");
+    } catch (e) {
+      print('Error adding product to DB: $e');
+    }
   }
 
   // Delete product from the database
@@ -77,5 +60,40 @@ class ProductProvider extends ChangeNotifier {
   Future<void> permanentlyDeleteProduct(Product product) async {
     _deletedProducts.remove(product);
     notifyListeners();
+  }
+
+  Future<int?> getCategoryId(String categoryName) async {
+    try {
+      await _sqlDb.intialDb();
+      List<Map<String, dynamic>> result = await _sqlDb.rawQuery1(
+        'SELECT id8 FROM categoryP WHERE categoryPName = ?',
+        [categoryName],
+      );
+
+      if (result.isNotEmpty) {
+        return result.first['id8'];
+      } else {
+        print('Category $categoryName not found');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching category ID: $e');
+      return null;
+    }
+  }
+
+  Future<void> loadproducts() async {
+    print('load products');
+    try {
+      _products.clear();
+      List<Map<String, dynamic>> result =
+          await _sqlDb.rawQuery('SELECT * FROM produits');
+
+      print('Query result: $result');
+      _products = result.map((item) => Product.fromMap(item)).toList();
+      notifyListeners();
+    } catch (e) {
+      print('Error loading products: $e');
+    }
   }
 }

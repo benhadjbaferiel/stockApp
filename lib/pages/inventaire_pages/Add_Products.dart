@@ -32,7 +32,7 @@ class _AddProductState extends State<AddProduct> {
   DateTime? _selectedDate;
   String? _selectedCategory;
   // Function to save the product
-  void _saveProduct(BuildContext context) {
+  Future<void> _saveProduct(BuildContext context) async {
     if (_numberController.text.isEmpty ||
         _nameController.text.isEmpty ||
         _prix1Controller.text.isEmpty ||
@@ -62,6 +62,8 @@ class _AddProductState extends State<AddProduct> {
     final int notify = int.tryParse(_notifyController.text) ?? 0;
     final String description = _descriptionController.text;
     final DateTime date = _selectedDate ?? DateTime.now();
+    int? idP = await Provider.of<ProductProvider>(context, listen: false)
+        .getCategoryId(_selectedCategory!);
 
     final Product product = Product(
       id: 1,
@@ -79,9 +81,11 @@ class _AddProductState extends State<AddProduct> {
       description: description,
       date: date,
       image: image,
+      idP: idP,
     );
 
-    Provider.of<ProductProvider>(context, listen: false).addProduct(product);
+    Provider.of<ProductProvider>(context, listen: false)
+        .addProductToDb(product);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('تمت اضافة المنتج بنجاح')),
@@ -196,16 +200,17 @@ class _AddProductState extends State<AddProduct> {
 
                       // Set initial value if not set or invalid
                       if (_selectedCategory == null ||
-                          !categories.any((c) => c.name == _selectedCategory)) {
-                        _selectedCategory = categories[0].name;
+                          !categories.any(
+                              (c) => c.CategoryPname == _selectedCategory)) {
+                        _selectedCategory = categories[0].CategoryPname;
                       }
 
                       return DropdownButton<String>(
                         value: _selectedCategory,
                         items: categories.map((category) {
                           return DropdownMenuItem<String>(
-                            value: category.name,
-                            child: Text(category.name),
+                            value: category.CategoryPname,
+                            child: Text(category.CategoryPname),
                           );
                         }).toList(),
                         onChanged: (newValue) {

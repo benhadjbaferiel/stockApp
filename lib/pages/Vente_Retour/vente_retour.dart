@@ -934,7 +934,7 @@ class _VenteRetourState extends State<VenteRetour> {
                                 builder: (BuildContext context) {
                                   final products =
                                       Provider.of<ProductProvider>(context)
-                                          .getProductsByCategory(category.name);
+                                          .getProductsByCategory(category);
 
                                   return Container(
                                     width: double.infinity,
@@ -943,7 +943,7 @@ class _VenteRetourState extends State<VenteRetour> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          category.name,
+                                          category.CategoryPname,
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -1023,7 +1023,7 @@ class _VenteRetourState extends State<VenteRetour> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
-                                category.name,
+                                category.CategoryPname,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,

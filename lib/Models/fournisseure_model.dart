@@ -47,7 +47,4 @@ class Fournisseure {
         categorie_id: map['categorie_id'] // Ensure this is always an integer
         );
   }
-  String get category {
-    return 'Category $categorie_id';
-  }
 }

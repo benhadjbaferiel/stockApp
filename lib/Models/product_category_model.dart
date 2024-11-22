@@ -1,11 +1,25 @@
-import 'package:stock_dz_app/Models/product_model.dart';
-
 class CategoryProduct {
-  final String name;
-  final List<Product> products;
+  int? id;
+  final String CategoryPname;
 
   CategoryProduct({
-    required this.name,
-    required this.products,
+    this.id,
+    required this.CategoryPname,
   });
+  Map<String, dynamic> toMap() {
+    return {
+      'id8': id,
+      'categoryPName': CategoryPname,
+    };
+  }
+
+  factory CategoryProduct.fromMap(Map<String, dynamic> map) {
+    return CategoryProduct(
+      id: map['id8'],
+      CategoryPname: map['categoryPName'],
+    );
+  }
+  String Getcategoryname(String c) {
+    return c = this.CategoryPname;
+  }
 }

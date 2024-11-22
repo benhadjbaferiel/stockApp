@@ -25,12 +25,12 @@ class _ShowProductbycategoryState extends State<ShowProductbycategory> {
               onTap: () {
                 // Show products for the selected category
                 final products = productProvider.getProductsByCategory(
-                    category.name); // Adjust based on your Category model
+                    category); // Adjust based on your Category model
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
                     title: Text(category
-                        .name), // Adjust according to your Category model
+                        .CategoryPname), // Adjust according to your Category model
                     content: ListView.builder(
                       itemCount: products.length,
                       itemBuilder: (context, index) {
@@ -54,7 +54,7 @@ class _ShowProductbycategoryState extends State<ShowProductbycategory> {
                 margin: EdgeInsets.symmetric(vertical: 8.0),
                 color: const Color.fromARGB(255, 172, 161, 6),
                 child: Text(
-                  category.name, // Adjust based on your Category model
+                  category.CategoryPname, // Adjust based on your Category model
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),

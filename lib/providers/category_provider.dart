@@ -5,6 +5,7 @@ import 'package:stock_dz_app/sql_db.dart';
 
 class CategoryProvider with ChangeNotifier {
   List<CategoryProduct> _categories = [];
+  List<String> _categories1 = [];
 
   List<CategoryProduct> get categories => _categories;
 
@@ -12,41 +13,26 @@ class CategoryProvider with ChangeNotifier {
   Database? _db;
 
   // Fetch categories from the database on initialization
-  CategoryProvider() {
-    fetchCategories();
-  }
+  CategoryProvider() {}
 
-  Future<void> addCategory(CategoryProduct category) async {
+  Future<void> addCategory(CategoryProduct C) async {
     try {
-      // Insert the category into the database
-      String sql = 'INSERT INTO category (categoryName) VALUES (?)';
-      int result = await _sqlDb.insertData(sql, [category.name]);
-
-      if (result > 0) {
-        // If insertion was successful, fetch the updated categories
-        await fetchCategories();
-      } else {
-        print('Insertion failed. Result: $result');
-      }
+      await _sqlDb.insertCategotyP(C.toMap());
+      _categories.add(C);
+      print("Supplier added to the DB");
     } catch (e) {
-      print('Error adding category: $e');
+      print('Error adding fournisseur to DB: $e');
     }
   }
 
-  // Fetch categories from the database
-  Future<void> fetchCategories() async {
+  Future<void> loadCategories() async {
+    print('load category');
     try {
-      String sql = 'SELECT * FROM category';
-      List<Map> response = await _sqlDb.readData(sql);
-
-      _categories = response.map((cat) {
-        return CategoryProduct(name: cat['categoryName'], products: []);
-      }).toList();
-
-      notifyListeners(); // Update the UI after fetching data
+      final data = await _sqlDb.readData('SELECT * FROM categoryP');
+      _categories1 = [...data.map((item) => item['categoryPName'] as String)];
+      notifyListeners();
     } catch (e) {
-      print('Error fetching categories: $e');
-      // Handle any errors here
+      print('Error loading categories: $e');
     }
   }
 }
