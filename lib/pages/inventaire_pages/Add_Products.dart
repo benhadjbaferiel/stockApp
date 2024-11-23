@@ -147,11 +147,24 @@ class _AddProductState extends State<AddProduct> {
             CustoM_TextField8AddProduct(
               label: 'رقم المنتج',
               controller: _numberController,
-              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
-            CustoM_TextField8AddProduct(
-              label: 'اسم المنتج',
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'اسم المنتج',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                filled: true,
+                fillColor: Colors.grey[200],
+              ),
+              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
               controller: _nameController,
             ),
             const SizedBox(height: 10),
@@ -168,19 +181,16 @@ class _AddProductState extends State<AddProduct> {
             CustoM_TextField8AddProduct(
               label: 'سعر الشراء',
               controller: _prixAchatController,
-              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(
               label: "الكرطونة",
               controller: _cartonNumberController,
-              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(
               label: "الكمية",
               controller: _quantityController,
-              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             Container(
@@ -232,12 +242,25 @@ class _AddProductState extends State<AddProduct> {
             CustoM_TextField8AddProduct(
               label: "حد الطلب(انذار عندما يصل المنتج الى الكمية)",
               controller: _notifyController,
-              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
-            CustoM_TextField8AddProduct(
-              label: "الوصف",
-              controller: _descriptionController,
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: "الوصف",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                filled: true,
+                fillColor: Colors.grey[200],
+              ),
+              keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              controller: _nameController,
             ),
             const SizedBox(height: 10),
             const Text("تاريخ الانتهاء", style: TextStyle(fontSize: 25)),
