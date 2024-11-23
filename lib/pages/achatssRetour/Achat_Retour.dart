@@ -914,7 +914,7 @@ class _AchatRetourState extends State<AchatRetour> {
                                 builder: (BuildContext context) {
                                   final products =
                                       Provider.of<ProductProvider>(context)
-                                          .getProductsByCategory(category.name);
+                                          .getProductsByCategory(category);
 
                                   return Container(
                                     width: double.infinity,
@@ -923,7 +923,7 @@ class _AchatRetourState extends State<AchatRetour> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          category.name,
+                                          category.CategoryPname,
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
@@ -1003,7 +1003,7 @@ class _AchatRetourState extends State<AchatRetour> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
-                                category.name,
+                                category.CategoryPname,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,

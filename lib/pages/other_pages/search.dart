@@ -75,9 +75,9 @@ class _SearchDialogState extends State<SearchDialog> {
                                 NIS: 47,
                                 MAX: 47,
                                 DAYS: 47,
-                                categorie: 'hfh',
                                 AI: 54,
                                 RC: 78,
+                                idC: 11,
                               ),
                               fournisseure: Fournisseure(
                                   nameF: 'nameF',

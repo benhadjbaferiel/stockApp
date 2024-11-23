@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stock_dz_app/pages/home_menu_pages/home2.dart';
 import 'package:stock_dz_app/pages/stock_user_pages/add_user.dart';
 import 'package:stock_dz_app/pages/stock_user_pages/show_user.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';

@@ -51,11 +51,6 @@ class _AddFournisseureState extends State<AddFournisseure> {
         );
         return;
       }
-
-      // Get the category ID from the categories list directly
-      /*int categoryId = Provider.of<FournisseureProvider>(context, listen: false)
-          .categories1
-          .indexOf(selectedCategory1!);*/
       int? categoryId = await Provider.of<FournisseureProvider>(context, listen: false)
     .getCategoryId(selectedCategory1!);
 

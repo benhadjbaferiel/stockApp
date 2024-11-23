@@ -26,7 +26,10 @@ class _addCategoryState extends State<addCategory> {
                 if (_tasniifController.text.isNotEmpty) {
                   Provider.of<CategoryProvider>(context, listen: false)
                       .addCategory(CategoryProduct(
-                          name: _tasniifController.text, products: []));
+                    CategoryPname: _tasniifController.text,
+                  ));
+                  Provider.of<CategoryProvider>(context, listen: false)
+                      .loadCategories();
                   _tasniifController.clear();
                 }
               },
@@ -75,7 +78,7 @@ class _addCategoryState extends State<addCategory> {
                                           255, 211, 203, 203)),
                                   child: Center(
                                     child: Text(
-                                      provider.categories[i].name,
+                                      provider.categories[i].CategoryPname,
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),

@@ -1,6 +1,7 @@
 class Clientt {
+  int? id;
   final String name;
-  final int barcode;
+  final int? barcode;
   final String address;
   final int phoneNumber;
   final double Price;
@@ -10,9 +11,10 @@ class Clientt {
   final int NIS;
   final int MAX;
   final int DAYS;
-  final String categorie;
+  final int? idC;
 
   Clientt({
+    this.id,
     required this.name,
     required this.barcode,
     required this.address,
@@ -24,39 +26,41 @@ class Clientt {
     required this.NIS,
     required this.MAX,
     required this.DAYS,
-    required this.categorie,
+    required this.idC,
   });
   Map<String, dynamic> toMap() {
-    return {
-      'barcode': barcode,
-      'name': name,
-      'price': Price,
-      'nif': NIF,
-      'ai': AI,
-      'rc': RC,
-      'nis': NIS,
-      'phoneNumber': phoneNumber,
-      'max': MAX,
-      'address': address,
-      'category': categorie,
-      'days': DAYS,
-    };
-  }
+  return {
+    'barcode': barcode ?? 0, // Default value if null
+    'name': name,
+    'price': Price ?? 0.0,  // Default value if null
+    'address': address,
+    'phoneNumber': phoneNumber,
+    'nif': NIF,
+    'ai': AI,
+    'rc': RC,
+    'nis': NIS,
+    'max': MAX,
+    'days': DAYS,
+    'idC': idC,
+  };
+}
 
-  factory Clientt.fromMap(Map<String, dynamic> json) {
-    return Clientt(
-      barcode: json['barcode'] ?? 0,
-      name: json['name'] ?? '',
-      Price: json['price'] ?? 0.0,
-      NIF: json['nif'] ?? 0,
-      AI: json['ai'] ?? 0,
-      RC: json['rc'] ?? 0,
-      NIS: json['nis'] ?? 0,
-      phoneNumber: json['phoneNumber'] ?? 0,
-      MAX: json['max'] ?? 0,
-      address: json['address'] ?? '',
-      categorie: json['category'] ?? '',
-      DAYS: json['days'] ?? 0,
-    );
-  }
+
+  factory Clientt.fromMap(Map<String, dynamic> map) {
+  return Clientt(
+    id: map['id'], // Assuming 'id' is nullable
+    barcode: map['barcode'] != null ? (map['barcode'] as num).toInt() : null,
+    name: map['name'] ?? '',
+    Price: map['price'] != null ? (map['price'] as num).toDouble() : 0.0,
+    NIF: map['nif'] != null ? (map['nif'] as num).toInt() : 0,
+    AI: map['ai'] != null ? (map['ai'] as num).toInt() : 0,
+    RC: map['rc'] != null ? (map['rc'] as num).toInt() : 0,
+    NIS: map['nis'] != null ? (map['nis'] as num).toInt() : 0,
+    phoneNumber: map['phoneNumber'] != null ? (map['phoneNumber'] as num).toInt() : 0,
+    MAX: map['max'] != null ? (map['max'] as num).toInt() : 0,
+    address: map['address'] ?? '',
+    DAYS: map['days'] != null ? (map['days'] as num).toInt() : 0,
+    idC: map['idC'], // Assuming idC can be nullable
+  );
+}
 }

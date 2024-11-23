@@ -32,56 +32,75 @@ class _AddClientState extends State<AddClient> {
   String? selectedCategory2;
 
   void saveClient(BuildContext context) async {
-    if (nameController.text.isEmpty ||
-        barCodeController.text.isEmpty ||
-        addressController.text.isEmpty ||
-        phoneController.text.isEmpty ||
-        nifController.text.isEmpty ||
-        aiController.text.isEmpty ||
-        rcController.text.isEmpty ||
-        nisController.text.isEmpty ||
-        daysController.text.isEmpty ||
-        maxController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('يرجى ملء جميع الحقول المطلوبة'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-    final Clientt client = Clientt(
-        name: nameController.text,
-        barcode: int.tryParse(barCodeController.text) ?? 0,
-        address: addressController.text,
-        phoneNumber: int.tryParse(phoneController.text) ?? 0,
-        Price: double.tryParse(priceController.text) ?? 0.0,
-        NIF: int.tryParse(nifController.text) ?? 0,
-        AI: int.tryParse(aiController.text) ?? 0,
-        RC: int.tryParse(rcController.text) ?? 0,
-        NIS: int.tryParse(nisController.text) ?? 0,
-        MAX: int.tryParse(maxController.text) ?? 0,
-        DAYS: int.tryParse(daysController.text) ?? 0,
-        categorie: selectedCategory2!);
-// here i have to add await
-    Provider.of<ClientProvider>(context, listen: false).addClient(client);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('تمت اضافة العميل بنجاح')),
-    );
+    if (formKey1.currentState!.validate()) {
+      if (nameController.text.isEmpty ||
+          barCodeController.text.isEmpty ||
+          addressController.text.isEmpty ||
+          phoneController.text.isEmpty ||
+          nifController.text.isEmpty ||
+          aiController.text.isEmpty ||
+          rcController.text.isEmpty ||
+          nisController.text.isEmpty ||
+          daysController.text.isEmpty ||
+          maxController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('يرجى ملء جميع الحقول المطلوبة'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+      if (selectedCategory2 == null || selectedCategory2 == "---") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('يرجى تحديد التصنيف'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+      //--------------------------------------
+      print('barcode : ${int.tryParse(barCodeController.text)}');
+      print('price : ${double.tryParse(priceController.text)}');
 
-    // Clear fields after saving
-    nameController.clear();
-    barCodeController.clear();
-    addressController.clear();
-    phoneController.clear();
-    priceController.clear();
-    nifController.clear();
-    aiController.clear();
-    rcController.clear();
-    nisController.clear();
-    maxController.clear();
-    daysController.clear();
-    categoryController.clear();
+      int? categoryId =
+          await Provider.of<ClientProvider>(context, listen: false)
+              .getCategoryId(selectedCategory2!);
+
+      final Clientt client = Clientt(
+          name: nameController.text,
+          barcode: int.tryParse(barCodeController.text) ?? 0,
+          address: addressController.text,
+          phoneNumber: int.tryParse(phoneController.text) ?? 0,
+          Price: double.tryParse(priceController.text) ?? 0.0,
+          NIF: int.tryParse(nifController.text) ?? 0,
+          AI: int.tryParse(aiController.text) ?? 0,
+          RC: int.tryParse(rcController.text) ?? 0,
+          NIS: int.tryParse(nisController.text) ?? 0,
+          MAX: int.tryParse(maxController.text) ?? 0,
+          DAYS: int.tryParse(daysController.text) ?? 0,
+          idC: categoryId);
+// here i have to add await
+      Provider.of<ClientProvider>(context, listen: false).addClients(client);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('تمت اضافة العميل بنجاح')),
+      );
+
+      // Clear fields after saving
+      nameController.clear();
+      barCodeController.clear();
+      addressController.clear();
+      phoneController.clear();
+      priceController.clear();
+      nifController.clear();
+      aiController.clear();
+      rcController.clear();
+      nisController.clear();
+      maxController.clear();
+      daysController.clear();
+      categoryController.clear();
+    }
   }
 
   @override

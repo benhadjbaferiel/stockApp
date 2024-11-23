@@ -11,6 +11,12 @@ class ShowProduct extends StatefulWidget {
 }
 
 class _ShowProductState extends State<ShowProduct> {
+  void initState() {
+    super.initState();
+    // Load the suppliers only once
+    Provider.of<ProductProvider>(context, listen: false).loadproducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,44 +46,41 @@ class _ShowProductState extends State<ShowProduct> {
           const SizedBox(height: 10),
           Row(
             children: [
-              SizedBox(
-                width: 10,
-              ),
+              const SizedBox(width: 10),
               Container(
-                child: TextButton(
-                    onPressed: () {
-                      // here i have to add code
-                    },
-                    child: Text("المزيد")),
                 color: Colors.grey[200],
                 height: 35,
                 width: 100,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
                 child: TextButton(
-                    onPressed: () {
-                      //here i have to add code
-                    },
-                    child: Text("صناعة الباركود")),
+                  onPressed: () {
+                    // Add functionality for "المزيد" button
+                  },
+                  child: const Text("المزيد"),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
                 color: Colors.grey[200],
                 height: 35,
                 width: 100,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Container(
                 child: TextButton(
-                    onPressed: () {
-                      // here i have to add code
-                    },
-                    child: Text("تقرير")),
+                  onPressed: () {
+                    // Add functionality for "صناعة الباركود" button
+                  },
+                  child: const Text("صناعة الباركود"),
+                ),
+              ),
+              const SizedBox(width: 15),
+              Container(
                 color: Colors.grey[200],
                 height: 35,
                 width: 100,
+                child: TextButton(
+                  onPressed: () {
+                    // Add functionality for "تقرير" button
+                  },
+                  child: const Text("تقرير"),
+                ),
               ),
             ],
           ),
@@ -93,7 +96,7 @@ class _ShowProductState extends State<ShowProduct> {
                   child: Text(
                     'الكمية',
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ),
                 Expanded(
@@ -101,30 +104,28 @@ class _ShowProductState extends State<ShowProduct> {
                   child: Text(
                     'السعر',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ),
                 Expanded(
                   flex: 1,
                   child: Text(
                     'المنتج',
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ),
                 Expanded(
                   flex: 1,
                   child: Text(
-                    ' رقم المنتج',
+                    'رقم المنتج',
                     textAlign: TextAlign.end,
-                    style: TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Expanded(
             child: Consumer<ProductProvider>(
               builder: (context, productProvider, child) {
@@ -160,7 +161,7 @@ class _ShowProductState extends State<ShowProduct> {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              "#${index + 1}",
+                              "${product.id ?? '-'}",
                               textAlign: TextAlign.end,
                             ),
                           ),
@@ -171,7 +172,7 @@ class _ShowProductState extends State<ShowProduct> {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );
@@ -270,37 +271,37 @@ class _ShowProductState extends State<ShowProduct> {
                               const SnackBar(content: Text('تم حذف المنتج')),
                             );
                           },
-                          icon: Icon(Icons.cancel, color: Colors.red))
+                          icon: const Icon(Icons.cancel, color: Colors.red))
                     ],
                   ),
                   Row(
                     children: [
-                      SizedBox(
-                        width: 60,
-                      ),
+                      const SizedBox(width: 60),
                       const Text(
                         'تجميد هذا المنتج',
                         style: TextStyle(fontSize: 22),
                       ),
                       IconButton(
-                        onPressed: () {},
-                        icon:
-                            Icon(Icons.pause_circle_filled, color: Colors.blue),
+                        onPressed: () {
+                          // Add freeze functionality
+                        },
+                        icon: const Icon(Icons.pause_circle_filled,
+                            color: Colors.blue),
                       )
                     ],
                   ),
                   Row(
                     children: [
-                      SizedBox(
-                        width: 40,
-                      ),
+                      const SizedBox(width: 40),
                       const Text(
                         'تعديل بيانات المنتج',
                         style: TextStyle(fontSize: 22),
                       ),
                       IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.edit, color: Colors.grey),
+                        onPressed: () {
+                          // Add edit functionality
+                        },
+                        icon: const Icon(Icons.edit, color: Colors.grey),
                       )
                     ],
                   ),
@@ -321,8 +322,10 @@ class _ShowProductState extends State<ShowProduct> {
                     onPressed: () {
                       Navigator.of(context).pop(); // Cancel
                     },
-                    child: const Text("تراجع",
-                        style: TextStyle(color: Colors.red)),
+                    child: const Text(
+                      "تراجع",
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
                 ],
               ),
