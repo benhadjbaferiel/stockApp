@@ -20,7 +20,7 @@ class _CancelFactureVenteState extends State<CancelFactureVente> {
         appBar: AppBar(
           title: Text("الفواتير التي تم الغاءها"),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+          backgroundColor: const Color.fromARGB(255, 228, 225, 168),
           actions: [
             IconButton(
               onPressed: () {
@@ -50,7 +50,7 @@ class _CancelFactureVenteState extends State<CancelFactureVente> {
           Consumer<InvoiceProvider>(
             builder: (context, invoiceProvider, child) {
               if (invoiceProvider.canceledInvoicesventes.isEmpty) {
-                return Center(child: Text('No invoices yet'));
+                return Center(child: Text('...'));
               }
               return ListView.builder(
                 shrinkWrap: true,

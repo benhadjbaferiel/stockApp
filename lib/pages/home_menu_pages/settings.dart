@@ -153,7 +153,8 @@ class _SettingsState extends State<Settings> {
                           color: Colors.grey[200],
                         ),
                         child: Text(
-                          "                     معلومات المتجر",
+                          "معلومات المتجر",
+                          textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 22),
                         ),
                       ),
@@ -324,10 +325,6 @@ class _SettingsState extends State<Settings> {
                             });
                           },
                           selectedValue: selectedNumber),
-                      CustomSwitch(
-                        action: true, // Initial state of the switch
-                        label: 'اظهار محول العملات اثناء الدفع',
-                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -337,20 +334,6 @@ class _SettingsState extends State<Settings> {
                       ),
                       CustomSettings(label: 'التنبيه عند وصول المنتج الى'),
                       const SizedBox(height: 20),
-                      CustomSwitch(
-                        action: true, // Initial state of the switch
-                        label: 'اظهار رسائل المساعدة',
-                      ),
-                      const SizedBox(height: 20),
-                      CustomSwitch(
-                        action: true, // Initial state of the switch
-                        label: 'اغلاق الاصوات',
-                      ),
-                      const SizedBox(height: 20),
-                      CustomSwitch(
-                        action: true, // Initial state of the switch
-                        label: 'اغلاق البرنامج بالبصمة',
-                      ),
                     ]))));
   }
 }

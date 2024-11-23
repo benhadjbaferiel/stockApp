@@ -23,7 +23,7 @@ class _ShowProductState extends State<ShowProduct> {
       appBar: AppBar(
         title: const Text("المنتجات المتوفرة في المخزن"),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+        backgroundColor: const Color.fromARGB(255, 228, 225, 168),
       ),
       body: Column(
         children: [
@@ -37,9 +37,7 @@ class _ShowProductState extends State<ShowProduct> {
               hintText: "ابحث عن منتج او استخدم الكاميرا",
               prefixIcon: IconButton(
                 icon: const Icon(Icons.qr_code, size: 30),
-                onPressed: () {
-                  // Implement QR code scanning if needed
-                },
+                onPressed: () {},
               ),
             ),
           ),

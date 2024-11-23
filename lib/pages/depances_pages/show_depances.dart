@@ -10,7 +10,7 @@ class ShowDepances extends StatelessWidget {
       appBar: AppBar(
         title: Text("عرض المصاريف "),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+        backgroundColor: const Color.fromARGB(255, 228, 225, 168),
       ),
       body: SingleChildScrollView(
         child: Column(children: [

@@ -79,27 +79,10 @@ class _home2State extends State<home2> {
             ),
             ListTile(
               leading: const Icon(Icons.print),
-              title: const Text('                طباعة  تقرير  راس المال'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => home2()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.update),
-              title: const Text('                              حفظ البيانات'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => home2()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.update),
-              title: const Text('                         استرجاع البيانات'),
+              title: const Text(
+                'طباعة  تقرير  راس المال',
+                textAlign: TextAlign.end,
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -110,13 +93,17 @@ class _home2State extends State<home2> {
             const Divider(),
             const ListTile(
               title: const Text(
-                '                                                   إعدادات النظام',
+                'إعدادات النظام',
+                textAlign: TextAlign.end,
                 style: TextStyle(color: Colors.grey),
               ),
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('                                 الإعدادات'),
+              title: const Text(
+                'الإعدادات',
+                textAlign: TextAlign.end,
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -126,7 +113,10 @@ class _home2State extends State<home2> {
             ),
             ListTile(
               leading: const Icon(Icons.money),
-              title: const Text('                                    الطابعه'),
+              title: const Text(
+                'الطابعه',
+                textAlign: TextAlign.end,
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -135,8 +125,11 @@ class _home2State extends State<home2> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.copy),
-              title: const Text('                                  الضرائب'),
+              leading: const Icon(Icons.money_off),
+              title: const Text(
+                'الضرائب',
+                textAlign: TextAlign.end,
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -147,13 +140,17 @@ class _home2State extends State<home2> {
             const Divider(),
             const ListTile(
               title: const Text(
-                '                                             المساعدة ',
+                'المساعدة',
+                textAlign: TextAlign.end,
                 style: TextStyle(color: Colors.grey),
               ),
             ),
             ListTile(
               leading: const Icon(Icons.help),
-              title: const Text('                                 المساعدة'),
+              title: const Text(
+                'المساعدة',
+                textAlign: TextAlign.end,
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -163,7 +160,10 @@ class _home2State extends State<home2> {
             ),
             ListTile(
               leading: const Icon(Icons.system_update),
-              title: const Text('                        تحديث البرنامج '),
+              title: const Text(
+                'تحديث البرنامج ',
+                textAlign: TextAlign.end,
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -172,8 +172,11 @@ class _home2State extends State<home2> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.share),
-              title: const Text('                        تسجيل الخروج'),
+              leading: const Icon(Icons.logout_rounded),
+              title: const Text(
+                'تسجيل الخروج',
+                textAlign: TextAlign.end,
+              ),
               onTap: () {},
             ),
           ],

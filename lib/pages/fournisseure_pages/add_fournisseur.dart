@@ -51,14 +51,15 @@ class _AddFournisseureState extends State<AddFournisseure> {
         );
         return;
       }
-      int? categoryId = await Provider.of<FournisseureProvider>(context, listen: false)
-    .getCategoryId(selectedCategory1!);
+      int? categoryId =
+          await Provider.of<FournisseureProvider>(context, listen: false)
+              .getCategoryId(selectedCategory1!);
 
-if (categoryId != null) {
-  print('Category ID is $categoryId');
-} else {
-  print('Category not found');
-}
+      if (categoryId != null) {
+        print('Category ID is $categoryId');
+      } else {
+        print('Category not found');
+      }
 
       final fournisseur = Fournisseure(
         nameF: nameController.text,
@@ -95,7 +96,7 @@ if (categoryId != null) {
       appBar: AppBar(
         title: Text("اضافة مورد جديد", style: TextStyle(fontSize: 25)),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 176, 171, 86),
+        backgroundColor: const Color.fromARGB(255, 228, 225, 168),
         actions: [
           TextButton(
             onPressed: () {

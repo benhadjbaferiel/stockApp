@@ -23,7 +23,8 @@ class _PresVentesState extends State<PresVentes> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            "           تقارير المبيعات ",
+            "تقارير المبيعات ",
+            textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25),
           ),
           content: Container(
@@ -67,8 +68,9 @@ class _PresVentesState extends State<PresVentes> {
                     openPDF(pdfFile);
                   },
                   child: Text(
-                    "  تقرير بالمبيعات ",
-                    style: TextStyle(fontSize: 16),
+                    " تقرير بالمبيعات ",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontSize: 18),
                   ),
                 ),
                 TextButton(
@@ -107,7 +109,8 @@ class _PresVentesState extends State<PresVentes> {
                     openPDF(pdfFile);
                   },
                   child: Text(
-                    "   تقرير بالمبيعات حسب الصنف",
+                    " تقرير بالمبيعات حسب الصنف",
+                    textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 14),
                   ),
                 ),

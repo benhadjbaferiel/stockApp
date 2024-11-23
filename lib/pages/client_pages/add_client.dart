@@ -112,7 +112,7 @@ class _AddClientState extends State<AddClient> {
           style: TextStyle(fontSize: 25),
         ),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 176, 171, 86),
+        backgroundColor: const Color.fromARGB(255, 228, 225, 168),
         actions: [
           TextButton(
             onPressed: () {

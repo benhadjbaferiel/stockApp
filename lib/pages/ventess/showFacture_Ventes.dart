@@ -27,7 +27,7 @@ class _showFactureVenteState extends State<showFactureVente> {
         appBar: AppBar(
           title: Text(widget.label),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+          backgroundColor: const Color.fromARGB(255, 228, 225, 168),
           actions: [
             IconButton(
               onPressed: () {
@@ -76,7 +76,7 @@ class _showFactureVenteState extends State<showFactureVente> {
           Consumer<InvoiceProvider>(
             builder: (context, invoiceProvider, child) {
               if (invoiceProvider.invoicesventes.isEmpty) {
-                return Center(child: Text('No invoices yet'));
+                return Center(child: Text('...'));
               }
               return ListView.builder(
                 shrinkWrap: true,

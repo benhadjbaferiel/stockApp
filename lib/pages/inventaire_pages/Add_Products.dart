@@ -129,7 +129,7 @@ class _AddProductState extends State<AddProduct> {
       appBar: AppBar(
         title: const Text('اضافة منتج جديد'),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 176, 171, 86),
+        backgroundColor: const Color.fromARGB(255, 228, 225, 168),
         actions: [
           IconButton(
             onPressed: () {
@@ -147,6 +147,7 @@ class _AddProductState extends State<AddProduct> {
             CustoM_TextField8AddProduct(
               label: 'رقم المنتج',
               controller: _numberController,
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(
@@ -167,16 +168,19 @@ class _AddProductState extends State<AddProduct> {
             CustoM_TextField8AddProduct(
               label: 'سعر الشراء',
               controller: _prixAchatController,
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(
               label: "الكرطونة",
               controller: _cartonNumberController,
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(
               label: "الكمية",
               controller: _quantityController,
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             Container(
@@ -228,6 +232,7 @@ class _AddProductState extends State<AddProduct> {
             CustoM_TextField8AddProduct(
               label: "حد الطلب(انذار عندما يصل المنتج الى الكمية)",
               controller: _notifyController,
+              keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             CustoM_TextField8AddProduct(

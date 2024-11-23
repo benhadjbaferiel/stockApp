@@ -39,7 +39,7 @@ class _InterfaceVenteAchatState extends State<InterfaceVenteAchat> {
         ],
         title: Text(widget.title),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 176, 171, 86),
+        backgroundColor: const Color.fromARGB(255, 228, 225, 168),
       ),
       body: SingleChildScrollView(
         child: Column(
