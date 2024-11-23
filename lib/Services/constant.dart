@@ -16,9 +16,12 @@ pw.Widget buildHeader(Invoice invoice) => pw.Column(
 // Building the PDF invoice table
 pw.Widget buildInvoice(Invoice invoice) {
   final headers = ["Name", "Date", "Quantity", "Unit Price", "VAT", "Total"];
-
+  final data = [
+    ["Item 1", "01/01/2024", "10", "5.00", "0.2", "60.00"],
+    ["Item 2", "02/01/2024", "20", "2.50", "0.1", "55.00"],
+  ];
   // Map data for the table
-  final data = invoice.invoiceitems.map((e) {
+  final data1 = invoice.invoiceitems.map((e) {
     final totalPrice = e.itemPrice * e.qty * (1 + e.vat);
     return [
       e.itemName,
@@ -29,6 +32,12 @@ pw.Widget buildInvoice(Invoice invoice) {
       totalPrice.toString(),
     ];
   }).toList();
+  if (invoice.invoiceitems.isEmpty) {
+    throw Exception("Invoice items list is empty.");
+  }
+  if (invoice.invoiceitems.any((item) => item.vat < 0 || item.vat > 1)) {
+    throw Exception("Invalid VAT percentage found in invoice items.");
+  }
 
   // Return PDF table widget
   return pw.Table.fromTextArray(

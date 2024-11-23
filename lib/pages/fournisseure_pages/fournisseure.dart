@@ -187,3 +187,37 @@ class _FournisseurScreenState extends State<FournisseurScreen> {
     );
   }
 }
+/*async {
+                    final invoice = Invoice(
+                        // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                        product: Product(
+                            id: 1,
+                            number: 545,
+                            name: 'feriel',
+                            prix1: 10,
+                            prix2: 20,
+                            prix3: 30,
+                            prix4: 40,
+                            prixAchat: 5,
+                            carton: 100,
+                            quantity: 500,
+                            category: 's',
+                            notify: 400,
+                            description: 'him',
+                            date: DateTime.now()),
+                        invoiceinfo: InvoiceInfo(
+                            dexc: 'hahaahha',
+                            dueDate: DateTime.now(),
+                            invoiceDate: DateTime.now(),
+                            invoiceNumber: 1),
+                        invoiceitem: [
+                          InvoiceItem(
+                              dateTimeItem: DateTime.now(),
+                              itemPrice: 200,
+                              name: 'r',
+                              vat: 2.2,
+                              qty: 200),
+                        ]);
+                    final pdfFile = await generatePDF(invoice);
+                    openPDF(pdfFile);
+                  },*/

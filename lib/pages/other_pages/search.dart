@@ -110,8 +110,8 @@ class _SearchDialogState extends State<SearchDialog> {
                                   itemName: 'itemName',
                                 ),
                               ]);
-                          final pdfFile = await generatePdf(invoice);
-                          openPdf(pdfFile);
+                          final pdfFile = await generatePDF(invoice);
+                          openPDF(pdfFile);
                         },
                         child: ListTile(
                           title: Text(_filteredFournisseures[index].nameF),

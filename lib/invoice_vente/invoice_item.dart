@@ -1,15 +1,12 @@
-class InvoiceItem {
+class InvoiceItemV {
   final int qty;
   final double itemPrice;
   final String name;
   final DateTime dateTimeItem;
-  final double vat; // Add this if it's missing
-
-  InvoiceItem({
+  InvoiceItemV({
     required this.dateTimeItem,
     required this.itemPrice,
     required this.name,
     required this.qty,
-    required this.vat,
   });
 }

@@ -6,7 +6,6 @@ import 'package:stock_dz_app/invoice_achat/invoiceItem.dart';
 import 'package:stock_dz_app/invoice_achat/invoice_info.dart';
 import 'package:stock_dz_app/pages/achatss/cancel_facture.dart';
 import 'package:stock_dz_app/pages/achatss/show_Facture%20_Achats.dart';
-import 'package:stock_dz_app/sql_db.dart';
 import '../fournisseure_pages/show_fournisseure.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
 
@@ -34,15 +33,9 @@ class _PresachatState extends State<Presachat> {
               child: Column(
                 children: [
                   TextButton(
-                    onPressed: () async {},
-                    child: Text(
-                      "   تقرير بالمشتريات  ",
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                  TextButton(
                     onPressed: () async {
                       final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
                           product: Product(
                               id: 1,
                               number: 545,
@@ -63,11 +56,54 @@ class _PresachatState extends State<Presachat> {
                               dueDate: DateTime.now(),
                               invoiceDate: DateTime.now(),
                               invoiceNumber: 1),
-                          invoiceitem: InvoiceItem(
-                              dateTimeItem: DateTime.now(),
-                              itemPrice: 200,
-                              name: 'r',
-                              qty: 200));
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
+                      final pdfFile = await generatePDF(invoice);
+                      openPDF(pdfFile);
+                    },
+                    child: Text(
+                      "   تقرير بالمشتريات  ",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                          product: Product(
+                              id: 1,
+                              number: 545,
+                              name: 'feriel',
+                              prix1: 10,
+                              prix2: 20,
+                              prix3: 30,
+                              prix4: 40,
+                              prixAchat: 5,
+                              carton: 100,
+                              quantity: 500,
+                              category: 's',
+                              notify: 400,
+                              description: 'him',
+                              date: DateTime.now()),
+                          invoiceinfo: InvoiceInfo(
+                              dexc: 'hahaahha',
+                              dueDate: DateTime.now(),
+                              invoiceDate: DateTime.now(),
+                              invoiceNumber: 1),
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
                       final pdfFile = await generatePDF(invoice);
                       openPDF(pdfFile);
                     },
@@ -76,31 +112,225 @@ class _PresachatState extends State<Presachat> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                          product: Product(
+                              id: 1,
+                              number: 545,
+                              name: 'feriel',
+                              prix1: 10,
+                              prix2: 20,
+                              prix3: 30,
+                              prix4: 40,
+                              prixAchat: 5,
+                              carton: 100,
+                              quantity: 500,
+                              category: 's',
+                              notify: 400,
+                              description: 'him',
+                              date: DateTime.now()),
+                          invoiceinfo: InvoiceInfo(
+                              dexc: 'hahaahha',
+                              dueDate: DateTime.now(),
+                              invoiceDate: DateTime.now(),
+                              invoiceNumber: 1),
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
+                      final pdfFile = await generatePDF(invoice);
+                      openPDF(pdfFile);
+                    },
                     child: Text("تقرير بالمشتريات حسب التصنيف"),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                          product: Product(
+                              id: 1,
+                              number: 545,
+                              name: 'feriel',
+                              prix1: 10,
+                              prix2: 20,
+                              prix3: 30,
+                              prix4: 40,
+                              prixAchat: 5,
+                              carton: 100,
+                              quantity: 500,
+                              category: 's',
+                              notify: 400,
+                              description: 'him',
+                              date: DateTime.now()),
+                          invoiceinfo: InvoiceInfo(
+                              dexc: 'hahaahha',
+                              dueDate: DateTime.now(),
+                              invoiceDate: DateTime.now(),
+                              invoiceNumber: 1),
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
+                      final pdfFile = await generatePDF(invoice);
+                      openPDF(pdfFile);
+                    },
                     child: Text("  تقرير بالمشتريات  النقد"),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                          product: Product(
+                              id: 1,
+                              number: 545,
+                              name: 'feriel',
+                              prix1: 10,
+                              prix2: 20,
+                              prix3: 30,
+                              prix4: 40,
+                              prixAchat: 5,
+                              carton: 100,
+                              quantity: 500,
+                              category: 's',
+                              notify: 400,
+                              description: 'him',
+                              date: DateTime.now()),
+                          invoiceinfo: InvoiceInfo(
+                              dexc: 'hahaahha',
+                              dueDate: DateTime.now(),
+                              invoiceDate: DateTime.now(),
+                              invoiceNumber: 1),
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
+                      final pdfFile = await generatePDF(invoice);
+                      openPDF(pdfFile);
+                    },
                     child: Text("تقرير بالمشتريات  الاجل"),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                          product: Product(
+                              id: 1,
+                              number: 545,
+                              name: 'feriel',
+                              prix1: 10,
+                              prix2: 20,
+                              prix3: 30,
+                              prix4: 40,
+                              prixAchat: 5,
+                              carton: 100,
+                              quantity: 500,
+                              category: 's',
+                              notify: 400,
+                              description: 'him',
+                              date: DateTime.now()),
+                          invoiceinfo: InvoiceInfo(
+                              dexc: 'hahaahha',
+                              dueDate: DateTime.now(),
+                              invoiceDate: DateTime.now(),
+                              invoiceNumber: 1),
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
+                      final pdfFile = await generatePDF(invoice);
+                      openPDF(pdfFile);
+                    },
                     child: Text("تقرير بالمشتريات  (بطاقة)"),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                          product: Product(
+                              id: 1,
+                              number: 545,
+                              name: 'feriel',
+                              prix1: 10,
+                              prix2: 20,
+                              prix3: 30,
+                              prix4: 40,
+                              prixAchat: 5,
+                              carton: 100,
+                              quantity: 500,
+                              category: 's',
+                              notify: 400,
+                              description: 'him',
+                              date: DateTime.now()),
+                          invoiceinfo: InvoiceInfo(
+                              dexc: 'hahaahha',
+                              dueDate: DateTime.now(),
+                              invoiceDate: DateTime.now(),
+                              invoiceNumber: 1),
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
+                      final pdfFile = await generatePDF(invoice);
+                      openPDF(pdfFile);
+                    },
                     child: Text("تقرير بالمشتريات (شيك)"),
                   ),
                   TextButton(
-                    onPressed: () {},
-                    child: Text("تقرير بالمشتريات (الكل)"),
-                  ),
-                  TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final invoice = Invoice(
+                          // i have to pass the list of products li chrawhom //all the produts  fi blsst product whd
+                          product: Product(
+                              id: 1,
+                              number: 545,
+                              name: 'feriel',
+                              prix1: 10,
+                              prix2: 20,
+                              prix3: 30,
+                              prix4: 40,
+                              prixAchat: 5,
+                              carton: 100,
+                              quantity: 500,
+                              category: 's',
+                              notify: 400,
+                              description: 'him',
+                              date: DateTime.now()),
+                          invoiceinfo: InvoiceInfo(
+                              dexc: 'hahaahha',
+                              dueDate: DateTime.now(),
+                              invoiceDate: DateTime.now(),
+                              invoiceNumber: 1),
+                          invoiceitem: [
+                            InvoiceItem(
+                                dateTimeItem: DateTime.now(),
+                                itemPrice: 200,
+                                name: 'r',
+                                vat: 2.2,
+                                qty: 200),
+                          ]);
+                      final pdfFile = await generatePDF(invoice);
+                      openPDF(pdfFile);
+                    },
                     child: Text("تقرير بالمشتريات حسب المورد"),
                   ),
                   TextButton(
