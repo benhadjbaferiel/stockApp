@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:stock_dz_app/Models/product_model.dart';
-import 'package:stock_dz_app/Services/homePageViewModel.dart';
+//import 'package:stock_dz_app/Services/homePageViewModel.dart';
 import 'package:stock_dz_app/invoice_achat/invoice.dart';
 import 'package:stock_dz_app/invoice_achat/invoiceItem.dart';
 import 'package:stock_dz_app/invoice_achat/invoice_info.dart';
 import 'package:stock_dz_app/pages/achatss/cancel_facture.dart';
 import 'package:stock_dz_app/pages/achatss/show_Facture%20_Achats.dart';
 import '../fournisseure_pages/show_fournisseure.dart';
+import '../other_pages/pdf.dart';
 import '/widgets.dart/in_Kwell_Custom.dart';
 
 class Presachat extends StatefulWidget {
@@ -50,6 +51,7 @@ class _PresachatState extends State<Presachat> {
                               category: 's',
                               notify: 400,
                               description: 'him',
+                              idP: 1,
                               date: DateTime.now()),
                           invoiceinfo: InvoiceInfo(
                               dexc: 'hahaahha',
@@ -65,6 +67,7 @@ class _PresachatState extends State<Presachat> {
                                 qty: 200),
                           ]);
                       final pdfFile = await generatePDF(invoice);
+                      print('pdf path : ${pdfFile.path}');
                       openPDF(pdfFile);
                     },
                     child: Text(

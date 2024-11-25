@@ -8,6 +8,7 @@ class CategoryProvider with ChangeNotifier {
   List<String> _categories1 = [];
 
   List<CategoryProduct> get categories => _categories;
+  List<String> get categories1 => _categories1;
 
   final SqlDb _sqlDb = SqlDb.instance;
   Database? _db;
@@ -19,17 +20,18 @@ class CategoryProvider with ChangeNotifier {
     try {
       await _sqlDb.insertCategotyP(C.toMap());
       _categories.add(C);
-      print("Supplier added to the DB");
+      print("category added to the DB");
     } catch (e) {
-      print('Error adding fournisseur to DB: $e');
+      print('Error adding category to DB: $e');
     }
   }
 
   Future<void> loadCategories() async {
-    print('load category');
+    print('Loading categories...');
     try {
       final data = await _sqlDb.readData('SELECT * FROM categoryP');
-      _categories1 = [...data.map((item) => item['categoryPName'] as String)];
+      _categories = data.map((item) => CategoryProduct.fromMap(item)).toList();
+      print('Categories loaded: $_categories');
       notifyListeners();
     } catch (e) {
       print('Error loading categories: $e');

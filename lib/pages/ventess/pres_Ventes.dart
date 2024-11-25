@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stock_dz_app/Models/product_model.dart';
-import 'package:stock_dz_app/Services/homePageViewModel.dart';
+//import 'package:stock_dz_app/Services/homePageViewModel.dart';
 import 'package:stock_dz_app/invoice_achat/invoice.dart';
 import 'package:stock_dz_app/invoice_achat/invoiceItem.dart';
 import 'package:stock_dz_app/invoice_achat/invoice_info.dart';
+import 'package:stock_dz_app/pages/other_pages/pdf.dart';
 import 'package:stock_dz_app/pages/ventess/cancledFcature_ventes.dart';
 import 'package:stock_dz_app/pages/ventess/showFacture_Ventes.dart';
 import '../client_pages/show_client.dart';
@@ -65,6 +66,7 @@ class _PresVentesState extends State<PresVentes> {
                               qty: 200),
                         ]);
                     final pdfFile = await generatePDF(invoice);
+                    print('pdf path : ${pdfFile.path}');
                     openPDF(pdfFile);
                   },
                   child: Text(

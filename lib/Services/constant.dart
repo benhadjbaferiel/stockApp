@@ -1,46 +1,84 @@
 import 'package:pdf/widgets.dart' as pw; // Import PDF widgets with alias `pw`
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
-import 'package:stock_dz_app/Models/invoice/invoice.dart'; // Your invoice model
+import 'package:stock_dz_app/invoice_achat/invoice.dart';
+import 'package:stock_dz_app/invoice_vente/invoice.dart';
+// Your invoice model
 
 // Building the PDF header
-pw.Widget buildHeader(Invoice invoice) => pw.Column(
+pw.Widget buildHeader(dynamic invoice) {
+  if (invoice is Invoice) {
+    return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        pw.Text("Invoice Header"),
+        pw.Text(
+          "Invoice",
+          style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
+        ),
         pw.SizedBox(height: 0.5 * PdfPageFormat.cm),
-        pw.Text("Details"),
+        pw.Text("Invoice Number: ${invoice.invoiceinfo.invoiceNumber}"),
+        pw.Text(
+            "Invoice Date: ${DateFormat.yMMMMd().format(invoice.invoiceinfo.invoiceDate)}"),
+        pw.Text(
+            "Due Date: ${DateFormat.yMMMMd().format(invoice.invoiceinfo.dueDate)}"),
+        pw.SizedBox(height: 1 * PdfPageFormat.cm),
       ],
     );
+  } else if (invoice is InvoiceV) {
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text(
+          "Invoice V",
+          style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
+        ),
+        pw.SizedBox(height: 0.5 * PdfPageFormat.cm),
+        pw.Text("Product Name: ${invoice.product.name}"),
+        pw.Text(
+            "Invoice Date: ${DateFormat.yMMMMd().format(invoice.invoiceinfo.invoiceDate)}"),
+        pw.Text("Status: ${invoice.invoiceinfo.dexc}"),
+        pw.SizedBox(height: 1 * PdfPageFormat.cm),
+      ],
+    );
+  }
+  return pw.Container(); // Fallback if type is unknown
+}
 
 // Building the PDF invoice table
-pw.Widget buildInvoice(Invoice invoice) {
+pw.Widget buildInvoice(dynamic invoice) {
   final headers = ["Name", "Date", "Quantity", "Unit Price", "VAT", "Total"];
-  final data = [
-    ["Item 1", "01/01/2024", "10", "5.00", "0.2", "60.00"],
-    ["Item 2", "02/01/2024", "20", "2.50", "0.1", "55.00"],
-  ];
-  // Map data for the table
-  final data1 = invoice.invoiceitems.map((e) {
-    final totalPrice = e.itemPrice * e.qty * (1 + e.vat);
-    return [
-      e.itemName,
-      DateFormat.yMd().format(e.dateTimeItem),
-      e.qty.toString(),
-      e.itemPrice.toString(),
-      e.vat.toString(),
-      totalPrice.toString(),
+  List<List<String>> data;
+
+  if (invoice is Invoice) {
+    data = invoice.invoiceitem.map((item) {
+      final totalPrice = item.itemPrice * item.qty * (1 + item.vat);
+      return [
+        item.name,
+        DateFormat.yMd().format(item.dateTimeItem),
+        item.qty.toString(),
+        item.itemPrice.toStringAsFixed(2),
+        "${(item.vat * 100).toStringAsFixed(0)}%",
+        totalPrice.toStringAsFixed(2),
+      ];
+    }).toList();
+  } else if (invoice is InvoiceV) {
+    final item = invoice.invoiceitem;
+    final totalPrice = item.itemPrice * item.qty * (1 + item.vat);
+    data = [
+      [
+        item.name,
+        DateFormat.yMd().format(item.dateTimeItem),
+        item.qty.toString(),
+        item.itemPrice.toStringAsFixed(2),
+        "${(item.vat * 100).toStringAsFixed(0)}%",
+        totalPrice.toStringAsFixed(2),
+      ]
     ];
-  }).toList();
-  if (invoice.invoiceitems.isEmpty) {
-    throw Exception("Invoice items list is empty.");
-  }
-  if (invoice.invoiceitems.any((item) => item.vat < 0 || item.vat > 1)) {
-    throw Exception("Invalid VAT percentage found in invoice items.");
+  } else {
+    data = []; // Fallback for unknown types
   }
 
-  // Return PDF table widget
-  return pw.Table.fromTextArray(
+  return pw.TableHelper.fromTextArray(
     headers: headers,
     data: data,
     border: pw.TableBorder.all(width: 1, color: PdfColors.black),
@@ -51,50 +89,45 @@ pw.Widget buildInvoice(Invoice invoice) {
   );
 }
 
-pw.Widget buildTotal(Invoice invoice) {
-  final netTotal = invoice.invoiceitems
-      .map((item) => item.itemPrice * item.qty)
-      .reduce((item1, item2) => item1 + item2);
-  final vatpercentage = invoice.invoiceitems.first.vat;
-  final vat = netTotal * vatpercentage;
-  final total = netTotal + vat;
+
+pw.Widget buildTotal(dynamic invoice) {
+  double netTotal = 0, vat = 0, total = 0;
+
+  if (invoice is Invoice) {
+    netTotal = invoice.invoiceitem
+        .map((item) => item.itemPrice * item.qty)
+        .reduce((value, element) => value + element);
+
+    vat = invoice.invoiceitem
+        .map((item) => item.itemPrice * item.qty * item.vat)
+        .reduce((value, element) => value + element);
+  } else if (invoice is InvoiceV) {
+    final item = invoice.invoiceitem;
+    netTotal = item.itemPrice * item.qty;
+    vat = netTotal * item.vat;
+  }
+
+  total = netTotal + vat;
+
   return pw.Container(
-      alignment: pw.Alignment.centerRight,
-      child: pw.Row(children: [
-        pw.Spacer(flex: 6),
-        pw.Expanded(
-            flex: 4,
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                buildText(
-                  title: 'total',
-                  value: netTotal.toString(),
-                  unite: true,
-                ),
-                buildText(
-                  title: 'Vat${vatpercentage * 100}%',
-                  value: vatpercentage.toString(),
-                  unite: true,
-                ),
-                pw.Divider(),
-                buildText(
-                  title: 'total amount ',
-                  titleStyle: pw.TextStyle(
-                    fontSize: 14,
-                    fontWeight: pw.FontWeight.bold,
-                  ),
-                  value: total.toString(),
-                  unite: true,
-                ),
-                pw.SizedBox(height: 2 * PdfPageFormat.mm),
-                pw.Container(height: 1, color: PdfColors.grey400),
-                pw.SizedBox(height: 0.5 * PdfPageFormat.mm),
-                pw.Container(height: 1, color: PdfColors.grey400),
-              ],
-            ))
-      ]));
+    alignment: pw.Alignment.centerRight,
+    child: pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.end,
+      children: [
+        buildText(title: 'Net Total', value: netTotal.toStringAsFixed(2), unite: true),
+        buildText(title: 'VAT', value: vat.toStringAsFixed(2), unite: true),
+        pw.Divider(),
+        buildText(
+          title: 'Total Amount',
+          value: total.toStringAsFixed(2),
+          titleStyle: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold),
+          unite: true,
+        ),
+      ],
+    ),
+  );
 }
+
 
 buildText({
   required String title,

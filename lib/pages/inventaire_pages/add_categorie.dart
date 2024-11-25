@@ -13,6 +13,12 @@ class addCategory extends StatefulWidget {
 class _addCategoryState extends State<addCategory> {
   final TextEditingController _tasniifController = TextEditingController();
 
+  void initState() {
+    super.initState();
+    // Load the suppliers only once
+    Provider.of<CategoryProvider>(context, listen: false).loadCategories();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
