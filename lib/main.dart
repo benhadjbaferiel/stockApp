@@ -1,7 +1,6 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:stock_dz_app/firebase_options.dart';
 import 'package:stock_dz_app/providers/category_provider.dart';
 import 'package:stock_dz_app/providers/client_provider.dart';
 import 'package:stock_dz_app/providers/fournisseure_provider.dart';
@@ -13,20 +12,12 @@ import 'package:stock_dz_app/sql_db.dart';
 import 'pages/home_menu_pages/first.dart';
 import 'package:provider/provider.dart';
 import 'providers/Product_Provider.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:stock_dz_app/pages/home_menu_pages/widget_tree.dart';
 
-void main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await SqlDb.instance.db;
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
-  );
-  print('Firebase initialisé');
-  print('Firebase Auth instance: ${FirebaseAuth.instance.hashCode}');
-
   runApp(const MyApp());
 }
 
@@ -67,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: FirstPage(),
+        home: widgetTree(),
       ),
     );
   }

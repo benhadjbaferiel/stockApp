@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCksOaWfBzwRAdN7NZrGVNefn27UShZrhI</string>
+	<string>AIzaSyDVeAXKyTv7Y6hGm7iX1yx_VV2myRdYmgI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>330942556624</string>
+	<string>658152724675</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.stockDzApp</string>
 	<key>PROJECT_ID</key>
-	<string>gstockdz</string>
+	<string>stock-34e4e</string>
 	<key>STORAGE_BUCKET</key>
-	<string>gstockdz.appspot.com</string>
+	<string>stock-34e4e.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:330942556624:ios:a840dcb330d83379edf1d5</string>
+	<string>1:658152724675:ios:4c4b04673a9e1f49c5aa76</string>
 </dict>
 </plist>
